@@ -1,0 +1,263 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"/>
+
+		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+		
+		<script src="{% static 'js/cookie.js' %}"></script>
+		<script src="{% static 'js/login.js' %}"></script>
+	</head>
+	<body>
+		<!--头部-->
+		<div id="header" class="header" style="margin-bottom:20px;">
+		    <div style="width: 100%;background: #fff;">
+		        <div class="header_l">
+		            <a href="index.html" title="美西">
+		            	<div class="logo"></div>
+		            </a>
+		            <div class="float_r" style="line-height:154px;">
+		                <span>需要帮助？</span>
+		                <!--<div class="relative">-->
+		                	<span class="icon_top"></span>
+		                	<span>4000-250-630</span>
+		                <!--</div>-->
+		            </div>
+		            <div class="clear"></div>
+		        </div>
+		    </div>
+		    <div class="line_btn" style="display:block;background: url({% static 'img/headerbg.png' %})repeat-x;width:100%;height:8px;">
+		    </div>
+		</div>
+		
+		<!--中间注册-->
+		<div class="reg relative">
+			<!--手机登录-->
+			<div class="relative baoguo" style="overflow:hidden;">
+				<div class="reg_form absolute">
+					<div class="denglu">
+						
+					
+						<form action="/login/" method="post">
+							<div class="beauty">
+								登录美西
+							</div>
+							<div class="absolute cupter_ma" style="top:0;right:10px;cursor:pointer;">
+								<img src="{% static 'img/5.jpg' %}"/>
+							</div>
+							<div class="absolute cupter_denglu" style="z-index:1;height:30px;width:130px;border:1px solid #ececec;right:74px;top:2px">
+								<p style="font-size:14px;color:orangered;line-height:30px;margin-left:10px;">
+									扫码登录更安全
+								</p>
+								<div class="consult_app_sj"></div>
+							</div>
+							<div class="phone clearfix">
+								<div class="phone_icon1 float_l"></div>
+								<div class="phone_menu relative float_l">
+									<input type="text" name="tel" placeholder="请输入手机号或邮箱" id="inp1"/>
+								</div>
+								
+							</div>
+							
+							<!--清除浮动-->
+							<!--<div class="clear"></div>-->
+							
+							<div class="pwd clearfix">
+								<div class="pwd_icon float_l"></div>
+								<div class="pwd_menu float_l">
+									<input type="password" name="password" placeholder="请输入密码" id="inp2"/>
+								</div>
+								
+							</div>
+							<div class="checkbox clearfix">
+								<div class="float_l">
+									<input type="checkbox" checked="checked"/>
+									<span>
+										自动登录
+									</span>
+								</div>
+								<div class="float_r">
+									<a href="" style="color: #999;">忘记密码？</a>
+								</div>
+							</div>
+							<div class="clear"></div>
+							<div id="tip" style="height: 30px;color: #cc3d3d;text-align:center;font-size: 12px;"><span>{{ msg }}</span></div>
+							<div class="regs">
+								<input id="ipt6" type="submit" style="cursor:pointer;outline:none;" value="登录">
+							</div>
+							<div class="login" style="font-size:12px;">
+								<div href="" style="color:#669aca;display: inline-block;cursor:pointer;" id="saoma">
+									扫码登录
+								</div>
+								<a href="{% url 'app:register' %}" style="margin-left:10px;color:#669aca;">
+									立即注册
+								</a>
+								
+							</div>
+							
+							<div class="form_foot">
+								<div class="form_top relative">
+									<div class="form_top_line absolute"></div>
+									<p class="form_theme relative">其他登录方式</p>
+								</div>
+								<div class="form_footer clearfix">
+									<ul>
+										<li>
+											<a class="wechat" style="background-position:-35px 0;cursor:pointer;" title="微信登录" ></a>
+										</li>
+										<li>
+											<a class="sina" style="background-position:-70px 0;" href="" title="新浪微博登录"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							
+						</form>
+					</div>	
+						
+					<!--扫码登录-->
+					<div class="code_load absolute">
+						<div class="beauty">
+							手机扫码，安全登录
+						</div>
+						
+						<div class="absolute cupter" style="top:0;right:10px;cursor: pointer;">
+							<img src="{% static 'img/4.jpg' %}"/>
+						</div>
+					
+						<div class="relative">
+							
+							<div class="" style="text-align:center;">
+								<img src="{% static 'img/ewm_indexTop_1.png' %}" style="margin-top:10px;width:150px;"/>
+							</div>
+							<div class="float_l" style="margin:30px 30px 30px 50px;">
+								<img src="{% static 'img/2.png' %}"/>
+							</div>
+							<div class="float_l" style="font-size:12px;color: #666;margin-top:25px;line-height:20px;">
+								<p>打开<a href="" style="font-size:14px;color:orangered;">美西APP</a></p>
+								<p>扫一扫登录</p>
+								
+								
+							</div>
+							<div class="clear"></div>
+							<div class="login" style="font-size:12px;margin-bottom:20px;">
+								<div href="" style="color:#669aca;display: inline-block;cursor:pointer;" id="saoma2">
+									密码登录
+								</div>
+								<a href="{% url 'app:register' %}" style="margin-left:10px;color:#669aca;">
+									立即注册
+								</a>
+								
+							</div>
+						</div>
+						
+						
+						
+						
+						
+						
+						
+						
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--购物指南-->
+		<div id="foot" style="width: 100%;margin-top: 30px;border-top: 1px solid #e8e8e8;">
+			<div class="foot_miu">
+				<div class="contaier relative">
+					<ul style="line-height:138px;color:white;font-size: 18px;height:138px;">
+						<li>
+							<div class="foot_icon icon1">
+							</div>
+							<span>100%正品保证</span>
+						</li>
+						<li>
+							<div class="foot_icon icon2">
+							</div>
+							<span>7天无忧退货</span>
+						</li>
+						<li>
+							<div class="foot_icon icon3">
+							</div>
+							<span>九年专注，品质保障</span>
+						</li>
+					</ul>
+				</div>
+				<div class="miu_line"></div>
+				
+				
+			</div>
+			<div class="footer">
+				<div class="contaier" style="padding-top:30px;">
+					<div class="footer_l float_l">
+						<ul>
+							<li style="border-left:none;"><a href="" title="媒体报道">媒体报道</a></li>
+							<li><a href="" title="正品保证">正品保证</a></li>
+							<li><a href="" title="业务合作">业务合作</a></li>
+							<li><a href="" title="隐私声明">隐私声明</a></li>
+							<li><a href="" title="加入美西">加入美西</a></li>
+							<li><a href="" title="联系我们">联系我们</a></li>
+						</ul>
+						<div class="clear"></div>
+						<div style="padding-left:12px;">
+							<p style="line-height:47px;">Copyright ©2008-2017，美西-高端时尚生活电商</p>
+						</div>
+						<div style="padding-left:12px;">
+							<span style="margin-right:20px;">沪ICP备09001221号</span>
+							<span style="margin-right:20px;">沪公网安备11010802017116号</span>
+						</div>
+					</div>
+					<div class="footer_miu float_l"></div>
+					
+					<div class="footer_r float_r" style="color: #999;font-size:12px;">	
+						<div style="text-align:center;margin: 5px 0 23px;">
+							<span>合作支持</span>
+						</div>
+						<ul>
+							<li class="par1" style="padding-top:5px;"><a href=""></a></li>
+							<li class="par2" style="padding-top:6px;">
+								<a href="">
+									<span style="margin-right: 4px;"></span>
+									<i class="float_l">银联特约商户</i>
+								</a>
+							</li>
+							<li class="par3" style="padding-top:5px;"><a href=""></a></li>
+							<li class="par4"><a href=""></a></li>
+							<li class="par5" style="padding-top:4px;"><a href=""></a></li>
+							<li class="par6" style="padding-right:0;padding-top:4px;"><a href=""></a></li>
+
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,1270 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"/>
+		
+			
+		<!--轮播大图-->
+		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+		<script src="{% static 'js/index.js' %}"></script>
+		
+	</head>
+	<body>
+		<div id="top">
+			<div class="contaier" style="height:35px;">
+				<div class="top_l">
+					<div id="App">
+						<span style="background: url({% static 'img/headico.png' %})0px -2px no-repeat;width:40px;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<span style="border-right:1px solid #ccc;padding-right:15px;padding-left:2px;">4000-250-630</span>
+						<span id="saoma11">
+							<a href=""  style="background: url({% static 'img/headico.png' %})-20px -2px no-repeat;width:40px;height:35px;margin-left:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+							<a href="" title="下载美西APP">下载美西APP</a>
+						</span>
+					</div>
+					
+					<div id="headerApp_m">
+		                <div class="header_sj"></div>
+		                <div class="headerApp_code"><a href="" title="下载美西APP"><img src="{% static 'img/ewm_indexTop_1.png' %}" style="display:block;">扫码下载</a></div>
+		            </div>
+					
+				</div>
+				<div class="top_r">
+					<span>
+                        {% if username %}
+                            <a href="#" title="{{ username }}"  class="top_r_load">欢迎【{{ username }}】用户!</a>
+                            <a href="#" title=""></a>
+                        {% else %}
+                            {#<a href="login.html" title="登录"  class="top_r_load">登录</a>#}
+                            <a href="/login/" title="登录"  class="top_r_load">登录</a>
+                            {#<a href="register.html" title="注册">注册</a>#}
+                            <a href="/register/" title="注册">注册</a>
+                        {% endif %}
+						
+					</span>
+					<span id="shop">
+						<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
+							<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							购物袋（<i id="total_num">0</i>）
+						</a>
+						
+					</span>
+					<div id="headershop">
+		                <div class="header_sj" style="margin-left:140px;"></div>
+		                <div class="headercar">
+		                 
+		                    <div class="kong" style="text-align: center;padding:30px 0;font-size:12px;">您的购物袋是空的</div>
+		                	<div class="cart_out" style="display: none;">
+								<div class="car_t"><strong>我的商品</strong></div>
+								<div class="car_show">
+									<ul id="product2_li">
+										<!-- <li class="product2" style="overflow:hidden;">
+											<img src="../good_img/11343359ae1b49a5ee2-160x192.jpg" style="width:80px;height:80px;float:left;"/>
+											<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+												<a href="" style="font-size:16px;">VERSACE JEANS 范思哲牛仔</a><br />混纺 女士 卫衣
+												<br />
+												<span  style="color: #555555;"><i>￥</i>2900</span>&nbsp;&nbsp; X<span>1</span>
+											</p>
+											<div class="dell float_r">
+												<a href="">╳</a>
+											</div>
+											<div class="clear"></div>
+										</li> -->
+										
+									</ul>
+									
+									
+								</div>
+								<div class="car_b">
+									<div class="to_l">
+										<span>商品总计 ： ￥  </span>
+										<span class="totalprice"></span>
+									</div>
+									<div class="to_r">
+										<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
+									</div>
+								</div>
+							</div>
+		                
+		                </div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!--logo图-->
+		<div id="logo" class="relative">
+			<div class="contaier relative" >
+				<a href="" title="美西">
+					<img src="{% static 'img/logo.png' %}" style="padding-top:35px;height:60px;width: 220px;display: inline-block;" alt="美西">
+					
+				</a>
+				<div class="absolute" style="width:250px;right:10px;top:40px;">
+					<input type="text" id="" value="" placeholder="请输入关键字" style="font-size:12px;height:28px;border:0;border-bottom:1px solid #e8e8e8;color:#6c6c6c;width:165px;outline:none;"/>
+					<button class="absolute" style="border:0;width: 30px;height:25px;background: white;outline:none;right:32px;top:5px;">
+						<a href="" style="display:inline-block;height:20px;width:20px;background:url({% static 'img/headico.png' %})-60px 0 no-repeat;"></a>
+					</button>
+				</div>
+			</div>
+		</div>
+		
+		<!--导航-->
+		<div id="nav">
+			<div class="contaier" style="overflow: hidden;">
+				<ul class="list_zong">
+					<li><a href="" title="首页">首页</a></li>
+					<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
+					<li><a href="" title="全球购">全球购</a></li>
+					<li><a href="list.html" title="女士" id="menu2">女士</a></li>
+					<li><a href="" title="男仕" id="menu3">男仕</a></li>
+					<li><a href="" title="童装"id="menu4" >童装</a></li>
+					<li><a href="" title="腕表" id="menu5">腕表</a></li>
+					<li><a href="" title="品牌" id="menu6">品牌</a></li>
+					<li><a href="" title="Mzine">Mzine</a></li>
+					
+				</ul>
+				
+			</div>
+			<!--隐藏二级菜单-->
+			<!--新品-->
+			<div id="nts">
+	        	<div class="new_list">
+	        		<div class="contaier relative">
+	        			<div class="circle" style="padding-left:340px;overflow: hidden;">
+	        				<ul>
+			                    <li class="singel"><a href="" title="男仕 Man" >男仕 Man</a></li>
+			                    <li><a href="" title="包袋 Bags">包袋 Bags</a></li>
+			                    <li><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+			                    <li><a href="" title="鞋履 Shoes" >鞋履 Shoes</a></li>
+			                    <li><a href="" title="服装 Clothes">服装 Clothes</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="singel"><a href="" title="女士 Woman">女士 Woman</a></li>
+			                    <li><a href="" title="包袋 Bags">包袋 Bags</a></li>
+			                    <li><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+			                    <li><a href="" title="鞋履 Shoes">鞋履 Shoes</a></li>
+			                    <li><a href="" title="服装 Clothes" >服装 Clothes</a></li>
+			                </ul>
+	        			</div>
+	        			
+	                </div>
+	            </div>
+	            <div class="headerShadow" style="top:193px;left:230px;"></div>
+	        </div>
+	        
+	        <!--女士-->
+	        <div id="women">
+	        	<div class="women_list">
+	        		<div class="contaier">
+	        			<div style="padding-left:80px;overflow: hidden;">
+	        			
+		        			<ul>
+			                    <li class="hnsTit"><a href="" title="包袋 Bags">包袋 Bags</a></li>
+			                    <li><a href="" title="所有包袋" >所有包袋</a></li>
+			                    <li><a href="" title="手提包 Totes">手提包 Totes</a></li>
+			                    <li><a href="" title="单肩包 Shoulder Bags" >单肩包 Shoulder Bags</a></li>
+			                    <li><a href="" title="斜挎包 Messenger Bags" >斜挎包 Messenger Bags</a></li>
+			                    <li><a href="" title="手拿包 Clutch Bags">手拿包 Clutch Bags</a></li>
+			                    <li><a href="" title="双肩包 Travel Bags">双肩包 Travel Bags</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+			                    <li><a href="" title="所有配饰" >所有配饰</a></li>
+			                    <li><a href="" title="钱包 Wallets">钱包 Wallets</a></li>
+			                    <li><a href="" title="手表 Watches">手表 Watches</a></li>
+			                    <li><a href="" title="太阳眼镜 Sunglasses">太阳眼镜 Sunglasses</a></li>
+			                    <li><a href="" title="饰品 Jewelry">饰品 Jewelry</a></li>
+			                    <li><a href="" title="腰带 Belts" >腰带 Belts</a></li>
+			                    <li><a href="" title="围巾 Scarf" >围巾 Scarf</a></li>
+			                    <li><a href="" title="小配件 Small Acc.">小配件 Small Acc.</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="鞋履 Shoes">鞋履 Shoes</a></li>
+			                    <li><a href="" title="所有鞋履"  >所有鞋履</a></li>
+			                    <li><a href="" title="平底鞋 Flat Shoes" >平底鞋 Flat Shoes</a></li>
+			                    <li><a href="" title="高跟鞋 Pumps">高跟鞋 Pumps</a></li>
+			                    <li><a href="" title="靴子 Boots">靴子 Boots</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="服装 Clothes">服装 Clothes</a></li>
+			                    <li><a href="" title="所有服装"  >所有服装</a></li>
+			                    <li><a href="" title="卫衣 Hoodies">卫衣 Hoodies</a></li>
+			                    <li><a href="" title="衬衫 Shirt">衬衫 Shirt</a></li>
+			                    <li><a href="" title="针织/毛衫 Knit/Sweater" >针织/毛衫 Knit/Sweater</a></li>
+			                    <li><a href="" title="夹克 Jacket" >夹克 Jacket</a></li>
+			                    <li><a href="" title="大衣 Coat"  >大衣 Coat</a></li>
+			                    <li><a href="" title="半裙 Skirts">半裙 Skirts</a></li>
+			                    <li><a href="" title="连衣裙 Dresses" >连衣裙 Dresses</a></li>
+			                </ul>
+			            </div>
+	                </div>
+	            </div>
+	            <div class="headerShadow" style="top:193px;left:498px;"></div>
+	        </div>
+	        
+	        
+	        <!--男士-->
+	        <div id="man">
+	        	<div class="man_list">
+	        		<div class="contaier">
+	        			<div class="circle" style="padding-left:80px;overflow: hidden;">
+	        			
+		        			<ul>
+			                    <li class="hnsTit"><a href="" title="包袋 Bags">包袋 Bags</a></li>
+			                    <li><a href="" title="所有包袋">所有包袋</a></li>
+			                    <li><a href="" title="手提包 Totes">手提包 Totes</a></li>
+			                    <li><a href="" title="单肩包 Shoulder Bags">单肩包 Shoulder Bags</a></li>
+			                    <li><a href="" title="斜挎包 Messenger Bags">斜挎包 Messenger Bags</a></li>
+			                    <li><a href="" title="手拿包 Clutch Bags">手拿包 Clutch Bags</a></li>
+			                    <li><a href="" title="双肩包 Travel Bags">双肩包 Travel Bags</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+			                    <li><a href="" title="所有配饰">所有配饰</a></li>
+			                    <li><a href="" title="钱包 Wallets">钱包 Wallets</a></li>
+			                    <li><a href="" title="手表 Watches">手表 Watches</a></li>
+			                    <li><a href="" title="太阳眼镜 Sunglasses">太阳眼镜 Sunglasses</a></li>
+			                    <li><a href="" title="腰带 Belts">腰带 Belts</a></li>
+			                    <li><a href="" title="围巾 Scarf">围巾 Scarf</a></li>
+			                    <li><a href="" title="领带 Ties">领带 Ties</a></li>
+			                    <li><a href="" title="数码周边 Technology">数码周边 Technology</a></li>
+			                    <li><a href="" title="小配件 Small Acc.">小配件 Small Acc.</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="鞋履 Shoes">鞋履 Shoes</a></li>
+			                    <li><a href="" title="所有鞋履">所有鞋履</a></li>
+			                    <li><a href="" title="平底鞋 Flat Shoes">平底鞋 Flat Shoes</a></li>
+			                    <li><a href="" title="休闲皮鞋 Casual Shoes">休闲皮鞋 Casual Shoes</a></li>
+			                    <li><a href="" title="正装皮鞋 Business Shoes">正装皮鞋 Business Shoes</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="服装 Clothes">服装 Clothes</a></li>
+			                    <li><a href="" title="所有服装">所有服装</a></li>
+			                    <li><a href="" title="卫衣 Hoodies">卫衣 Hoodies</a></li>
+			                    <li><a href="" title="T恤/POLO T-Shirt/POLO">T恤/POLO T-Shirt/POLO</a></li>
+			                    <li><a href="" title="衬衫 Shirt">衬衫 Shirt</a></li>
+			                    <li><a href="" title="西装套装 Suit">西装套装 Suit</a></li>
+			                    <li><a href="" title="夹克 Jacket">夹克 Jacket</a></li>
+			                    <li><a href="" title="大衣 Coat">大衣 Coat</a></li>
+			                    <li><a href="" title="羽绒服/棉衣 Down Jacket">羽绒服/棉衣 Down Jacket</a></li>
+			                    <li><a href="" title="休闲裤 Casual Pants">休闲裤 Casual Pants</a></li>
+			                </ul>
+			            </div>   
+	                </div>
+	            </div>
+	            <div class="headerShadow" style="top:193px;right:622px;"></div>
+	        </div>
+	        
+	        <!--童装-->
+	        <div id="wear">
+	        	<div class="wear_list">
+	        		<div class="contaier">
+	        			<div style="padding-left:340px;overflow: hidden;">
+	        				<ul>
+			                    <li class="hnsTit"><a href="" title="儿童 Children">儿童 Children</a></li>
+			                    <li><a href="" title="T恤/POLO T-Shirt/POLO">T恤/POLO T-Shirt/POLO</a></li>
+			                    <li><a href="" title="衬衫 Shirt">衬衫 Shirt</a></li>
+			                    <li><a href="" title="卫衣 Hoodies">卫衣 Hoodies</a></li>
+			                    <li><a href="" title="羽绒服/棉服 Down Jackets">羽绒服/棉服 Down Jackets</a></li>
+			                    <li><a href="" title="连衣裙 Dresses">连衣裙 Dresses</a></li>
+			                    <li><a href="" title="休闲裤 Casual Pants">休闲裤 Casual Pants</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="热门品牌">热门品牌</a></li>
+			                    <li><a href="" title="Gucci 古驰">Gucci 古驰</a></li>
+			                    <li><a href="" title="Kenzo 高田贤三">Kenzo 高田贤三</a></li>
+			                    <li><a href="" title="Little Dickins &amp; Jones">Little Dickins &amp; Jones</a></li>
+			                    <li><a href="" title="RIDERS ON THE STORM">RIDERS ON THE STORM</a></li>
+			                </ul>
+		                </div>
+	                </div>
+	            </div>
+	        	<div class="headerShadow" style="top:193px;right:488px;"></div>
+	        </div>
+	        
+	        
+	        <!--腕表-->
+	        <div id="watch">
+	        	<div class="watch_list">
+	        		<div class="contaier">
+	        			<div style="padding-left:340px;overflow: hidden;">
+		        			<ul>
+			                	<li class="hnsTit"><a href="" title="男仕腕表" >男仕腕表</a></li>
+			                    <li class="hnsTit"><a href="" title="女士腕表">女士腕表</a></li>
+			                    <li class="hnsTit"><a href="" title="石英石" >石英石</a></li>
+			                    <li class="hnsTit"><a href="" title="机械表" >机械表</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="热门品牌" >热门品牌</a></li>
+			                    <li><a href="" title="sevenfriday">sevenfriday</a></li>
+			                    <li><a href="" title="Calvin Klein 卡尔文·克莱恩">Calvin Klein 卡尔文·克莱恩</a></li>
+			                    <li><a href="" title="Daniel Wellington 丹尼尔·惠灵顿" >Daniel Wellington 丹尼尔·惠灵顿</a></li>
+			                    <li><a href="" title="Tissot 天梭" >Tissot 天梭</a></li>
+			                    <li><a href="" title="OMEGA 欧米茄" >OMEGA 欧米茄</a></li>
+			                    <li><a href="" title="Longines 浪琴" >Longines 浪琴</a></li>
+			                </ul>
+			            </div>    
+	        		</div>
+	            	
+	            </div>
+	            <div class="headerShadow" style="top:193px;right:356px;"></div>
+	        </div>
+	        
+	        <!--品牌-->
+	        <div id="brand">
+	        	<div class="brand_list relative">
+	        		<div class="contaier">
+	        			<div style="padding-left:340px;overflow: hidden;">
+	        				<ul>
+			                    <li class="hnsTit"><a href="" title="国际大牌 Luxury Brand">国际大牌 Luxury Brand</a></li>
+			                    <li><a href="" title="Diesel 迪赛">Diesel 迪赛</a></li>
+			                    <li><a href="" title="Chloe 蔻依">Chloe 蔻依</a></li>
+			                    <li><a href="" title="Dior 迪奥">Dior 迪奥</a></li>
+			                    <li><a href="" title="BVLGARI 宝格丽">BVLGARI 宝格丽</a></li>
+			                    <li><a href="" title="3.1 Phillip Lim 菲利林">3.1 Phillip Lim 菲利林</a></li>
+			                    <li><a href="" title="Love Moschino 莫斯奇诺">Love Moschino 莫斯奇诺</a></li>
+			                    <li><a href="" title="Giuseppe Zanotti 朱塞佩·萨诺">Giuseppe Zanotti 朱塞佩·萨诺</a></li>
+			                    <li><a href="" title="Moschino 莫斯奇诺">Moschino 莫斯奇诺</a></li>
+			                </ul>
+			                <ul>
+			                    <li class="hnsTit"><a href="" title="设计师品牌 Designer Brand">设计师品牌 Designer Brand</a></li>
+			                    <li><a href="" title="MSGM">MSGM </a></li>
+			                    <li><a href="" title="Circle">Circle </a></li>
+			                    <li><a href="" title="Iceberg 冰山">Iceberg 冰山</a></li>
+			                    <li><a href="" title="MABYMA STUDIO">MABYMA STUDIO </a></li>
+			                    <li><a href="" title="Dune">Dune </a></li>
+			                    <li><a href="" title="ChloeChen">ChloeChen </a></li>
+			                    <li><a href="" title="Versus 范瑟丝">Versus 范瑟丝</a></li>
+			                    <li><a href="" title="P.A.R.O.S.H.">P.A.R.O.S.H.</a></li>
+			                </ul>
+	        			</div>
+	        			
+	        		</div>
+	            	
+	            </div>
+	            <div class="headerShadow" style="top:193px;right:222px;"></div>
+	        </div>
+	        
+		</div>
+		
+		
+
+		
+		<!--在线咨询-->
+		<div class="consult absolute">
+			<div class="line_said">
+				<ul>
+			        <li class="consultApp">
+			            <a class="consult_app" href="" title="美西APP"><em></em></a>
+			            <div class="consult_app_m">
+			                <div class="consult_app_sj"></div>
+			                <div class="consult_app_code">
+			                    <img src="{% static 'img2/ewm_indexTop_1.png' %}" style="display:block;">
+			                </div>
+			            </div>
+			        </li>
+			        <li>
+			            <a class="consult_online" href="" title="在线咨询"><em></em></a>
+			        </li>
+			        <li>
+			            <a id="BizQQWPA" class="consult_qq" href="" title="QQ咨询"><em></em></a>
+			        </li>
+			        <li>
+			            <a class="consult_top" href="" title="返回顶部" style="border:none;"><em></em></a>
+			        </li>
+			    </ul>
+		    </div>
+		</div>
+		
+			<!--内容-->
+		<div id="main" class="relative">
+			
+			<!--楼梯效果-->
+			<ul id="nav_floor">
+				<li>1F<span class="active_floor">时尚潮品</span></li>
+				<li>2F<span >实时精选</span></li>
+				<li>3F<span >热门旗舰店</span></li>
+				<li>4F<span >特别推荐</span></li>
+				<li>5F<span>男仕精选</span></li>
+				<li>6F<span>女士精选</span></li>
+				<li>7F<span>正被选购</span></li>
+				<li>8F<span>购物指南</span></li>
+				
+			</ul>
+			<div class="big">
+				
+				<!--大图轮播-->
+				<div id="banner">
+					<div class="contanier relative">
+						<ul id="list">
+							
+						</ul>
+						<div id="prev">&lt;</div>
+						<div id="next">&gt;</div>
+					</div>
+				</div>
+				
+				<!--tab切换-->
+				<div id="tab_box">
+					<div class="contaier" style="overflow:hidden;">
+						<div id="box1_top">
+							<div class="theme relative">
+								<div class="line absolute">
+								</div>
+								<p class="theme_n relative" >
+									<span style="color: #666;">tab切换</span><br>
+									<span style="font-size:14px;color: #999;">Hot Flagship Store</span>
+								</p>
+							</div>
+						</div>
+						<ul id="tab_list">
+							<li class="tab_hover">衣服</li>
+							<li>鞋子</li>
+							<li>包包</li>
+						</ul>
+						<div class="tab_content tab_show">
+							<a href="" title="纪梵希 潮牌代名词">
+								<img src="{% static 'img/13260859cdd97002a9e.jpg' %}"/>
+								<div class="sing_code absolute">
+									<p style="font-size:20px;font-weight:bolder;">Givenchy</p>
+									<br />
+									<p>
+										Givenchy
+										<br />
+										纪梵希
+									</p>
+								</div>
+							</a>
+							<a href="" title="Volley Austrelia 王菲都在穿的运动鞋" style="margin:0 6px;">
+								<img src="{% static 'img/13271959cdd9b78b2e5.jpg' %}"/>
+								<div class="sing_code absolute" style="left:500px">
+									<p style="font-size:20px;font-weight:bolder;">Volley Austrelia</p>
+									<br />
+									<p>
+										Volley Austrelia
+										<br />
+										Volley
+									</p>
+								</div>
+							</a>
+							<a href="" title="MCM 包袋潮流风向标">
+								<img src="{% static 'img/13270959cdd9ad660c6.jpg' %}"/>
+								<div class="sing_code absolute" style="left:900px">
+									<p style="font-size:20px;font-weight:bolder;">MCM</p>
+									<br />
+									<p>
+										MCM
+										<br />
+										慕尼黑
+									</p>
+								</div>
+							</a>
+						</div>
+						<div class="tab_content relative">
+							<a href="" title="背影杀手双肩包  KENZO、D&G" >
+								<img src="{% static 'img/13295059cdda4e1a00f.jpg' %}"/>
+								<div class="sing_code absolute">
+									<p style="font-size:20px;font-weight:bolder;">KENZO、D&G</p>
+									<br />
+									<p>
+										KENZO、D&G
+										<br />
+										老虎头
+									</p>
+								</div>
+							</a>
+							<a href="" title="伦敦潮鞋 新晋街头时尚品牌" style="margin:0 6px;">
+								<img src="{% static 'img/13312759cddaaf48c47.jpg' %}"/>
+								<div class="sing_code absolute" style="left:500px">
+									<p style="font-size:20px;font-weight:bolder;">D&G</p>
+									<br />
+									<p>
+										D&G
+										<br />
+										大眼睛
+									</p>
+								</div>
+							</a>
+							<a href="" title="纪梵希 潮牌代名词 ">
+								<img src="{% static 'img/13313159cddab301934.jpg' %}"/>
+								<div class="sing_code absolute" style="left:900px">
+									<p style="font-size:20px;font-weight:bolder;">Givenchy</p>
+									<br />
+									<p>
+										Givenchy
+										<br />
+										纪梵希
+									</p>
+								</div>
+							</a>
+							
+						</div>
+						<div class="tab_content relative">
+							<a href="" title="潮牌平底鞋暴走伦敦时装周">
+								<img src="{% static 'img/13334959cddb3d35258.jpg' %}"/>
+								<div class="sing_code absolute">
+									<p style="font-size:20px;font-weight:bolder;">D&G</p>
+									<br />
+									<p>
+										D&G
+										<br />
+										大眼睛
+									</p>
+								</div>
+							</a>
+							<a href="" title="凹造型墨镜一秒小脸">
+								<img src="{% static 'img/13351359cddb9113fa1.jpg' %}" style="margin:0 6px;"/>
+								<div class="sing_code absolute" style="left:500px">
+									<p style="font-size:20px;font-weight:bolder;">KENZO、D&G</p>
+									<br />
+									<p>
+										KENZO、D&G
+										<br />
+										老虎头
+									</p>
+								</div>
+							</a>
+							<a href="" title="造型雨伞 让你爱上下雨天">
+								<img src="{% static 'img/13353959cddbab6371f.jpg' %}"/>
+								<div class="sing_code absolute" style="left:900px">
+									<p style="font-size:20px;font-weight:bolder;">MCM</p>
+									<br />
+									<p>
+										MCM
+										<br />
+										慕尼黑
+									</p>
+								</div>
+							</a>
+						</div>
+					</div>
+					
+				</div>
+
+				<!--热门旗舰店-->
+				<div id="box5">
+					<div class="contaier">
+						<div id="box1_top">
+							<div class="theme relative">
+								<div class="line absolute">
+								</div>
+								<p class="theme_n relative" >
+									<span style="color: #666;">热门旗舰店</span><br>
+									<span style="font-size:14px;color: #999;">Hot Flagship Store</span>
+								</p>
+							</div>
+						</div>
+						<div id="box1_btn_pai">
+							<div class="hotflag">
+							    <ul class="hotflagbox" style="width:1200px;margin:0 auto;overflow:hidden;">
+							        <li>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/147669863333_214x108.jpg' %}" alt="By Creations柏品">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="" target="_blank">
+							                        <p class="brandchnname">柏品</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477274206917.png' %}" alt="Bobbi Brown波比布朗">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="" target="_blank">
+							                        <p class="brandchnname">波比布朗</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/147635292315_214x108.jpg' %}" alt="Rolex劳力士">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/54" target="_blank">
+							                        <p class="brandchnname">劳力士</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477306892349.png' %}" alt="Dolce&amp;Gabbana（D&amp;G）">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/24" target="_blank">
+							                        <p class="brandchnname">杜嘉班纳</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477391399663.png' %}" alt="La Mer海蓝之谜">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/48" target="_blank">
+							                        <p class="brandchnname">海蓝之谜</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477258985459.png' %}" alt="Armani阿玛尼">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/3" target="_blank">
+							                        <p class="brandchnname">阿玛尼</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson" style="margin-right: 0;">
+							                <img src="{% static 'img3/14477314136401.png' %}" alt="Ferragamo菲拉格慕">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/19" target="_blank">
+							                        <p class="brandchnname">菲拉格慕</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477391395609.png' %}" alt="KIEHL&#39;S  科颜氏">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/55" target="_blank">
+							                        <p class="brandchnname">科颜氏</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477284519867.png' %}" alt="Bvlgari宝格丽">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/31" target="_blank">
+							                        <p class="brandchnname">宝格丽</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477318724845.png' %}" alt="Gucci古驰">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/37" target="_blank">
+							                        <p class="brandchnname">古驰</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14524832304110.png' %}" alt="Theonne">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/84" target="_blank">
+							                        <p class="brandchnname">Theonne</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14479263905429.png' %}" alt="Rebecca Minkoff 瑞贝卡·明可弗">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/83" target="_blank">
+							                        <p class="brandchnname">瑞贝卡·明可弗</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477430744531.png' %}" alt="police">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/106" target="_blank">
+							                        <p class="brandchnname">POLICE </p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson" style="margin-right: 0;">
+							                <img src="{% static 'img3/147255231014_214x108.png' %}" alt="Refa">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/96" target="_blank">
+							                        <p class="brandchnname">Refa</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/147418184838_214x108.jpg' %}" alt="LuckyOzasec欧泽斯">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/95" target="_blank">
+							                        <p class="brandchnname">LuckyOzasec</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477284508184.png' %}" alt="Brooks Brothers 布克兄弟">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/74" target="_blank">
+							                        <p class="brandchnname">布克兄弟</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477462462623.png' %}" alt="TOD&#39;S  托德斯">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/57" target="_blank">
+							                        <p class="brandchnname">托德斯</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/149007476555_214x108.png' %}" alt="Zimmerli齐穆里">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/132" target="_blank">
+							                        <p class="brandchnname">齐穆里</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477305449735.png' %}" alt="Dior迪奥">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/79" target="_blank">
+							                        <p class="brandchnname">迪奥</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson">
+							                <img src="{% static 'img3/14477425318150.png' %}" alt="Parker派克">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/51" target="_blank">
+							                        <p class="brandchnname">派克</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							            <div class="hotflagson" style="margin-right: 0;">
+							                <img src="{% static 'img3/14477320366584.png' %}" alt="Guess">
+							                <div class="hotmiddle" style="opacity: 0;">
+							                    <a href="http://www.5lux.com/flagship/detail/22" target="_blank">
+							                        <p class="brandchnname">Guess</p>
+							                        <div class="blacksline">
+							                            <span></span>
+							                        </div>
+							                    </a>
+							                </div>
+							                <div class="topline" style="width: 0px;"></div>
+							                <div class="rightline" style="height: 0px;"></div>
+							                <div class="bottomline" style="width: 0px;"></div>
+							                <div class="leftline" style="height: 0px;"></div>
+							            </div>
+							        </li>
+							        
+							    </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+				<!--/**特别推荐**/-->
+				<div id="box1">
+					<div class="contaier">      
+
+						<div id="box1_top">
+							<div class="theme relative">
+								<div class="line absolute">
+								</div>
+								<p class="theme_n relative" >
+									<span style="color: #666;">特别推荐</span><br>
+									<span style="font-size:14px;color: #999;">Special Offer</span>
+								</p>
+							</div>
+						</div>
+						<!--3d导航-->
+						<ul class="shopcenter" id="3d_list">
+						    <li>
+						        <div class="shopcenterbox" style="top: 0px;">
+						            <a href="" class="quicktab" anchor="classic_bags">
+						                <div class="topbox">
+						                  	 经典箱包
+						                </div>
+						            </a>
+						            <a href="" class="quicktab" anchor="classic_bags">
+						                <div class="bottombox">
+						                    <div class="border">
+						                       	<p class="en">Classic bags</p>
+						                  	</div>
+						               	</div>
+						          	</a>
+						       	</div>
+						    </li>
+						    <li>
+						       	<div class="shopcenterbox" style="top: 0px;">
+						          	<a href="" class="quicktab" anchor="collection_watches">
+						             	<div class="topbox">
+						                  	 典藏腕表
+						               	</div>
+						         	</a>
+						          	<a href="" class="quicktab" anchor="collection_watches">
+						              	<div class="bottombox">
+						                  	<div class="border">
+						                      	<p class="en">Collection watches</p>
+						                  	</div>
+						               	</div>
+						          	</a>
+						       	</div>
+						    </li>
+						    <li>
+						       	<div class="shopcenterbox" style="top: 0px;">
+						          	<a href="" class="quicktab" anchor="exquisite_accessories">
+						              	<div class="topbox">
+						                  	 精致配饰
+						               	</div>
+						          	</a>
+						          	<a href="" class="quicktab" anchor="exquisite_accessories">
+						              	<div class="bottombox">
+						                  	<div class="border">
+						                      	<p class="en">Exquisite accessories</p>
+						                  	</div>
+						               	</div>
+						          	</a>
+						       	</div>
+						    </li>
+						    <li>
+						       	<div class="shopcenterbox" style="top: 0px;">
+						          	<a href="" class="quicktab" anchor="nurse_makeup">
+						              	<div class="topbox">
+						                   	个护化妆
+						               	</div>
+						          	</a>
+						          	<a href="" class="quicktab" anchor="nurse_makeup">
+						              	<div class="bottombox">
+						                  	<div class="border">
+						                      	<p class="en">Nurse makeup</p>
+						                  	</div>
+						               	</div>
+						          	</a>
+						       	</div>
+						    </li>
+						    <li style="margin-right:0px;">
+						       	<div class="shopcenterbox" style="top: 0px;">
+						          	<a href="" class="quicktab" anchor="fashion_apparel">
+						              	<div class="topbox">
+					                  	时尚鞋服
+				               			</div>
+						          	</a>
+						          	<a href="" class="quicktab" anchor="fashion_apparel">
+						              	<div class="bottombox">
+						                  	<div class="border">
+						                      	<p class="en">Shoes and apparel</p>
+						                  	</div>
+						               	</div>
+						          	</a>
+						       	</div>
+						    </li>
+						</ul> 
+						<div id="box1_btn">
+							<ul id="box11">
+								<li style="background:#f7f4ef;"><a href="" title="纪梵希 潮牌代名词"><img src="{% static 'img/13260859cdd97002a9e.jpg' %}"/></a></li>
+								<li style="background:#f7f4ef;margin-top:12px;"><a href="" title="Volley Austrelia 王菲都在穿的运动鞋"><img src="{% static 'img/13271959cdd9b78b2e5.jpg' %}"/></a></li>
+								
+							</ul>
+							<ul id="box12">
+								<li style="height:498px;background:#d0cabe;"><a href="" style="height:498px;" title="范思哲 浮华点缀细节"><img src="{% static 'img/13263659cdd98c5140d.jpg' %}"/></a></li>
+							</ul>
+							<ul id="box13">
+								<li style="background:#f5f2eb;"><a href="" title="MCM 包袋潮流风向标"><img src="{% static 'img/13270959cdd9ad660c6.jpg' %}"/></a></li>
+								<li style="background:#f7f4ef;margin-top:12px;">
+									<a href="" title="MCM包袋 超人标配时尚单品" style="display:block;margin-top: 12px;">
+										<img src="{% static 'img/13271659cdd9b41420c.jpg' %}"/>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<!--男仕精选-->
+				<div id="box2">
+					<div class="contaier">
+						<div id="box1_top">
+							<div class="theme relative">
+								<div class="line absolute">
+								</div>
+								<p class="theme_n relative" >
+									<span style="color: #666;">男仕精选</span><br>
+									<span style="font-size:14px;color: #999;">For Him</span>
+								</p>
+							</div>
+						</div>
+						<div id="box1_btn">
+							<ul id="box11">
+								<li style="background:#e8ebf4;">
+									<a href="" title="背影杀手双肩包  KENZO、D&G" >
+										<img src="{% static 'img/13295059cdda4e1a00f.jpg' %}"/>
+									</a>
+								</li>
+								<li style="background:#e8ebf4;margin-top:12px;">
+									<a href="" title="伦敦潮鞋 新晋街头时尚品牌" style="display:block;margin-top: 12px;">
+										<img src="{% static 'img/13312759cddaaf48c47.jpg' %}"/>
+									</a>
+								</li>
+								
+							</ul>
+							<ul id="box12" >
+								<li style="height:498px;background:#cecfd3;"><a href="" style="height:498px;" title="一件夹克穿三季 GCDS、Lanvin"><img src="{% static 'img/13302359cdda6f4ec75.jpg' %}"/></a></li>
+							</ul>
+							<ul id="box13">
+								<li style="background:#e8ebf4;"><a href="" title="极简风设计师品牌 Aiezen"><img src="{% static 'img/13305759cdda914bd97.jpg' %}"/></a></li>
+								<li style="background:#e8ebf4;margin-top:12px;">
+									<a href="" title="纪梵希 潮牌代名词" style="display:block;margin-top: 12px;">
+										<img src="{% static 'img/13313159cddab301934.jpg' %}"/>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				
+				<!--女士精选-->
+				<div id="box3">
+					<div class="contaier">
+						<div id="box1_top">
+							<div class="theme relative">
+								<div class="line absolute">
+								</div>
+								<p class="theme_n relative" >
+									<span style="color: #666;">女士精选</span><br>
+									<span style="font-size:14px;color: #999;">For Her</span>
+								</p>
+							</div>
+						</div>
+						<div id="box1_btn">
+							<ul id="box11">
+								<li style="background:#fff7f8;"><a href="" title="潮牌平底鞋暴走伦敦时装周"><img src="{% static 'img/13334959cddb3d35258.jpg' %}"/></a></li>
+								<li style="background:#fef8f8;margin-top:12px;">
+									<a href="" title="凹造型墨镜一秒小脸" style="display:block;margin-top: 12px;">
+										<img src="{% static 'img/13351359cddb9113fa1.jpg' %}"/>
+									</a>
+								</li>
+								
+							</ul>
+							<ul id="box12">
+								<li style="height:498px;background:url({% static 'img/1.jpg' %})repeat-x;">
+									<a href="" style="height:498px;" title="欢愉色彩轻奢包袋">
+										<img src="{% static 'img/13341859cddb5a2a903.jpg' %}"/>
+									</a></li>
+							</ul>
+							<ul id="box13">
+								<li style="background:#fff7f8;"><a href="" title="MSGM 潮人衣橱专场"><img src="{% static 'img/13344659cddb7668419.jpg' %}"/></a></li>
+								<li style="background:#fef8f8;margin-top:12px;">
+									<a href="" title="造型雨伞 让你爱上下雨天" style="display:block;margin-top: 12px;">
+										<img src="{% static 'img/13353959cddbab6371f.jpg' %}"/>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+				
+				<!--正被选购-->
+				<div id="box4">
+					<div class="contaier">
+						<div id="box1_top">
+							<div class="theme relative">
+								<div class="line absolute">
+								</div>
+								<p class="theme_n relative" >
+									<span style="color: #666;">正被选购</span><br>
+									<span style="font-size:14px;color: #999;">BEING SOLD</span>
+								</p>
+							</div>
+						</div>
+					
+						<!--轮播小图-->
+						<div id="box1_btn1" style="width: 1200px;height: 265px; margin: 0 auto;overflow: hidden;">
+							<div id="small">
+								<ul id="list_small">
+								
+								</ul>
+								<div id="prev_left"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>
+								<div id="next_right"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			
+			
+				<!--购物指南-->
+				<div id="foot" style="width: 100%;margin-top: 30px;border-top: 1px solid #e8e8e8;">
+					<div class="contaier">
+						<div class="foot_top" style="margin: 0 auto;padding-top: 40px;width: 1200px; height: 232px;background: #fff;">
+							<div class="shop">
+								<ul>
+									<li class="foot_t">购物指南</li>
+									<li><a href="" title="购物流程">购物流程</a></li>
+									<li><a href="" title="配送方式">配送方式</a></li>
+								</ul>
+								<ul>
+									<li class="foot_t">支付方式</li>
+									<li><a href="" title="如何付款">如何付款</a></li>
+									<li><a href="" title="发票制度">发票制度</a></li>
+								</ul>
+								<ul>
+									<li class="foot_t">商品说明</li>
+									<li><a href="" title="商品尺码">商品尺码</a></li>
+									<li><a href="" title="商品包装">商品包装</a></li>
+								</ul>
+								<ul>
+									<li class="foot_t">客服中心</li>
+									<li><a href="" title="七天退换">七天退换</a></li>
+									<li><a href="" title="常见问题">常见问题</a></li>
+								</ul>
+							</div>
+		    				<div class="phone" style="text-align:center;font-size:12px;color:#555;">
+								<span style="color:#333;font-size:14px;">
+									客服电话
+								</span>
+								<h5 style="line-height:65px;font-size:24px;font-weight:900;">4000-250-630</h5>
+								<p style="line-height:30px;">工作日 08:30-21:30</p>
+								<p style="line-height:30px;">节假日 10:00-18:00</p>
+								
+		    				</div>
+							<div class="mail">
+								<p style="display: block;margin-bottom:20px;">订阅美西杂志</p>
+								<input type="text" name="" id="" placeholder="E-mail" style="outline:none;";/>
+								<div class="now">
+									即刻订阅
+								</div>
+							</div>
+							<div class="code">
+								<div class="code_l">
+									<span style="font-size:14px;color: #333;">美西APP</span>
+									<div style="margin-top:20px;border:1px solid #e8e8e8;padding:20px;">
+										<span style="display:block;width:67px;height:67px;">
+											<img src="{% static 'img/down_app.png' %}"/>
+										</span>
+									</div>
+									
+								</div>
+								<div class="code_r">
+									<span style="font-size:14px;color: #333;">官方微信</span>
+									<div style="margin-top:20px;border:1px solid #e8e8e8;padding:20px;">
+										<span style="display:block;width:67px;height:67px;">
+											<img src="{% static 'img/wechat.png' %}"/>
+										</span>
+									</div>
+									
+								</div>
+								<!--<div style="">-->
+									<p style="clear:both;text-align:right;line-height:60px;color:#999;font-size:12px;">
+										手机扫码即可下载美西APP或关注官方微信 
+									</p>
+								<!--</div>-->
+								
+							</div>
+		    
+						</div>
+						
+					</div>
+					<div class="foot_miu">
+						<div class="contaier relative">
+							<ul style="line-height:138px;color:white;font-size: 18px;height:138px;">
+								<li>
+									<div class="foot_icon icon1">
+									</div>
+									<span>100%正品保证</span>
+								</li>
+								<li>
+									<div class="foot_icon icon2">
+									</div>
+									<span>7天无忧退货</span>
+								</li>
+								<li>
+									<div class="foot_icon icon3">
+									</div>
+									<span>九年专注，品质保障</span>
+								</li>
+							</ul>
+						</div>
+						<div class="miu_line"></div>
+						
+						
+					</div>
+					<div class="footer">
+						<div class="contaier" style="padding-top:30px;">
+							<div class="footer_l float_l">
+								<ul>
+									<li style="border-left:none;"><a href="" title="媒体报道">媒体报道</a></li>
+									<li><a href="" title="正品保证">正品保证</a></li>
+									<li><a href="" title="业务合作">业务合作</a></li>
+									<li><a href="" title="隐私声明">隐私声明</a></li>
+									<li><a href="" title="加入美西">加入美西</a></li>
+									<li><a href="" title="联系我们">联系我们</a></li>
+								</ul>
+								<div class="clear"></div>
+								<div style="padding-left:12px;">
+									<p style="line-height:47px;">Copyright ©2008-2017，美西-高端时尚生活电商</p>
+								</div>
+								<div style="padding-left:12px;">
+									<span style="margin-right:20px;">沪ICP备09001221号</span>
+									<span style="margin-right:20px;">沪公网安备11010802017116号</span>
+								</div>
+							</div>
+							<div class="footer_miu float_l"></div>
+							
+							<div class="footer_r float_r" style="color: #999;font-size:12px;">	
+								<div style="text-align:center;margin: 5px 0 23px;">
+									<span>合作支持</span>
+								</div>
+								<ul>
+									<li class="par1" style="padding-top:5px;"><a href=""></a></li>
+									<li class="par2" style="padding-top:6px;">
+										<a href="">
+											<span style="margin-right: 4px;"></span>
+											<i class="float_l">银联特约商户</i>
+										</a>
+									</li>
+									<li class="par3" style="padding-top:5px;"><a href=""></a></li>
+									<li class="par4"><a href=""></a></li>
+									<li class="par5" style="padding-top:4px;"><a href=""></a></li>
+									<li class="par6" style="padding-right:0;padding-top:4px;"><a href=""></a></li>
+		
+								</ul>
+							</div>
+							
+						</div>
+					</div>
+	
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

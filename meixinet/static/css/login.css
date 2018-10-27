@@ -1,0 +1,372 @@
+/*购物指南*/
+.contaier{
+	width:1200px;
+	margin:0 auto;
+}
+.clear{
+	clear:both;
+}
+.relative{
+	position:relative;
+}
+.absolute{
+	position: absolute;
+}
+
+//头部
+#header{
+	margin-bottom:20px;
+	overflow:hidden;
+}
+.header_l{
+	font-size: 14px;
+    height: 146px;
+    line-height: 146px;
+    width: 1200px;
+    margin: 0 auto;
+}
+.logo{
+    background: url(../img/logo_02.png) no-repeat;
+    width: 160px;
+    height: 65px;
+    margin-top: 39px;
+    display: inline-block;
+}
+
+.icon_top{
+	display:inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../img/headico.png)0px 3px no-repeat;
+
+}
+
+
+
+/*中间注册*/
+.reg{
+	background: #fbfbfb;
+    height: 535px;
+    background: #fefefe url(../img/memberbg.jpg) center 0 no-repeat;
+}
+.reg_form{
+    top: 25px;
+    left:0%;
+    /*margin-left: 150px;*/
+    width: 298px;
+    background: #fff;
+    padding: 30px 40px;
+    background: #fff;
+    border: solid 1px #e8e8e8;
+    box-shadow: 3px 3px 7px #eee;
+}
+.beauty{
+	font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+.phone,.pwd{
+	border: solid 1px #e8e8e8;
+    background: #fff;
+    margin-bottom: 10px;
+    padding: 4px 0;
+}
+.phone_icon1,.pwd_icon{
+	width: 26px;
+    height: 26px;
+    padding-right: 4px;
+    background: url(../img/memberico.gif) no-repeat;
+    margin: 0 4px 0 6px;
+    border-right: solid 1px #e8e8e8;
+}
+.phone_icon1{
+	background-position:0 0;
+}
+.pwd_icon{
+	background-position: -26px 0;
+}
+.phone_menu,.pwd_menu{
+	width: 240px;
+    margin: 0 0 0 4px;
+}
+.phone_menu input,.pwd_menu input{
+	width: 100%;
+    padding: 0;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    color: #333;
+	
+}
+
+
+#ipt6{
+	width: 100%;
+    height: 48px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    font-family: "微软雅黑";
+}
+.login{
+	text-align: right;
+    margin: 20px 0 7px 0;
+}
+.checkbox{
+	color: #999;
+	padding: 7px 0 5px 0;
+	font-size:12px;
+}
+
+.form_top{
+	height: 20px;
+}
+.form_top_line{
+	border-bottom: solid 1px #e8e8e8;
+    left: 0;
+    top: 8px;
+    width: 100%;
+    z-index: 1;
+}
+.form_theme{
+	background: #fff;
+    color: #999;
+    margin: 0 auto;
+    text-align: center;
+    width: 110px;
+    z-index: 2;
+    font-size:12px;
+}
+
+.form_footer{
+	padding: 20px 25px 5px 25px;	
+}
+.form_footer ul li{
+	float: left;
+    width: 50%;
+}
+.form_footer a{
+	display: block;
+    width: 35px;
+    height: 35px;
+    background: url(../img/jointLogin.gif) no-repeat;
+    margin: 0 auto;
+    filter: alpha(opacity=50);
+    opacity: .5;
+    color: #666;
+    /*transition-duration: .1s;
+    transition-timing-function: linear;*/
+}
+.form_footer a:hover{
+	opacity: 1;
+}
+
+.clearfix:after {
+    display: block;
+    clear: both;
+    content: ".";
+    visibility: hidden;
+    height: 0;
+}
+
+
+/*扫码登录*/
+.baoguo{
+	height:467px;
+	width:380px;
+	float:right;
+	margin-right:80px;
+}
+.code_load{
+	display:none;
+	top:0px;
+    left:0;
+    width: 297px;
+    background: #fff;
+    padding: 30px 40px;
+    background: #eff9ff;
+    border: solid 1px #e8e8e8;
+    box-shadow: 3px 3px 7px #eee;
+  
+}
+.consult_app_sj {
+    width: 8px;
+    height: 17px;
+    background: url(../img/headico.png) -97px -3px no-repeat;
+    position: absolute;
+    z-index: 2;
+    top:6px;
+    right:-8px;
+}
+
+
+
+
+
+
+
+
+
+.foot_icon{
+	/*position: relative;*/
+    /*top: 42px;*/
+   	margin-top:43px;
+    margin-right:20px;
+    float: left;
+    width: 52px;
+    height: 52px;
+   
+}
+.icon1{
+	background:url(../img/footer_icon.png)-104px 0 no-repeat;
+}
+.icon2{
+	background:url(../img/footer_icon.png)-52px 0 no-repeat;
+}
+.icon3{
+	background:url(../img/footer_icon.png)0px 0 no-repeat;
+}
+.foot_miu{
+	background: #414141;
+    width: 100%;
+    height:140px;
+}
+.foot_miu ul li{
+	position:absolute;
+}
+.foot_miu ul li:nth-child(1){
+	left:0;
+}
+.foot_miu ul li:nth-child(2){
+	left:44%;
+}
+.foot_miu ul li:nth-child(3){
+	text-align:right;
+	right:0px;
+}
+
+
+
+.miu_line{
+	width: 100%;
+    height: 0;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #4d4d4d;
+}
+
+.footer{
+	height: 140px;
+	background: #414141;
+    width: 100%;
+}
+.footer_l ul li{
+	text-align: center;
+    float: left;
+    height: 20px;
+    width: 72px;
+    border-left: 1px solid #999;
+    line-height: 20px;
+}
+.footer_l,.footer_l ul li a{
+	color: #999999;
+	font-size:12px;
+}
+
+.clear{
+	clear:both;
+}
+
+.footer_miu{
+	margin: 5px 1px 0 170px;
+    height: 86px;
+    border-right: 1px solid #333;
+    border-left: 1px solid #4d4d4d;
+}
+.float_l {
+    float:left;
+    display:inline;
+}
+.float_r {
+    float:right;
+    display:inline;
+}
+
+
+.footer_r ul li{
+	float: left;
+    padding: 0 17px;
+}
+.footer_r ul li a{
+	display:inline-block;
+	color:#999;
+}
+
+.par1 a{
+	background:url(../img/partner_icon.png) no-repeat;
+	width: 18px;
+    height: 20px;
+    background-position: 0 0;
+}
+.par2 a span{
+	float: left;
+    width: 31px;
+    height: 19px;
+    background: url(../img/partner_icon.png)no-repeat;
+    background-position: -199px 0;
+}
+.par1 a:hover{
+	background: url(../img/footer_h.png);
+    background-position: 0 0;
+}
+.par2 a:hover span{
+	background: url(../img/footer_h.png);
+    background-position: -209px 0;
+}
+.par2 a:hover{
+	color: #ccc;
+}
+.par3 a:hover {
+    background-position: 0 0;
+}
+.par4 a:hover {
+    background: url(../img/footer_h.png);
+    background-position: -127px 0;
+}
+.par5 a:hover {
+    background: url(../img/footer_h.png);
+    background-position: -66px 0;
+}
+.par6 a:hover {
+    background-position: -77px 0;
+}
+.par3 a{
+	width: 68px;
+    height: 22px;
+    background: url(../img/footer.png);
+    background-position: 0 -24px; 
+    
+} 
+.par4 a {
+    width: 72px;
+    height: 31px;
+    background: url(../img/partner_icon.png);
+    background-position: -127px 0;
+}
+    
+.par5 a {
+    width: 60px;
+    height: 23px;
+    background: url(../img/partner_icon.png);
+    background-position: -66px 0;   
+}
+.par6 a {
+    width: 77px;
+    height: 23px;
+    background: url(../img/footer.png);
+    background-position: -77px -23px;
+}

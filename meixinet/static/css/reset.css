@@ -1,0 +1,20 @@
+/* CSS Document */
+html, body, ul,li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img,figure,input,button,.contaier{ margin:0; padding:0; }
+fieldset, img { border:none; }
+input{
+	outline:none !important;
+}
+img{border: 0;display:inline-block;}
+em,i,b,strong{ font-style:normal; font-weight:normal; }
+ul li, ol li { list-style:none; } 
+body { color:#333; font-size:12px; font-family:"SimSun","微软雅黑","Arial Narrow",HELVETICA; background:#fff;}
+a {text-decoration:none;color:#555555}
+/*a:hover { color:#666; }*/
+
+.ind{text-indent:2em; } 
+
+.noborder{border:0;}
+
+/****/
+
+

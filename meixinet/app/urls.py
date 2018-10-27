@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.conf import settings
 
 from app import views
 
@@ -9,4 +10,5 @@ urlpatterns = [
     url(r'^list/$', views.list,name='list'),
     url(r'^goods/$', views.goods, name='goods'),
     url(r'^car/$', views.car, name='car'),
+    url(r'^balance/$', views.balance, name='balance'),
 ]

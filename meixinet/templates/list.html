@@ -1,0 +1,641 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/car.css' %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}"/>
+			
+		<!--轮播大图-->
+		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+		<script src="{% static 'js/list.js' %}"></script>
+		
+	</head>
+	<body>
+		<div class="relative">
+			<div id="top">
+				<div class="contaier" style="height:35px;">
+					<div class="top_l">
+						<div id="App">
+							<span style="background: url({% static 'img/headico.png' %})0px -2px no-repeat;width:40px;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<span style="border-right:1px solid #ccc;padding-right:15px;padding-left:2px;">4000-250-630</span>
+							<a href="" style="background: url({% static 'img/headico.png' %})-20px -2px no-repeat;width:40px;height:35px;margin-left:15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+							<a href="" title="下载美西APP">下载美西APP</a>
+						</div>
+						
+						<div id="headerApp_m">
+			                <div class="header_sj"></div>
+			                <div class="headerApp_code"><a href="" title="下载美西APP"><img src="{% static 'img/ewm_indexTop_1.png' %}" style="display: block;">扫码下载</a></div>
+			            </div>
+						
+					</div>
+					<div class="top_r">
+						<span>
+                            {% if username %}
+                                <a href="#" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
+                            {% else %}
+                                <a href="login.html" title="登录" class="top_r_load">登录</a>
+							    <a href="register.html" title="注册">注册</a>
+                            {% endif %}
+							
+						</span>
+						<span id="shop">
+							<a href="#" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
+								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								购物袋（<i id="total_num">0</i>）
+							</a>
+							
+						</span>
+						<div id="headershop">
+			                <div class="header_sj" style="margin-left:140px;"></div>
+			                <div class="headercar">
+			                 
+			                    <div class="kong" style="display:none;text-align: center;padding:30px 0;">您的购物袋是空的</div>
+			                    <div class="cart_out" >
+									<div class="car_t"><strong>我的商品</strong></div>
+									<div class="car_show">
+										<ul id="product2_li">
+											<!-- <li class="product2" style="overflow:hidden;">
+												<img src="../good_img/11343359ae1b49a5ee2-160x192.jpg" style="width:80px;height:80px;float:left;"/>
+												<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+													<a href="" style="font-size:16px;">VERSACE JEANS 范思哲牛仔</a><br />混纺 女士 卫衣
+													<br />
+													<span  style="color: #555555;"><i>￥</i>2900</span>&nbsp;&nbsp; X<span>1</span>
+												</p>
+												<div class="dell float_r">
+													<a href="">╳</a>
+												</div>
+												<div class="clear"></div>
+											</li> -->
+											
+										</ul>
+										
+										
+									</div>
+									<div class="car_b">
+										<div class="to_l">
+											<span>商品总计 ： ￥  </span>
+											<span class="totalprice"></span>
+										</div>
+										<div class="to_r">
+											<a href="{% url 'app:car' %}" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
+										</div>
+									</div>
+								</div>
+			                </div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<!--logo图-->
+			<div id="logo" class="relative">
+				<div class="contaier relative" >
+					<a href="index.html" title="美西">
+						<img src="{% static 'img/logo.png' %}" style="padding-top:35px;height:60px;width: 220px;display: inline-block;" alt="美西">
+						
+					</a>
+					<div class="absolute" style="width:250px;right:10px;top:40px;">
+						<input type="text" id="" value="" placeholder="请输入关键字" style="font-size:12px;height:28px;border:0;border-bottom:1px solid #e8e8e8;color:#6c6c6c;width:165px;outline:none;"/>
+						<button class="absolute" style="border:0;width: 30px;height:25px;background: white;outline:none;right:32px;top:5px;">
+							<a href="" style="display:inline-block;height:20px;width:20px;background:url({% static 'img/headico.png' %})-60px 0 no-repeat;"></a>
+						</button>
+					</div>
+				</div>
+			</div>
+			
+			<!--导航-->
+			<div id="nav">
+				<div class="contaier" style="overflow: hidden;">
+					<ul class="list_zong">
+						<li><a href="" title="首页">首页</a></li>
+						<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
+						<li><a href="" title="全球购">全球购</a></li>
+						<li><a href="" title="女士" id="menu2">女士</a></li>
+						<li><a href="" title="男仕" id="menu3">男仕</a></li>
+						<li><a href="" title="童装"id="menu4" >童装</a></li>
+						<li><a href="" title="腕表" id="menu5">腕表</a></li>
+						<li><a href="" title="品牌" id="menu6">品牌</a></li>
+						<li><a href="" title="Mzine">Mzine</a></li>
+						
+					</ul>
+				
+				</div>
+				<!--隐藏二级菜单-->
+				<!--新品-->
+				<div id="nts">
+		        	<div class="new_list">
+		        		<div class="contaier relative">
+		        			<div class="circle" style="padding-left:340px;overflow: hidden;">
+		        				<ul>
+				                    <li class="singel"><a href="" title="男仕 Man" >男仕 Man</a></li>
+				                    <li><a href="" title="包袋 Bags">包袋 Bags</a></li>
+				                    <li><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+				                    <li><a href="" title="鞋履 Shoes" >鞋履 Shoes</a></li>
+				                    <li><a href="" title="服装 Clothes">服装 Clothes</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="singel"><a href="" title="女士 Woman">女士 Woman</a></li>
+				                    <li><a href="" title="包袋 Bags">包袋 Bags</a></li>
+				                    <li><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+				                    <li><a href="" title="鞋履 Shoes">鞋履 Shoes</a></li>
+				                    <li><a href="" title="服装 Clothes" >服装 Clothes</a></li>
+				                </ul>
+		        			</div>
+		        			
+		                </div>
+		            </div>
+		            <div class="headerShadow" style="top:193px;left:230px;"></div>
+		        </div>
+		        
+		        <!--女士-->
+		        <div id="women">
+		        	<div class="women_list">
+		        		<div class="contaier">
+		        			<div style="padding-left:80px;overflow: hidden;">
+		        			
+			        			<ul>
+				                    <li class="hnsTit"><a href="" title="包袋 Bags">包袋 Bags</a></li>
+				                    <li><a href="" title="所有包袋" >所有包袋</a></li>
+				                    <li><a href="" title="手提包 Totes">手提包 Totes</a></li>
+				                    <li><a href="" title="单肩包 Shoulder Bags" >单肩包 Shoulder Bags</a></li>
+				                    <li><a href="" title="斜挎包 Messenger Bags" >斜挎包 Messenger Bags</a></li>
+				                    <li><a href="" title="手拿包 Clutch Bags">手拿包 Clutch Bags</a></li>
+				                    <li><a href="" title="双肩包 Travel Bags">双肩包 Travel Bags</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+				                    <li><a href="" title="所有配饰" >所有配饰</a></li>
+				                    <li><a href="" title="钱包 Wallets">钱包 Wallets</a></li>
+				                    <li><a href="" title="手表 Watches">手表 Watches</a></li>
+				                    <li><a href="" title="太阳眼镜 Sunglasses">太阳眼镜 Sunglasses</a></li>
+				                    <li><a href="" title="饰品 Jewelry">饰品 Jewelry</a></li>
+				                    <li><a href="" title="腰带 Belts" >腰带 Belts</a></li>
+				                    <li><a href="" title="围巾 Scarf" >围巾 Scarf</a></li>
+				                    <li><a href="" title="小配件 Small Acc.">小配件 Small Acc.</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="鞋履 Shoes">鞋履 Shoes</a></li>
+				                    <li><a href="" title="所有鞋履"  >所有鞋履</a></li>
+				                    <li><a href="" title="平底鞋 Flat Shoes" >平底鞋 Flat Shoes</a></li>
+				                    <li><a href="" title="高跟鞋 Pumps">高跟鞋 Pumps</a></li>
+				                    <li><a href="" title="靴子 Boots">靴子 Boots</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="服装 Clothes">服装 Clothes</a></li>
+				                    <li><a href="" title="所有服装"  >所有服装</a></li>
+				                    <li><a href="" title="卫衣 Hoodies">卫衣 Hoodies</a></li>
+				                    <li><a href="" title="衬衫 Shirt">衬衫 Shirt</a></li>
+				                    <li><a href="" title="针织/毛衫 Knit/Sweater" >针织/毛衫 Knit/Sweater</a></li>
+				                    <li><a href="" title="夹克 Jacket" >夹克 Jacket</a></li>
+				                    <li><a href="" title="大衣 Coat"  >大衣 Coat</a></li>
+				                    <li><a href="" title="半裙 Skirts">半裙 Skirts</a></li>
+				                    <li><a href="" title="连衣裙 Dresses" >连衣裙 Dresses</a></li>
+				                </ul>
+				            </div>
+		                </div>
+		            </div>
+		            <div class="headerShadow" style="top:193px;left:498px;"></div>
+		        </div>
+		        
+		        
+		        <!--男士-->
+		        <div id="man">
+		        	<div class="man_list">
+		        		<div class="contaier">
+		        			<div class="circle" style="padding-left:80px;overflow: hidden;">
+		        			
+			        			<ul>
+				                    <li class="hnsTit"><a href="" title="包袋 Bags">包袋 Bags</a></li>
+				                    <li><a href="" title="所有包袋">所有包袋</a></li>
+				                    <li><a href="" title="手提包 Totes">手提包 Totes</a></li>
+				                    <li><a href="" title="单肩包 Shoulder Bags">单肩包 Shoulder Bags</a></li>
+				                    <li><a href="" title="斜挎包 Messenger Bags">斜挎包 Messenger Bags</a></li>
+				                    <li><a href="" title="手拿包 Clutch Bags">手拿包 Clutch Bags</a></li>
+				                    <li><a href="" title="双肩包 Travel Bags">双肩包 Travel Bags</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="配饰 Accessories">配饰 Accessories</a></li>
+				                    <li><a href="" title="所有配饰">所有配饰</a></li>
+				                    <li><a href="" title="钱包 Wallets">钱包 Wallets</a></li>
+				                    <li><a href="" title="手表 Watches">手表 Watches</a></li>
+				                    <li><a href="" title="太阳眼镜 Sunglasses">太阳眼镜 Sunglasses</a></li>
+				                    <li><a href="" title="腰带 Belts">腰带 Belts</a></li>
+				                    <li><a href="" title="围巾 Scarf">围巾 Scarf</a></li>
+				                    <li><a href="" title="领带 Ties">领带 Ties</a></li>
+				                    <li><a href="" title="数码周边 Technology">数码周边 Technology</a></li>
+				                    <li><a href="" title="小配件 Small Acc.">小配件 Small Acc.</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="鞋履 Shoes">鞋履 Shoes</a></li>
+				                    <li><a href="" title="所有鞋履">所有鞋履</a></li>
+				                    <li><a href="" title="平底鞋 Flat Shoes">平底鞋 Flat Shoes</a></li>
+				                    <li><a href="" title="休闲皮鞋 Casual Shoes">休闲皮鞋 Casual Shoes</a></li>
+				                    <li><a href="" title="正装皮鞋 Business Shoes">正装皮鞋 Business Shoes</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="服装 Clothes">服装 Clothes</a></li>
+				                    <li><a href="" title="所有服装">所有服装</a></li>
+				                    <li><a href="" title="卫衣 Hoodies">卫衣 Hoodies</a></li>
+				                    <li><a href="" title="T恤/POLO T-Shirt/POLO">T恤/POLO T-Shirt/POLO</a></li>
+				                    <li><a href="" title="衬衫 Shirt">衬衫 Shirt</a></li>
+				                    <li><a href="" title="西装套装 Suit">西装套装 Suit</a></li>
+				                    <li><a href="" title="夹克 Jacket">夹克 Jacket</a></li>
+				                    <li><a href="" title="大衣 Coat">大衣 Coat</a></li>
+				                    <li><a href="" title="羽绒服/棉衣 Down Jacket">羽绒服/棉衣 Down Jacket</a></li>
+				                    <li><a href="" title="休闲裤 Casual Pants">休闲裤 Casual Pants</a></li>
+				                </ul>
+				            </div>   
+		                </div>
+		            </div>
+		            <div class="headerShadow" style="top:193px;right:622px;"></div>
+		        </div>
+		        
+		        
+		        <!--童装-->
+		        <div id="wear">
+		        	<div class="wear_list">
+		        		<div class="contaier">
+		        			<div style="padding-left:340px;overflow: hidden;">
+		        				<ul>
+				                    <li class="hnsTit"><a href="" title="儿童 Children">儿童 Children</a></li>
+				                    <li><a href="" title="T恤/POLO T-Shirt/POLO">T恤/POLO T-Shirt/POLO</a></li>
+				                    <li><a href="" title="衬衫 Shirt">衬衫 Shirt</a></li>
+				                    <li><a href="" title="卫衣 Hoodies">卫衣 Hoodies</a></li>
+				                    <li><a href="" title="羽绒服/棉服 Down Jackets">羽绒服/棉服 Down Jackets</a></li>
+				                    <li><a href="" title="连衣裙 Dresses">连衣裙 Dresses</a></li>
+				                    <li><a href="" title="休闲裤 Casual Pants">休闲裤 Casual Pants</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="热门品牌">热门品牌</a></li>
+				                    <li><a href="" title="Gucci 古驰">Gucci 古驰</a></li>
+				                    <li><a href="" title="Kenzo 高田贤三">Kenzo 高田贤三</a></li>
+				                    <li><a href="" title="Little Dickins &amp; Jones">Little Dickins &amp; Jones</a></li>
+				                    <li><a href="" title="RIDERS ON THE STORM">RIDERS ON THE STORM</a></li>
+				                </ul>
+			                </div>
+		                </div>
+		            </div>
+		        	<div class="headerShadow" style="top:193px;right:488px;"></div>
+		        </div>
+		        
+		        <!--腕表-->
+		        <div id="watch">
+		        	<div class="watch_list">
+		        		<div class="contaier">
+		        			<div style="padding-left:340px;overflow: hidden;">
+			        			<ul>
+				                	<li class="hnsTit"><a href="" title="男仕腕表" >男仕腕表</a></li>
+				                    <li class="hnsTit"><a href="" title="女士腕表">女士腕表</a></li>
+				                    <li class="hnsTit"><a href="" title="石英石" >石英石</a></li>
+				                    <li class="hnsTit"><a href="" title="机械表" >机械表</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="热门品牌" >热门品牌</a></li>
+				                    <li><a href="" title="sevenfriday">sevenfriday</a></li>
+				                    <li><a href="" title="Calvin Klein 卡尔文·克莱恩">Calvin Klein 卡尔文·克莱恩</a></li>
+				                    <li><a href="" title="Daniel Wellington 丹尼尔·惠灵顿" >Daniel Wellington 丹尼尔·惠灵顿</a></li>
+				                    <li><a href="" title="Tissot 天梭" >Tissot 天梭</a></li>
+				                    <li><a href="" title="OMEGA 欧米茄" >OMEGA 欧米茄</a></li>
+				                    <li><a href="" title="Longines 浪琴" >Longines 浪琴</a></li>
+				                </ul>
+				            </div>    
+		        		</div>
+		            	
+		            </div>
+		            <div class="headerShadow" style="top:193px;right:356px;"></div>
+		        </div>
+		        
+		        <!--品牌-->
+		        <div id="brand">
+		        	<div class="brand_list relative">
+		        		<div class="contaier">
+		        			<div style="padding-left:340px;overflow: hidden;">
+		        				<ul>
+				                    <li class="hnsTit"><a href="" title="国际大牌 Luxury Brand">国际大牌 Luxury Brand</a></li>
+				                    <li><a href="" title="Diesel 迪赛">Diesel 迪赛</a></li>
+				                    <li><a href="" title="Chloe 蔻依">Chloe 蔻依</a></li>
+				                    <li><a href="" title="Dior 迪奥">Dior 迪奥</a></li>
+				                    <li><a href="" title="BVLGARI 宝格丽">BVLGARI 宝格丽</a></li>
+				                    <li><a href="" title="3.1 Phillip Lim 菲利林">3.1 Phillip Lim 菲利林</a></li>
+				                    <li><a href="" title="Love Moschino 莫斯奇诺">Love Moschino 莫斯奇诺</a></li>
+				                    <li><a href="" title="Giuseppe Zanotti 朱塞佩·萨诺">Giuseppe Zanotti 朱塞佩·萨诺</a></li>
+				                    <li><a href="" title="Moschino 莫斯奇诺">Moschino 莫斯奇诺</a></li>
+				                </ul>
+				                <ul>
+				                    <li class="hnsTit"><a href="" title="设计师品牌 Designer Brand">设计师品牌 Designer Brand</a></li>
+				                    <li><a href="" title="MSGM">MSGM </a></li>
+				                    <li><a href="" title="Circle">Circle </a></li>
+				                    <li><a href="" title="Iceberg 冰山">Iceberg 冰山</a></li>
+				                    <li><a href="" title="MABYMA STUDIO">MABYMA STUDIO </a></li>
+				                    <li><a href="" title="Dune">Dune </a></li>
+				                    <li><a href="" title="ChloeChen">ChloeChen </a></li>
+				                    <li><a href="" title="Versus 范瑟丝">Versus 范瑟丝</a></li>
+				                    <li><a href="" title="P.A.R.O.S.H.">P.A.R.O.S.H.</a></li>
+				                </ul>
+		        			</div>
+		        			
+		        		</div>
+		            	
+		            </div>
+		            <div class="headerShadow" style="top:193px;right:222px;"></div>
+		        </div>
+		        
+			</div>
+			
+			
+			<!--中间购物车-->
+			<div class="conten" style="overflow:hidden;">
+				<div class="contaier" style="overflow:hidden;">
+					<div class="title_women">
+						女士
+					</div>
+					<div class="float_l" style="width:270px;">
+						
+						<div class="shop_women" style="font-size:12px;color:#555;">
+							<div class="list_ti">
+								<span>商品分类</span>
+								<span class="float_r" style="font-size: 24px;color:#CCCCCC;">-</span>
+							</div>
+							<div class="list_list">
+								<ul>
+									<li><span class="shaow"></span>包包</li>
+									<li><span class="shaow"></span>衣服</li>
+									<li><span class="shaow"></span>鞋子</li>
+									<li><span class="shaow"></span>配饰</li>
+									<li><span class="shaow"></span>美妆</li>
+									<li><span class="shaow"></span>腕表</li>
+									<li><span class="shaow"></span>户外</li>
+									<li><span class="shaow"></span>鞋子</li>
+									<li><span class="shaow"></span>配饰</li>
+									<li><span class="shaow"></span>美妆</li>
+									<li><span class="shaow"></span>腕表</li>
+									<li><span class="shaow"></span>户外</li>
+									
+								</ul>
+							</div>
+						</div>
+						<div class="list_ti" style="padding:0 10px;">
+							<span>品牌</span>
+							<span class="float_r" style="font-size: 24px;color:#CCCCCC;">+</span>
+						</div>
+						<div class="list_ti" style="padding:0 10px;margin-top:10px;">
+							<span>价格</span>
+							<span class="float_r" style="font-size: 24px;color:#CCCCCC;">+</span>
+						</div>
+						<div class="list_ti" style="padding:0 10px;margin-top:10px;">
+							<span>颜色</span>
+							<span class="float_r" style="font-size: 24px;color:#CCCCCC;">+</span>
+						</div>
+						<div class="list_ti" style="padding:0 10px;margin-top:10px;">
+							<span>省道</span>
+							<span class="float_r" style="font-size: 24px;color:#CCCCCC;">+</span>
+						</div>
+						<div class="list_ti" style="padding:0 10px;margin-top:10px;">
+							<span>折扣</span>
+							<span class="float_r" style="font-size: 24px;color:#CCCCCC;">+</span>
+						</div>
+					</div>
+					<div class="float_r">
+						<div id="con_r" style="width:900px;font-size:12px;overflow:hidden;">
+							<ul id="product_li" style="overflow:hidden;">
+								<!--<li class="product1" data-guid="pro3">
+									<a href="#" class="aaa">
+									<a href="#"><img class="simgFirst" data-original="../img/pro3.jpg" alt=""></a>
+									<div class="product_n"><a href="#">
+											<p>Dolce&Gabbana 杜嘉班纳 </p><b>牛皮 男仕 公文包</b>
+										</a></div>
+									<div class="product_p">
+										<div class="prop_l"><s>￥7450.00<br></s><span>￥6119.00</span></div>
+										<div class="prop_r"><a href="#"></a></div>
+									</div>
+									</a>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+						
+						
+						
+					</div>
+					
+				</div>	
+				<div class="clear">
+						
+				</div>
+					<!--猜你喜欢-->
+				<div class="like">
+					<div class="contaier" style="border:1px solid #E8E8E8;background:white;">
+						<div class="pro_pubtit">
+					        <div class="tabTitle">
+					            <div class="tabTitle_m">Product <span>Recommend</span></div>
+					            <p>相关推荐</p>
+					        </div>
+					    </div>
+						<!--<div class="run_pic">-->
+						<div id="like_shop" class="run_pic_like">
+							<div id="like_small">
+								<ul id="like_list" class="clearfix" style="margin: 0px; padding: 0px; position: relative;z-index: 1; width: 5240px; left: -1048px;">
+									<!--<li style="overflow: hidden; float: left; width: 220px; height: 382px;">
+						                <a title="LOUIS VUITTON x SUPREME 联名腰带" href="">
+						                    <img src="../img2/19192259c4f1bac0a97-160x192.jpg" width="160" height="192" alt=""><br>
+						                    <div class="list_name">
+						                        <span class="shop_name">Louis Vuitton 路易威登</span><br>
+						                        <span class="shop_type">LOUIS VUITTON x SUPREME 联名腰带</span>
+						                    </div>
+						                </a>
+						                <div class="shop_price">￥10000.00</div>
+						                <a class="shop_add" title="添加到购物袋" style="cursor: pointer;">添加到购物袋</a>
+						            </li>-->
+					                   
+								</ul>
+								<div id="car_prev"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>
+								<div id="car_next"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>
+							</div>
+			
+						<!--</div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!--在线咨询-->
+			<div class="consult absolute">
+				<div class="line_said">
+					<ul>
+				        <li class="consultApp">
+				            <a class="consult_app" href="" title="美西APP"><em></em></a>
+				            <div class="consult_app_m">
+				                <div class="consult_app_sj"></div>
+				                <div class="consult_app_code">
+				                    <img src="{% static 'img2/ewm_indexTop_1.png' %}" style="display:block;">
+				                </div>
+				            </div>
+				        </li>
+				        <li>
+				            <a class="consult_online" href="" title="在线咨询"><em></em></a>
+				        </li>
+				        <li>
+				            <a id="BizQQWPA" class="consult_qq" href="" title="QQ咨询"><em></em></a>
+				        </li>
+				        <li>
+				            <a class="consult_top" href="" title="返回顶部" style="border:none;"><em></em></a>
+				        </li>
+				    </ul>
+			    </div>
+			</div>
+			
+			
+			
+		
+			<!--购物指南-->
+			<div id="foot" style="background:white;width: 100%;margin-top: 30px;border-top: 1px solid #e8e8e8;">
+				<div class="contaier">
+					<div class="foot_top" style="margin: 0 auto;padding-top: 40px;width: 1200px; height: 232px;background: #fff;">
+						<div class="shop">
+							<ul>
+								<li class="foot_t">购物指南</li>
+								<li><a href="" title="购物流程">购物流程</a></li>
+								<li><a href="" title="配送方式">配送方式</a></li>
+							</ul>
+							<ul>
+								<li class="foot_t">支付方式</li>
+								<li><a href="" title="如何付款">如何付款</a></li>
+								<li><a href="" title="发票制度">发票制度</a></li>
+							</ul>
+							<ul>
+								<li class="foot_t">商品说明</li>
+								<li><a href="" title="商品尺码">商品尺码</a></li>
+								<li><a href="" title="商品包装">商品包装</a></li>
+							</ul>
+							<ul>
+								<li class="foot_t">客服中心</li>
+								<li><a href="" title="七天退换">七天退换</a></li>
+								<li><a href="" title="常见问题">常见问题</a></li>
+							</ul>
+						</div>
+	    				<div class="phone" style="text-align:center;font-size:12px;color:#555;">
+							<span style="color:#333;font-size:14px;">
+								客服电话
+							</span>
+							<h5 style="line-height:65px;font-size:24px;font-weight:900;">4000-250-630</h5>
+							<p style="line-height:30px;">工作日 08:30-21:30</p>
+							<p style="line-height:30px;">节假日 10:00-18:00</p>
+							
+	    				</div>
+						<div class="mail">
+							<p style="display: block;margin-bottom:20px;">订阅美西杂志</p>
+							<input type="text" name="" id="" placeholder="E-mail" style="outline:none;";/>
+							<div class="now">
+								即刻订阅
+							</div>
+						</div>
+						<div class="code">
+							<div class="code_l">
+								<span style="font-size:14px;color: #333;">美西APP</span>
+								<div style="margin-top:20px;border:1px solid #e8e8e8;padding:20px;">
+									<span style="display:block;width:67px;height:67px;">
+										<img src="{% static 'img/down_app.png' %}"/>
+									</span>
+								</div>
+								
+							</div>
+							<div class="code_r">
+								<span style="font-size:14px;color: #333;">官方微信</span>
+								<div style="margin-top:20px;border:1px solid #e8e8e8;padding:20px;">
+									<span style="display:block;width:67px;height:67px;">
+										<img src="{% static 'img/wechat.png' %}"/>
+									</span>
+								</div>
+								
+							</div>
+							<!--<div style="">-->
+								<p style="clear:both;text-align:right;line-height:60px;color:#999;font-size:12px;">
+									手机扫码即可下载美西APP或关注官方微信 
+								</p>
+							<!--</div>-->
+							
+						</div>
+	    
+					</div>
+					
+				</div>
+				<div class="foot_miu">
+					<div class="contaier relative">
+						<ul style="line-height:138px;color:white;font-size: 18px;height:138px;">
+							<li>
+								<div class="foot_icon icon1">
+								</div>
+								<span>100%正品保证</span>
+							</li>
+							<li>
+								<div class="foot_icon icon2">
+								</div>
+								<span>7天无忧退货</span>
+							</li>
+							<li>
+								<div class="foot_icon icon3">
+								</div>
+								<span>九年专注，品质保障</span>
+							</li>
+						</ul>
+					</div>
+					<div class="miu_line"></div>
+					
+					
+				</div>
+				<div class="footer">
+					<div class="contaier" style="padding-top:30px;">
+						<div class="footer_l float_l">
+							<ul>
+								<li style="border-left:none;"><a href="" title="媒体报道">媒体报道</a></li>
+								<li><a href="" title="正品保证">正品保证</a></li>
+								<li><a href="" title="业务合作">业务合作</a></li>
+								<li><a href="" title="隐私声明">隐私声明</a></li>
+								<li><a href="" title="加入美西">加入美西</a></li>
+								<li><a href="" title="联系我们">联系我们</a></li>
+							</ul>
+							<div class="clear"></div>
+							<div style="padding-left:12px;">
+								<p style="line-height:47px;">Copyright ©2008-2017，美西-高端时尚生活电商</p>
+							</div>
+							<div style="padding-left:12px;">
+								<span style="margin-right:20px;">沪ICP备09001221号</span>
+								<span style="margin-right:20px;">沪公网安备11010802017116号</span>
+							</div>
+						</div>
+						<div class="footer_miu float_l"></div>
+						
+						<div class="footer_r float_r" style="color: #999;font-size:12px;">	
+							<div style="text-align:center;margin: 5px 0 23px;">
+								<span>合作支持</span>
+							</div>
+							<ul>
+								<li class="par1" style="padding-top:5px;"><a href=""></a></li>
+								<li class="par2" style="padding-top:6px;">
+									<a href="">
+										<span style="margin-right: 4px;"></span>
+										<i class="float_l">银联特约商户</i>
+									</a>
+								</li>
+								<li class="par3" style="padding-top:5px;"><a href=""></a></li>
+								<li class="par4"><a href=""></a></li>
+								<li class="par5" style="padding-top:4px;"><a href=""></a></li>
+								<li class="par6" style="padding-right:0;padding-top:4px;"><a href=""></a></li>
+	
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+	</body>
+</html>
+
