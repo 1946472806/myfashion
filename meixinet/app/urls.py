@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'^list/$', views.list,name='list'),
     url(r'^goods/$', views.goods, name='goods'),
     url(r'^car/$', views.car, name='car'),
+    url(r'^delcar/(\d+)/$', views.delcar, name='delcar'),
     url(r'^balance/$', views.balance, name='balance'),
+    url(r'^collection/$', views.collection, name='collection'),
 ]

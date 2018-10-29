@@ -62,26 +62,26 @@ $(function(){
 //	在线咨询
 	second($(".consultApp"),$(".consult_app_m"));
 
-//	猜你喜欢手动轮播
-	$.get("/static/json/car.json", function(data2){
-		var arr2 = data2;
-		for (var k =0; k < arr2.length; k++) {
-			var obj2 = arr2[k];
-			var imgurl1 = "/static/"+obj2.img.substring(3,)
-			
-			//创建li节点
-			var li_car = $("<li class='car_list'></li>").appendTo("#like_list");
-			var a_car = $("<a href='' title="+obj2.wen+"></a>").appendTo(li_car);
-			$("<img class='car_img' src="+ imgurl1 +" alt="+obj2.alt+">").appendTo(a_car);
-			var div_car = $("<div class='list_name'></div>").appendTo(a_car);
-			$("<span class='shop_name'>"+ obj2.said1 +"</span></br><span class='shop_type'>"+obj2.said2+"</span>").appendTo(div_car);
-			$("<div class='shop_price'>"+"￥"+obj2.price+"</div>").appendTo(li_car);
-			$("<a class='shop_add' title="+obj2.title+">"+obj2.html+"</a>").appendTo(li_car);
-			
-		}
-		lunbo_car();	
-	})
-	
+// //	猜你喜欢手动轮播
+// 	$.get("/static/json/car.json", function(data2){
+// 		var arr2 = data2;
+// 		for (var k =0; k < arr2.length; k++) {
+// 			var obj2 = arr2[k];
+// 			var imgurl1 = "/static/"+obj2.img.substring(3,)
+//
+// 			//创建li节点
+// 			var li_car = $("<li class='car_list'></li>").appendTo("#like_list");
+// 			var a_car = $("<a href='' title="+obj2.wen+"></a>").appendTo(li_car);
+// 			$("<img class='car_img' src="+ imgurl1 +" alt="+obj2.alt+">").appendTo(a_car);
+// 			var div_car = $("<div class='list_name'></div>").appendTo(a_car);
+// 			$("<span class='shop_name'>"+ obj2.said1 +"</span></br><span class='shop_type'>"+obj2.said2+"</span>").appendTo(div_car);
+// 			$("<div class='shop_price'>"+"￥"+obj2.price+"</div>").appendTo(li_car);
+// 			$("<a class='shop_add' title="+obj2.title+">"+obj2.html+"</a>").appendTo(li_car);
+//
+// 		}
+	lunbo_car();
+	// })
+	//
 	//jq小图轮播
 	function lunbo_car(){	
 		var like_list = $("#like_list");

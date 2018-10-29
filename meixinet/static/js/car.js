@@ -322,10 +322,10 @@ $(function(){
 		
 	})
 
-	$(".goon").click(function(e){
-		e.preventDefault();
-		window.location.href="list.html";
-	})
+	// $(".goon").click(function(e){
+	// 	e.preventDefault();
+	// 	window.location.href="/list.html/";
+	// })
 	
 	
 // 	//获取购物车的cookie数据,并用节点显示

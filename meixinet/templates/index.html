@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -49,7 +49,7 @@
 					<span id="shop">
 						<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
 							<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							购物袋（<i id="total_num">0</i>）
+							购物袋（<i id="total_num">{{ num_all }}</i>）
 						</a>
 						
 					</span>
@@ -57,23 +57,26 @@
 		                <div class="header_sj" style="margin-left:140px;"></div>
 		                <div class="headercar">
 		                 
-		                    <div class="kong" style="text-align: center;padding:30px 0;font-size:12px;">您的购物袋是空的</div>
-		                	<div class="cart_out" style="display: none;">
+		                    <div class="kong" style="text-align: center;padding:30px 0;font-size:12px;"></div>
+		                	<div class="cart_out" style="display: block;">
 								<div class="car_t"><strong>我的商品</strong></div>
 								<div class="car_show">
 									<ul id="product2_li">
-										<!-- <li class="product2" style="overflow:hidden;">
-											<img src="../good_img/11343359ae1b49a5ee2-160x192.jpg" style="width:80px;height:80px;float:left;"/>
-											<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-												<a href="" style="font-size:16px;">VERSACE JEANS 范思哲牛仔</a><br />混纺 女士 卫衣
-												<br />
-												<span  style="color: #555555;"><i>￥</i>2900</span>&nbsp;&nbsp; X<span>1</span>
-											</p>
-											<div class="dell float_r">
-												<a href="">╳</a>
-											</div>
-											<div class="clear"></div>
-										</li> -->
+                                        {% for gcar in goodscar %}
+                                            <li class="product2" style="overflow:hidden;">
+                                                <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
+                                                <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                    <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
+                                                    <br />
+                                                    <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
+
+                                                </p>
+                                                <div class="dell float_r">
+                                                    <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        {% endfor %}
 										
 									</ul>
 									
@@ -82,7 +85,7 @@
 								<div class="car_b">
 									<div class="to_l">
 										<span>商品总计 ： ￥  </span>
-										<span class="totalprice"></span>
+										<span class="totalprice">{{ price_all }}</span>
 									</div>
 									<div class="to_r">
 										<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
@@ -402,7 +405,9 @@
 				<div id="banner">
 					<div class="contanier relative">
 						<ul id="list">
-							
+							{% for lunbo in lunbos %}
+                                <li><a href='' title="{{ lunbo.wen }}"><img src="{% static lunbo.img %}" alt="{{ lunbo.alt }}"></a></li>
+                            {% endfor %}
 						</ul>
 						<div id="prev">&lt;</div>
 						<div id="next">&gt;</div>
@@ -1110,7 +1115,15 @@
 						<div id="box1_btn1" style="width: 1200px;height: 265px; margin: 0 auto;overflow: hidden;">
 							<div id="small">
 								<ul id="list_small">
-								
+								    {% for lunbo1 in lunbos1 %}
+                                        <li>
+                                            <a href='' title="{{ lunbo1.wen }}">
+                                                <img class='productImg' src="{% static lunbo1.img %}" alt="{{ lunbo1.alt }}">
+                                                <p>"{{ lunbo1.said1 }}"</br>"{{ lunbo1.said2 }}"</p>
+                                            </a>
+                                            <div class='c_gray'>"{{ lunbo1.div }}"</div>
+                                        </li>
+                                    {% endfor %}
 								</ul>
 								<div id="prev_left"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>
 								<div id="next_right"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>
