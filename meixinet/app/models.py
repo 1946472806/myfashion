@@ -7,10 +7,11 @@ class User(models.Model):
     u_password = models.CharField(max_length=256)
     u_isdel = models.BooleanField(default=False)
     u_token = models.CharField(max_length=256,default='')
+    u_img = models.CharField(max_length=500,null=True) #用户头像位置信息
 
     @classmethod
-    def createuser(cls,tel,password,token):
-        user = cls(u_tel=tel,u_password=password,u_token=token,u_isdel=False)
+    def createuser(cls,tel,password,token,img):
+        user = cls(u_tel=tel,u_password=password,u_token=token,u_img=img,u_isdel=False)
         return user
 
 #大图轮播表

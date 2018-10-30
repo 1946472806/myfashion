@@ -35,7 +35,7 @@
 		<!--中间注册-->
 		<div class="reg relative">
 			<div class="reg_form absolute">
-				<form action="/register/" method="post">
+				<form action="/register/" method="post" enctype="multipart/form-data">
 					<div class="beauty">
 						注册美西账户
 					</div>
@@ -96,6 +96,9 @@
 						</div>
 						
 					</div>
+                    <div class="upimg">
+                        <span style="font-size: 15px">头像:</span><input type="file" value="上传头像" name="filename">
+                    </div>
 					<div id="tip" style="height: 30px;color: #cc3d3d;text-align:center;"><span>{{ msg }}</span></div>
 					<div class="regs">
 						<input id="ipt6" type="submit" style="cursor:pointer;outline:none;" value="注册">
@@ -105,6 +108,7 @@
 						<a href="{% url 'app:login' %}" style="color:#669aca;">登录</a>
 					</div>
 				</form>
+
 			</div>
 			
 			
@@ -201,4 +205,5 @@
 			
 		</div>
 	</body>
+
 </html>

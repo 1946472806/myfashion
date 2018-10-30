@@ -55,18 +55,19 @@
 									<div class="car_t"><strong>我的商品</strong></div>
 									<div class="car_show">
 										<ul id="product2_li" style="overflow: hidden;">
-											<!-- <li class="product2" style="overflow:hidden;">
-												<img src="../good_img/11343359ae1b49a5ee2-160x192.jpg" style="width:80px;height:80px;float:left;"/>
-												<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-													<a href="" style="font-size:16px;">VERSACE JEANS 范思哲牛仔</a><br />混纺 女士 卫衣
-													<br />
-													<span  style="color: #555555;"><i>￥</i>2900</span>&nbsp;&nbsp; X<span>1</span>
-												</p>
-												<div class="dell float_r">
-													<a href="">╳</a>
-												</div>
-												<div class="clear"></div>
-											</li> -->
+                                            <li class="product2" style="overflow:hidden;">
+                                                <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
+                                                <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                    <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
+                                                    <br />
+                                                    <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
+
+                                                </p>
+                                                <div class="dell float_r">
+                                                    <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
 											
 										</ul>
 										
@@ -508,7 +509,7 @@
 			                    <button type="button" class="btn_add_shopping float_l" style="width: 152px;height: 45px;">
 			                    	即刻购买
 			                    </button>
-			                    <button type="button" class="btn_buy_now float_l">加入购物袋</button>
+			                    <a href="{% url 'app:addtocar' gcar.id %}"><button type="button" class="btn_buy_now float_l">加入购物袋</button></a>
 			
 			                    <div class="pro_collect">
 			                        <!--是否收藏-->

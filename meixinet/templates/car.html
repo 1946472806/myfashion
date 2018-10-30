@@ -36,8 +36,10 @@
 					<div class="top_r">
 						<span>
                             {% if username %}
+                                <img src="{{ imgpath }}" style="height: 20px;width: 20px;">
                                 <a href="#" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
                             {% else %}
+                                <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
                                 <a href="{% url 'app:login' %}" title="登录" class="top_r_load">登录</a>
 							    <a href="{% url 'app:register' %}" title="注册">注册</a>
                             {% endif %}

@@ -33,13 +33,16 @@
 		            </div>
 					
 				</div>
+
 				<div class="top_r">
 					<span>
                         {% if username %}
+                            <img src="{{ imgpath }}" style="height: 20px;width: 20px;">
                             <a href="#" title="{{ username }}"  class="top_r_load">欢迎【{{ username }}】用户!</a>
                             <a href="#" title=""></a>
                         {% else %}
                             {#<a href="login.html" title="登录"  class="top_r_load">登录</a>#}
+                            <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
                             <a href="/login/" title="登录"  class="top_r_load">登录</a>
                             {#<a href="register.html" title="注册">注册</a>#}
                             <a href="/register/" title="注册">注册</a>
@@ -123,7 +126,7 @@
 					<li><a href="" title="首页">首页</a></li>
 					<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
 					<li><a href="" title="全球购">全球购</a></li>
-					<li><a href="list.html" title="女士" id="menu2">女士</a></li>
+					<li><a href="{% url 'app:list' %}" title="女士" id="menu2">女士</a></li>
 					<li><a href="" title="男仕" id="menu3">男仕</a></li>
 					<li><a href="" title="童装"id="menu4" >童装</a></li>
 					<li><a href="" title="腕表" id="menu5">腕表</a></li>

@@ -233,7 +233,7 @@ $(function(){
 		for (var k =0; k < arr_good.length; k++) {
 			var good_obj2 = arr_good[k];
 			var imgurl2 = "/static/"+good_obj2.img.substring(3,)
-			
+
 			//创建li节点
 			var li_cart = $("<li class='cart_list1'></li>").appendTo("#good_list1");
 			var a_cart = $("<a href='' title="+good_obj2.wen+"></a>").appendTo(li_cart);
@@ -242,11 +242,11 @@ $(function(){
 			$("<span class='shop_name'>"+ good_obj2.said1 +"</span></br><span class='shop_type'>"+good_obj2.said2+"</span>").appendTo(div_cart);
 			$("<div class='shop_price'>"+good_obj2.unit+good_obj2.price_good+"</div>").appendTo(li_cart);
 			$("<a class='shop_add' title="+good_obj2.title+">"+good_obj2.html+"</a>").appendTo(li_cart);
-			
+
 		}
-		lunbo_cart();	
+		lunbo_cart();
 	})
-	
+
 	//jq小图轮播
 	function lunbo_cart(){	
 		var good_list1 = $("#good_list1");
@@ -327,33 +327,33 @@ $(function(){
 	var arr1 = [];
 	$.get("/static/json/details.json", function(data1){
 		var arr1 = data1;
-		for (var j=0; j<arr1.length; j++) {
-			var obj1 = arr1[j];
-			var imgurl3 = "/static/"+obj1.img.substring(3,)
-			
-			//创建li节点
-			var li2 = $("<li class='product1'></li>").appendTo("#product_li");
-			var aaa = $("<a href=''class='aaa' title="+obj1.wen+"></a>").appendTo(li2);
-			var a = $("<a href=''title="+obj1.wen+"></a>").appendTo(aaa);
-			$("<img class='simgFirst' src="+ imgurl3 +" alt="+obj1.alt+">").appendTo(a);
-
-			var div = $("<div class='product_n'></div>").appendTo(aaa);
-			var aa = $("<a href='' style='color：#555555' title="+obj1.alt+"></a>").appendTo(div);
-			$("<p style='color：#555'>"+ obj1.said1 +"&nbsp;"+obj1.said2+"</p>").appendTo(aa);
-			$("<b style='color：#555'>"+ obj1.wen+"</b>").appendTo(aa);
-			
-			var div1 = $("<div class='product_p'></div>").appendTo(li2);
-			$("<div class='prop_l'><s style='color：#CCCCCC'>￥11520<br></s><span>"+obj1.unit+obj1.price_good+"</span></div>").appendTo(div1);
-			$("<div class='prop_r'><a href='#' class='aa'></a></div>").appendTo(div1);	
-		}
-		//点击商品
-		$("#product_li li").on("click", ".aaa", function(e){
-			e.preventDefault();
-			var index = $(this).parents().index(); 
-			var obj2 = arr1[index];
-			//进入详情页， 且将当前点击的商品的id传入
-			location.href = "goods.html?id=" + obj2.id;
-		})
+		// for (var j=0; j<arr1.length; j++) {
+		// 	var obj1 = arr1[j];
+		// 	var imgurl3 = "/static/"+obj1.img.substring(3,)
+        //
+		// 	//创建li节点
+		// 	var li2 = $("<li class='product1'></li>").appendTo("#product_li");
+		// 	var aaa = $("<a href=''class='aaa' title="+obj1.wen+"></a>").appendTo(li2);
+		// 	var a = $("<a href=''title="+obj1.wen+"></a>").appendTo(aaa);
+		// 	$("<img class='simgFirst' src="+ imgurl3 +" alt="+obj1.alt+">").appendTo(a);
+        //
+		// 	var div = $("<div class='product_n'></div>").appendTo(aaa);
+		// 	var aa = $("<a href='' style='color：#555555' title="+obj1.alt+"></a>").appendTo(div);
+		// 	$("<p style='color：#555'>"+ obj1.said1 +"&nbsp;"+obj1.said2+"</p>").appendTo(aa);
+		// 	$("<b style='color：#555'>"+ obj1.wen+"</b>").appendTo(aa);
+        //
+		// 	var div1 = $("<div class='product_p'></div>").appendTo(li2);
+		// 	$("<div class='prop_l'><s style='color：#CCCCCC'>￥11520<br></s><span>"+obj1.unit+obj1.price_good+"</span></div>").appendTo(div1);
+		// 	$("<div class='prop_r'><a href='#' class='aa'></a></div>").appendTo(div1);
+		// }
+		// //点击商品
+		// $("#product_li li").on("click", ".aaa", function(e){
+		// 	e.preventDefault();
+		// 	var index = $(this).parents().index();
+		// 	var obj2 = arr1[index];
+		// 	//进入详情页， 且将当前点击的商品的id传入
+		// 	location.href = "goods.html?id=" + obj2.id;
+		// })
 		
 		// 点击跳转到购物袋
 		$('#shop').click(function(e){

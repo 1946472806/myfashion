@@ -35,8 +35,10 @@
 					<div class="top_r">
 						<span>
                             {% if username %}
+                                <img src="{{ imgpath }} " style="height: 20px;width: 20px;display: inline-block;">
                                 <a href="#" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
                             {% else %}
+                                <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
                                 <a href="{% url 'app:login' %}" title="登录" class="top_r_load">登录</a>
 							    <a href="{% url 'app:register' %}" title="注册">注册</a>
                             {% endif %}
@@ -403,18 +405,30 @@
 					<div class="float_r">
 						<div id="con_r" style="width:900px;font-size:12px;overflow:hidden;">
 							<ul id="product_li" style="overflow:hidden;">
-								<!--<li class="product1" data-guid="pro3">
-									<a href="#" class="aaa">
-									<a href="#"><img class="simgFirst" data-original="../img/pro3.jpg" alt=""></a>
-									<div class="product_n"><a href="#">
-											<p>Dolce&Gabbana 杜嘉班纳 </p><b>牛皮 男仕 公文包</b>
-										</a></div>
-									<div class="product_p">
-										<div class="prop_l"><s>￥7450.00<br></s><span>￥6119.00</span></div>
-										<div class="prop_r"><a href="#"></a></div>
-									</div>
-									</a>
-								</li>-->
+                            {% for listc in listcar %}
+                               <li class="product1">
+                                   <a href="{% url 'app:goods' listc.id %}" class="aaa" title="{{ listc.wen }}">
+                                       <a href="{% url 'app:goods' listc.id %}" title="{{ listc.wen }}">
+                                           <img class="simgFirst" src="#####################" alt="{{ listc.alt }}">
+                                       </a>
+                                       <div class="product_n">
+                                           <a href="" style="color：#555555" title="{{ listc.wen }}">
+                                               <p style="color：#555">{{ listc.said1 }}&nbsp;{{ listc.said2 }}</p>
+                                               <b style="color：#555">{{ listc.wen }}</b>
+                                           </a>
+                                       </div>
+                                   </a>
+                                   <div class="product_p">
+                                       <div class="prop_l">
+                                           <s style="color：#CCCCCC">￥11520<br>
+                                           </s>
+                                           <span>{{ listc.unit }}{{ listc.price_good }}</span>
+                                       </div>
+                                       <div class="prop_r"><a href="#" class="aa"></a>
+                                       </div>
+                                   </div>
+                               </li>
+                               {% endfor %}
 							</ul>
 						</div>
 					</div>
