@@ -338,332 +338,316 @@ $(function(){
 // 		$(".top_r_load").html("登录");
 //
 // 	}
-	refresh();
-	function refresh() {
-		var arr = $.cookie("goods");
-		if (arr) {
-			arr = JSON.parse(arr);
-			if(arr.length>0){
-				$(".empty_car").css({"display":"none"});
-				$(".full_car").css({"display":"block"});
-				$(".kong").css({"display":"none"});
-				$(".cart_out").css({"display":"block"});
-			}
-			else{
-				$(".empty_car").css({"display":"block"});
-				$(".full_car").css({"display":"none"});
-				$(".kong").css({"display":"block"});
-				$(".cart_out").css({"display":"none"});
-			}
-			
-			
-			//先清除旧节点
-			$("#shop_ck").empty();
-			$("#product2_li").empty();
-			
-			//再添加新节点
-			var totalPrice = 0; //总价
-			var total_num =0 ;
-			//遍历数组
-			for (var i=0; i<arr.length; i++) {
-				
-				var obj = arr[i];
-				var imgurl2 = "/static/"+obj.img.substring(3,);
-				
-				//创建li节点
-				var tr = $("<tr></tr>").appendTo("#shop_ck");
-				var td = $("<td  class='shop_ck1'></td>").appendTo(tr);
-				//是否选中
-				if (obj.checked) {
-					$('<input class="ck_box float_l" type="checkbox" checked="checked" />').appendTo(td);
+// 	refresh();
+// 	function refresh() {
+// 		var arr = $.cookie("goods");
+// 		if (arr) {
+// 			arr = JSON.parse(arr);
+// 			if(arr.length>0){
+// 				$(".empty_car").css({"display":"none"});
+// 				$(".full_car").css({"display":"block"});
+// 				$(".kong").css({"display":"none"});
+// 				$(".cart_out").css({"display":"block"});
+// 			}
+// 			else{
+// 				$(".empty_car").css({"display":"block"});
+// 				$(".full_car").css({"display":"none"});
+// 				$(".kong").css({"display":"block"});
+// 				$(".cart_out").css({"display":"none"});
+// 			}
+//
+//
+// 			//先清除旧节点
+// 			$("#shop_ck").empty();
+// 			$("#product2_li").empty();
+//
+// 			//再添加新节点
+// 			var totalPrice = 0; //总价
+// 			var total_num =0 ;
+// 			//遍历数组
+// 			for (var i=0; i<arr.length; i++) {
+//
+// 				var obj = arr[i];
+// 				var imgurl2 = "/static/"+obj.img.substring(3,);
+//
+// 				//创建li节点
+// 				var tr = $("<tr></tr>").appendTo("#shop_ck");
+// 				var td = $("<td  class='shop_ck1'></td>").appendTo(tr);
+// 				//是否选中
+// 				if (obj.checked) {
+// 					$('<input class="ck_box float_l" type="checkbox" checked="checked" />').appendTo(td);
+// 				}
+// 				else {
+// 					$('<input class="ck_box float_l" type="checkbox" />').appendTo(td);
+// 				}
+// 				var shop_div = $("<div class='shop_ck_img float_l'></div>").appendTo(td);
+// 				$('<img height="90" src="'+ imgurl2 +'" >').appendTo(shop_div);
+// 				var shop_div1 = $("<div class='shop_img_said float_l'></div>").appendTo(td);
+// 				$('<a href="javascript:;" class="goods_dian">'+obj.said1+obj.said2+'<br/>'+obj.wen+'</a>').appendTo(shop_div1);
+// 				var td1 = $("<td class='shop_ck_price'>"+obj.unit+obj.price_good+"</td>").appendTo(tr);
+// 				var td2 = $("<td class='shop_ck_num'></td>").appendTo(tr);
+// 				var shop_div2 = $("<div class='shop_ck_num1'></div>").appendTo(td2);
+// //				<input class="reduce" type="button" value="-" />
+// 				$('<input class="shop_jian" type="button" value="-" />').appendTo(shop_div2);
+// 				$('<input class="ck_val" type="text" value="'+obj.num+'" />').appendTo(shop_div2);
+// 				$('<input class="shop_jia" type="button" value="+" />').appendTo(shop_div2);
+// 				var td3 = $("<td class='shop_ck2'>"+obj.unit+ obj.price_good * obj.num +"</td>").appendTo(tr);
+// 				var td4 = $("<td class='shop_ck3'></td>").appendTo(tr);
+// 				var shop_div3 = $("<div style='text-align:left;margin-left:48px;'></div>").appendTo(td4);
+// 				$('<a class="cp_fav" href="" title="加入收藏">加入收藏</a><br /><br />').appendTo(shop_div3);
+// 				$('<a class="cp_del" href="" title="删除">删除</a>').appendTo(shop_div3);
+//
+// 				li3();
+// 				function li3(){
+// 					var li3 = $("<li class='product2'></li>").appendTo("#product2_li");
+// 					$('<img src="'+imgurl2+'" style="width:80px;height:80px;float:left;"/>').appendTo(li3);
+// 					var p_li = $('<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;"></p>').appendTo(li3);
+// 					$('<a href="" style="font-size:16px;">'+obj.said1 +'&nbsp;'+obj.said2+'<br/>'+obj.wen+'<a><br/>').appendTo(p_li);
+// 					$('<span  style="color: #555555;"><i>'+obj.unit+'</i>'+obj.price_good+'</span>&nbsp;&nbsp; X<span>'+obj.num+'</span>').appendTo(p_li);
+// 					$('<div class="dell float_r"><a href="" style="font-size:28px;" class="del">╳</a></div>').appendTo(li3);
+// 					$('<div class="clear"></div>').appendTo(li3);
+//
+// 				}
+//
+// 				//计算总价
+// 				if (obj.checked) {
+// 					totalPrice += obj.price_good * obj.num;
+// 					total_num += obj.num;
+// 				}
+//
+// 			}
+// 			//点击商品
+// 			$(".shop_img_said").on("click", ".goods_dian", function(e){
+// 				e.preventDefault();
+// 				var index = $(this).parent().parent().parent().index();
+// 				console.log(index);
+// 				var obj = arr[index];
+// 				//进入详情页， 且将当前点击的商品的id传入
+// 				location.href = "goods.html?id=" + obj.id;
+// 			})
+//
+// 			//显示总价
+// 			$("#total").html("￥"+totalPrice);
+// 			$(".totalprice").html(totalPrice);
+// 			$("#total_num").html(total_num);
+// 			$("#total_nums").html(total_num);//购物车页下面总数
+// 		}
+// 		else {
+// 			console.log("购物车还没有商品， 请先购买！");
+// 			$(".empty_car").css({"display":"block"});
+// 			$(".shop_ck").css({"display":"none"});
+// 			$(".kong").css({"display":"block"});
+// 			$(".cart_out").css({"display":"none"});
+// 			$(".full_car").hide();
+// 		}
+// 	}
+//
+//
+//
+// 	//+
+// 	$("#shop_ck").on("click", ".shop_jia", function(e){
+// 		e.preventDefault();
+// 		var index = $(this).index("#shop_ck .shop_jia");
+//
+// //		//获取cookie并修改
+// 		var arr = JSON.parse($.cookie("goods"));
+// 		arr[index].num++;
+//
+// //		//覆盖原来的cookie
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+// //		//刷新节点数据
+// 		refresh();
+// 	})
+//
+// 	//-
+// 	$("#shop_ck").on("click", ".shop_jian", function(){
+// //		$(".shop_jia").unbind();
+// 		var index = $(this).index("#shop_ck .shop_jian");
+//
+// 		//获取cookie并修改
+// 		var arr = JSON.parse($.cookie("goods"));
+//
+// 		arr[index].num--;
+// 		if (arr[index].num < 1) {
+// 			arr[index].num = 1;
+// 		}
+// 		//覆盖原来的cookie
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+//
+// 		//刷新节点数据
+// 		refresh();
+// 	})
+// //
+// //
+// //	//删除
+// 	$("#product2_li").on("click", ".del", function(e){
+// 		e.preventDefault();
+// 		var index = $(this).index("#product2_li .del");
+//
+// 		//获取cookie并修改
+// 		var arr = JSON.parse($.cookie("goods"));
+// 		var bbb= arr.splice(index, 1); //删除数组arr的第index个
+// 		//覆盖原来的cookie
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+//
+// 		isAllSelect();
+//
+// 		//刷新节点数据
+// 		refresh();
+// 	})
+// 	//删除
+// 	$("#shop_ck").on("click", ".cp_del", function(e){
+// 		e.preventDefault();
+// 		var index = $(this).index("#shop_ck .cp_del");
+// 		//获取cookie并修改
+// 		var arr = JSON.parse($.cookie("goods"));
+// 		var bbb= arr.splice(index, 1); //删除数组arr的第index个
+// 		//覆盖原来的cookie
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+//
+// 		isAllSelect();
+//
+// 		//刷新节点数据
+// 		refresh();
+//
+// 	})
+//
+//
+//
+// 	//勾选
+// 	$("#shop_ck").on("click", ".ck_box", function(){
+// 		var index = $(this).index("#shop_ck .ck_box");
+//
+// 		//获取cookie并修改
+// 		var arr = JSON.parse($.cookie("goods"));
+// 		arr[index].checked = !arr[index].checked;
+//
+// 		//覆盖原来的cookie
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+//
+// 		//判断是否全选了
+// 		isAllSelect();
+//
+// 		//刷新节点数据
+// 		refresh();
+// 	})
+//
+// 	//判断是否全部勾选了
+// 	isAllSelect();
+// 	function isAllSelect(){
+//
+// 		//判断是否为undefined
+// 		var arr = $.cookie("goods");
+// 		if (!arr) {
+// 			return;
+// 		}
+//
+// 		var arr = JSON.parse($.cookie("goods"));
+//
+// 		var sum = 0;
+// 		for (var i=0; i<arr.length; i++) {
+// 			sum += arr[i].checked;
+// 		}
+//
+// 		//全选了
+// 		if (arr.length!=0 && sum==arr.length) {
+// 			$("#allSelect").prop("checked", true);
+// 			$("#allSelect1").prop("checked", true);
+//
+// 		}
+// 		//未全选
+// 		else {
+// 			$("#allSelect").prop("checked", false);
+// 			$("#allSelect1").prop("checked", false);
+//
+// 		}
+// 	}
+//
+// 	//全选
+// 	$("#allSelect").click(function(){
+// 		//判断是否为undefined
+// 		var arr = $.cookie("goods");
+// 		if (!arr) {
+// 			return;
+// 		}
+//
+// 		var arr = JSON.parse($.cookie("goods"));
+// 		for (var i=0; i<arr.length; i++) {
+// 			//全选
+// 			if ($(this).prop("checked")){
+// 				arr[i].checked = true;
+//
+// 			}
+// 			//全不选
+// 			else {
+// 				arr[i].checked = false;
+// 			}
+// 		}
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+//
+// 		//刷新
+// 		refresh();
+// 	})
+// 	$("#allSelect1").click(function(){
+// 		//判断是否为undefined
+// 		var arr = $.cookie("goods");
+// 		if (!arr) {
+// 			return;
+// 		}
+//
+// 		var arr = JSON.parse($.cookie("goods"));
+// 		for (var i=0; i<arr.length; i++) {
+// 			//全选
+// 			if ($(this).prop("checked")){
+// 				arr[i].checked = true;
+// 			}
+// 			//全不选
+// 			else {
+// 				arr[i].checked = false;
+// 			}
+// 		}
+// 		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+//
+// 		//刷新
+// 		refresh();
+// 	})
+//
+// 	//删除选中
+// 	$("#delSelect").click(function(){
+//
+// 		//获取cookie并修改
+// 		var arr = JSON.parse($.cookie("goods"));
+//
+// 		//将未选中的商品添加到新数组newArr中，再将newArr保存到cookie
+// 		var newArr = [];
+// 		for (var i=0; i<arr.length; i++) {
+// 			if (!arr[i].checked) {
+// 				newArr.push(arr[i]);
+// 			}
+// 		}
+//
+// 		//覆盖原来的cookie
+// 		$.cookie("goods", JSON.stringify(newArr), {expires:30, path:"/"});
+//
+// 		isAllSelect();
+//
+// 		//刷新节点数据
+// 		refresh();
+// 	})
+
+var num = $("#total_num").html()
+	if(num>0){
+					$(".empty_car").css({"display":"none"});
+					$(".full_car").css({"display":"block"});
+					$(".kong").css({"display":"none"});
+					$(".cart_out").css({"display":"block"});
 				}
-				else {
-					$('<input class="ck_box float_l" type="checkbox" />').appendTo(td);
+				else{
+					$(".empty_car").css({"display":"block"});
+					$(".full_car").css({"display":"none"});
+					$(".kong").css({"display":"block"});
+					$(".cart_out").css({"display":"none"});
 				}
-				var shop_div = $("<div class='shop_ck_img float_l'></div>").appendTo(td);
-				$('<img height="90" src="'+ imgurl2 +'" >').appendTo(shop_div);
-				var shop_div1 = $("<div class='shop_img_said float_l'></div>").appendTo(td);
-				$('<a href="javascript:;" class="goods_dian">'+obj.said1+obj.said2+'<br/>'+obj.wen+'</a>').appendTo(shop_div1);
-				var td1 = $("<td class='shop_ck_price'>"+obj.unit+obj.price_good+"</td>").appendTo(tr);
-				var td2 = $("<td class='shop_ck_num'></td>").appendTo(tr);
-				var shop_div2 = $("<div class='shop_ck_num1'></div>").appendTo(td2);
-//				<input class="reduce" type="button" value="-" />
-				$('<input class="shop_jian" type="button" value="-" />').appendTo(shop_div2);
-				$('<input class="ck_val" type="text" value="'+obj.num+'" />').appendTo(shop_div2);
-				$('<input class="shop_jia" type="button" value="+" />').appendTo(shop_div2);
-				var td3 = $("<td class='shop_ck2'>"+obj.unit+ obj.price_good * obj.num +"</td>").appendTo(tr);
-				var td4 = $("<td class='shop_ck3'></td>").appendTo(tr);
-				var shop_div3 = $("<div style='text-align:left;margin-left:48px;'></div>").appendTo(td4);
-				$('<a class="cp_fav" href="" title="加入收藏">加入收藏</a><br /><br />').appendTo(shop_div3);
-				$('<a class="cp_del" href="" title="删除">删除</a>').appendTo(shop_div3);
-				
-				li3();
-				function li3(){
-					var li3 = $("<li class='product2'></li>").appendTo("#product2_li");
-					$('<img src="'+imgurl2+'" style="width:80px;height:80px;float:left;"/>').appendTo(li3);
-					var p_li = $('<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;"></p>').appendTo(li3);
-					$('<a href="" style="font-size:16px;">'+obj.said1 +'&nbsp;'+obj.said2+'<br/>'+obj.wen+'<a><br/>').appendTo(p_li);
-					$('<span  style="color: #555555;"><i>'+obj.unit+'</i>'+obj.price_good+'</span>&nbsp;&nbsp; X<span>'+obj.num+'</span>').appendTo(p_li);
-					$('<div class="dell float_r"><a href="" style="font-size:28px;" class="del">╳</a></div>').appendTo(li3);	
-					$('<div class="clear"></div>').appendTo(li3);
 
-				}
-				
-				//计算总价
-				if (obj.checked) {
-					totalPrice += obj.price_good * obj.num;
-					total_num += obj.num;
-				}
-				
-			}
-			//点击商品
-			$(".shop_img_said").on("click", ".goods_dian", function(e){
-				e.preventDefault();
-				var index = $(this).parent().parent().parent().index(); 
-				console.log(index);
-				var obj = arr[index];
-				//进入详情页， 且将当前点击的商品的id传入
-				location.href = "goods.html?id=" + obj.id;
-			})
-			
-			//显示总价
-			$("#total").html("￥"+totalPrice);
-			$(".totalprice").html(totalPrice);
-			$("#total_num").html(total_num);
-			$("#total_nums").html(total_num);//购物车页下面总数
-		}
-		else {
-			console.log("购物车还没有商品， 请先购买！");
-			$(".empty_car").css({"display":"block"});
-			$(".shop_ck").css({"display":"none"});
-			$(".kong").css({"display":"block"});
-			$(".cart_out").css({"display":"none"});
-			$(".full_car").hide();
-		}
-	}
-	
-	
-	
-	//+
-	$("#shop_ck").on("click", ".shop_jia", function(e){
-		e.preventDefault();
-		var index = $(this).index("#shop_ck .shop_jia");
-		
-//		//获取cookie并修改
-		var arr = JSON.parse($.cookie("goods"));
-		arr[index].num++;
-		
-//		//覆盖原来的cookie
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-//		//刷新节点数据
-		refresh();
-	})
-	
-	//-
-	$("#shop_ck").on("click", ".shop_jian", function(){
-//		$(".shop_jia").unbind();
-		var index = $(this).index("#shop_ck .shop_jian");		
-
-		//获取cookie并修改
-		var arr = JSON.parse($.cookie("goods"));
-
-		arr[index].num--;
-		if (arr[index].num < 1) {
-			arr[index].num = 1;
-		}
-		//覆盖原来的cookie
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-		
-		//刷新节点数据
-		refresh();
-	})
-//	
-//	
-//	//删除
-	$("#product2_li").on("click", ".del", function(e){
-		e.preventDefault();
-		var index = $(this).index("#product2_li .del");
-		
-		//获取cookie并修改
-		var arr = JSON.parse($.cookie("goods"));
-		var bbb= arr.splice(index, 1); //删除数组arr的第index个
-		//覆盖原来的cookie
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-		
-		isAllSelect();
-		
-		//刷新节点数据
-		refresh();
-	})
-	//删除
-	$("#shop_ck").on("click", ".cp_del", function(e){
-		e.preventDefault();
-		var index = $(this).index("#shop_ck .cp_del");
-		//获取cookie并修改
-		var arr = JSON.parse($.cookie("goods"));
-		var bbb= arr.splice(index, 1); //删除数组arr的第index个
-		//覆盖原来的cookie
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-		
-		isAllSelect();
-		
-		//刷新节点数据
-		refresh();
-		
-	})
-	
-	
-	
-	//勾选
-	$("#shop_ck").on("click", ".ck_box", function(){
-		var index = $(this).index("#shop_ck .ck_box");
-		
-		//获取cookie并修改
-		var arr = JSON.parse($.cookie("goods"));
-		arr[index].checked = !arr[index].checked;
-		
-		//覆盖原来的cookie
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-		
-		//判断是否全选了
-		isAllSelect();
-		
-		//刷新节点数据
-		refresh();
-	})
-	
-	//判断是否全部勾选了
-	isAllSelect();
-	function isAllSelect(){
-		
-		//判断是否为undefined
-		var arr = $.cookie("goods");
-		if (!arr) {
-			return;
-		}
-		
-		var arr = JSON.parse($.cookie("goods"));
-		
-		var sum = 0;
-		for (var i=0; i<arr.length; i++) {
-			sum += arr[i].checked;
-		}
-		
-		//全选了
-		if (arr.length!=0 && sum==arr.length) {
-			$("#allSelect").prop("checked", true);
-			$("#allSelect1").prop("checked", true);
-			
-		}
-		//未全选
-		else {
-			$("#allSelect").prop("checked", false);
-			$("#allSelect1").prop("checked", false);
-			
-		}
-	}
-	
-	//全选
-	$("#allSelect").click(function(){
-		//判断是否为undefined
-		var arr = $.cookie("goods");
-		if (!arr) {
-			return;
-		}
-		
-		var arr = JSON.parse($.cookie("goods"));
-		for (var i=0; i<arr.length; i++) {
-			//全选
-			if ($(this).prop("checked")){
-				arr[i].checked = true;
-				
-			}
-			//全不选
-			else {
-				arr[i].checked = false;
-			}
-		}
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-		
-		//刷新
-		refresh();
-	})
-	$("#allSelect1").click(function(){
-		//判断是否为undefined
-		var arr = $.cookie("goods");
-		if (!arr) {
-			return;
-		}
-		
-		var arr = JSON.parse($.cookie("goods"));
-		for (var i=0; i<arr.length; i++) {
-			//全选
-			if ($(this).prop("checked")){
-				arr[i].checked = true;
-			}
-			//全不选
-			else {
-				arr[i].checked = false;
-			}
-		}
-		$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-		
-		//刷新
-		refresh();
-	})
-	
-	//删除选中
-	$("#delSelect").click(function(){
-		
-		//获取cookie并修改
-		var arr = JSON.parse($.cookie("goods"));
-		
-		//将未选中的商品添加到新数组newArr中，再将newArr保存到cookie
-		var newArr = [];
-		for (var i=0; i<arr.length; i++) {
-			if (!arr[i].checked) {
-				newArr.push(arr[i]);
-			}
-		}
-		
-		//覆盖原来的cookie
-		$.cookie("goods", JSON.stringify(newArr), {expires:30, path:"/"});
-		
-		isAllSelect();
-		
-		//刷新节点数据
-		refresh();
-	})
-
-
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
 	
 })

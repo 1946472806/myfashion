@@ -48,7 +48,7 @@
 						<span id="shop">
 							<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
 								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								购物袋（<i id="total_num">0</i>）
+								购物袋（<i id="total_num">{{ num_all|default:0 }}</i>）
 							</a>
 							
 						</span>
@@ -61,18 +61,21 @@
 									<div class="car_t"><strong>我的商品</strong></div>
 									<div class="car_show">
 										<ul id="product2_li">
-											<!-- <li class="product2" style="overflow:hidden;">
-												<img src="../good_img/11343359ae1b49a5ee2-160x192.jpg" style="width:80px;height:80px;float:left;"/>
-												<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-													<a href="" style="font-size:16px;">VERSACE JEANS 范思哲牛仔</a><br />混纺 女士 卫衣
-													<br />
-													<span  style="color: #555555;"><i>￥</i>2900</span>&nbsp;&nbsp; X<span>1</span>
-												</p>
-												<div class="dell float_r">
-													<a href="">╳</a>
-												</div>
-												<div class="clear"></div>
-											</li> -->
+											{% for gcar in goodscar %}
+                                                <li class="product2" style="overflow:hidden;">
+                                                    <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
+                                                    <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                        <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
+                                                        <br />
+                                                        <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
+
+                                                    </p>
+                                                    <div class="dell float_r">
+                                                        <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </li>
+                                            {% endfor %}
 											
 										</ul>
 										
@@ -81,7 +84,7 @@
 									<div class="car_b">
 										<div class="to_l">
 											<span>商品总计 ： ￥  </span>
-											<span class="totalprice"></span>
+											<span class="totalprice">{{ price_all|default:0 }}</span>
 										</div>
 										<div class="to_r">
 											<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
@@ -119,7 +122,7 @@
 						<li><a href="" title="首页">首页</a></li>
 						<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
 						<li><a href="" title="全球购">全球购</a></li>
-						<li><a href="list.html" title="女士" id="menu2">女士</a></li>
+						<li><a href="{% url 'app:list' %}" title="女士" id="menu2">女士</a></li>
 						<li><a href="" title="男仕" id="menu3">男仕</a></li>
 						<li><a href="" title="童装"id="menu4" >童装</a></li>
 						<li><a href="" title="腕表" id="menu5">腕表</a></li>
@@ -395,44 +398,45 @@
 					
 						<div class="shop_ck">
 							<table id="shop_ck" style="overflow:hidden;width:100%;">
-								<tr>
-									<!--<td  class="relative shop_ck1">
-										<input type="checkbox" class="ck_box">
-										<div class="shop_ck_img float_l">
-											<img src="../good_img/h-123359-2.jpg" height="90"/>
-										</div>
-										<div class="shop_img_said float_l">
-											
-											<a href="">
-												VERSACE JEANS 范思哲牛仔
-												<br />	聚酯纤维混纺 女士 卫衣
-											</a>
-											
-										</div>
-									</td>
-									<td class="shop_ck_price">
-										￥2900.00
-									</td>
-									<td class="shop_ck_num">
-										<div class="shop_ck_num1">
-											<a href="" class="shop_jian">-</a>
-											<input type="text" class="ck_val" value="1"/>
-											<a href=""class="shop_jia">+</a>
-										</div>
-									</td>
-									<td class="shop_ck2">
-										<!-- <span>￥5800.00</span> -->
-										<!--￥5800.00-->
-									<!--</td>
-									<td class="shop_ck3">
-										<div style="text-align:left;margin-left:48px;">
-											<a class="cp_fav" href="" title="加入收藏">加入收藏</a>
-											<br /><br />
-											<a class="cp_del" href="" title="删除">删除</a>
-										</div>
-										
-									</td>
-								</tr>---->
+                                {% for good in goodscar %}
+                                    <tr>
+                                        <td  class="relative shop_ck1">
+                                            <input type="checkbox" class="ck_box">
+                                            <div class="shop_ck_img float_l">
+                                                <img src="{% static good.img %}" height="90"/>
+                                            </div>
+                                            <div class="shop_img_said float_l">
+
+                                                <a href="">
+                                                    {{ good.said1 }} {{ good.said2 }}
+                                                    <br />	{{ good.wen }}
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                        <td class="shop_ck_price">
+                                            {{ good.unit }}{{ good.price_good }}
+                                        </td>
+                                        <td class="shop_ck_num">
+                                            <div class="shop_ck_num1">
+                                                <a href="" class="shop_jian">-</a>
+                                                <input type="text" class="ck_val" value="{{ good.num }}"/>
+                                                <a href=""class="shop_jia">+</a>
+                                            </div>
+                                        </td>
+                                        <td class="shop_ck2">
+                                            <span>{{ good.unit }}{{ good.price_good }}</span>
+                                        </td>
+                                        <td class="shop_ck3">
+                                            <div style="text-align:left;margin-left:48px;">
+                                                <a class="cp_fav" href="{% url 'app:collection' good.good_id %}" title="加入收藏">加入收藏</a>
+                                                <br /><br />
+                                                <a class="cp_del" href="" title="删除">删除</a>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                {% endfor %}
 							</table>
 						</div>
 			
@@ -444,8 +448,8 @@
 							</div>
 							<span class="float_l" style="padding-left:30px"><a href="" id="delSelect">删除选中商品</a></span>
 							<span class="float_l"style="padding-left:40px"><a href="">加入收藏</a></span>
-							<div class="float_r" style="bottom:1px solid #e8e8e8">已选商品<i id="total_nums" style="color: red;font-weight:bolder;">0</i>件
-								<span style="margin-left: 20px;">合计（不含运费、税费）：<span id="total" style="color:red;font-size:18px;font-weight:bolder;margin-right:30px">0</span></span>
+							<div class="float_r" style="bottom:1px solid #e8e8e8">已选商品<i id="total_nums" style="color: red;font-weight:bolder;">{{ num_all|default:0 }}</i>件
+								<span style="margin-left: 20px;">合计（不含运费、税费）：<span id="total" style="color:red;font-size:18px;font-weight:bolder;margin-right:30px">{{ num_all|default:0 }}</span></span>
 								<p style="text-align: right;margin-right: 40px">活动折扣：-￥0.00</p>
 							</div>
 							<div class="clearfix"></div>

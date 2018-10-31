@@ -37,12 +37,12 @@
 				<div class="top_r">
 					<span>
                         {% if username %}
-                            <img src="{{ imgpath }}" style="height: 20px;width: 20px;">
+                            <img src="{{ imgpath }} " style="height: 20px;width: 20px;display: inline-block;">
                             <a href="#" title="{{ username }}"  class="top_r_load">欢迎【{{ username }}】用户!</a>
                             <a href="#" title=""></a>
                         {% else %}
                             {#<a href="login.html" title="登录"  class="top_r_load">登录</a>#}
-                            <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
+                             <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
                             <a href="/login/" title="登录"  class="top_r_load">登录</a>
                             {#<a href="register.html" title="注册">注册</a>#}
                             <a href="/register/" title="注册">注册</a>
@@ -52,7 +52,7 @@
 					<span id="shop">
 						<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
 							<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							购物袋（<i id="total_num">{{ num_all }}</i>）
+							购物袋（<i id="total_num">{{ num_all | default:0 }}</i>）
 						</a>
 						
 					</span>
@@ -88,7 +88,7 @@
 								<div class="car_b">
 									<div class="to_l">
 										<span>商品总计 ： ￥  </span>
-										<span class="totalprice">{{ price_all }}</span>
+										<span class="totalprice">{{ price_all|default:0 }}</span>
 									</div>
 									<div class="to_r">
 										<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>

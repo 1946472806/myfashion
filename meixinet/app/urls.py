@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^car/$', views.car, name='car'),
     url(r'^delcar/(\d+)/$', views.delcar, name='delcar'),
     url(r'^balance/$', views.balance, name='balance'),
-    url(r'^collection/$', views.collection, name='collection'),
+    url(r'^collection/(\d+)/$', views.collection, name='collection'),
     url(r'^addtocar/(\d+)/$', views.addtocar, name='addtocar'),
 ]

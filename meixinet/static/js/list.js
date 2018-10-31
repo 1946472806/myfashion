@@ -324,9 +324,9 @@ $(function(){
 		
 	})
 	
-	var arr1 = [];
-	$.get("/static/json/details.json", function(data1){
-		var arr1 = data1;
+	// var arr1 = [];
+	// $.get("/static/json/details.json", function(data1){
+	// 	var arr1 = data1;
 		// for (var j=0; j<arr1.length; j++) {
 		// 	var obj1 = arr1[j];
 		// 	var imgurl3 = "/static/"+obj1.img.substring(3,)
@@ -354,93 +354,93 @@ $(function(){
 		// 	//进入详情页， 且将当前点击的商品的id传入
 		// 	location.href = "goods.html?id=" + obj2.id;
 		// })
-		
-		// 点击跳转到购物袋
-		$('#shop').click(function(e){
-			e.preventDefault();
-			window.location.href = '../html/car.html';
-		});
-		
-		//点击加入购物车
-		$(".aa").click(function(e){
-			
-			$("#headershop").css({"display":"block"});
-			$(".cart_out").css({"display":"block"});
-			e.preventDefault();
-			var index = $(this).index(".prop_r .aa");
-			var obj = arr1[index]; //所点击的商品
-			var $prot=$(this).closest('.product1');//最近的类
-			var $img =$prot.find('.simgFirst').attr('src');;
-			
-			
-			
-			var $scrollTop=$(document).scrollTop();
-			var $moveTop=$('#shop').offset().top;//要移动到的top值
-			var $oLeft=$(this).offset().left;
-			var $oTop=$(this).offset().top-$scrollTop;
-			
-			var $good=$('<img src="'+$img+'">').css({width:80,height:80,position:'fixed',left:$oLeft,top:$oTop,zIndex:1000,borderRadius:'50%'});
-				$good.appendTo('body');
-//			// 飞入购物车
+//
+// 		// 点击跳转到购物袋
+// 		$('#shop').click(function(e){
+// 			e.preventDefault();
+// 			window.location.href = '../html/car.html';
+// 		});
+//
+// 		//点击加入购物车
+// 		$(".aa").click(function(e){
+//
+// 			$("#headershop").css({"display":"block"});
+// 			$(".cart_out").css({"display":"block"});
+// 			e.preventDefault();
+// 			var index = $(this).index(".prop_r .aa");
+// 			var obj = arr1[index]; //所点击的商品
+// 			var $prot=$(this).closest('.product1');//最近的类
+// 			var $img =$prot.find('.simgFirst').attr('src');;
+//
+//
+//
+// 			var $scrollTop=$(document).scrollTop();
+// 			var $moveTop=$('#shop').offset().top;//要移动到的top值
+// 			var $oLeft=$(this).offset().left;
+// 			var $oTop=$(this).offset().top-$scrollTop;
+//
+// 			var $good=$('<img src="'+$img+'">').css({width:80,height:80,position:'fixed',left:$oLeft,top:$oTop,zIndex:1000,borderRadius:'50%'});
+// 				$good.appendTo('body');
+// //			// 飞入购物车
+//
+// 			$good.animate({left:$('#shop').offset().left+40,top:$moveTop,width:25,height:30},"slow",function(){
+// 				// 飞入后隐藏
+// 				$good.hide();
+// 				$('.headercar').show();
+// 			});
 
-			$good.animate({left:$('#shop').offset().left+40,top:$moveTop,width:25,height:30},"slow",function(){
-				// 飞入后隐藏
-				$good.hide();
-				$('.headercar').show();			
-			});
-
 			
-			//将当前点击的商品数据加入购物车（cookie）
-			var arr2 = $.cookie("goods") ? JSON.parse($.cookie("goods")) : [];
-			if(arr2==[]){
-				$(".cart_out").css({"display":"none"});
-				$(".kong").css({"display":"block"});
-			}
-			else{
-				$(".cart_out").css({"display":"block"});
-				$(".kong").css({"display":"block"});
-			}
-
-//			//判断原来的购物车中是否有相同商品
-			var isExist = false;
-			for (var i=0; i<arr2.length; i++) {
-				if (arr2[i].id == obj.id) {
-					arr2[i].num++;
-					isExist = true;
-					break;
-					
-				}
-			}
-			if (isExist ==  false) {
-				obj.num = 1;
-				obj.checked = true; //是否选中， 默认选中 
-				arr2.push(obj);
-			}
-			
-			
-			//将arr2添加到cookie中
-			$.cookie("goods", JSON.stringify(arr2), {expires:30, path:"/"});
-			refresh();
-
-//			//删除
-			var arr = JSON.parse($.cookie("goods"));
-			$("#product2_li").on("click", ".del", function(e){
-				e.preventDefault();
-				var index = $(this).index("#product2_li .del");
-				//获取cookie并修改
-//				var arr = JSON.parse($.cookie("good"));
-				var bbb= arr.splice(index, 1); //删除数组arr的第index个
-				
-				//覆盖原来的cookie
-				$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
-				//刷新节点数据
-				refresh();
-			})
-			
-			
-			
-		})
-		
+// 			//将当前点击的商品数据加入购物车（cookie）
+// 			var arr2 = $.cookie("goods") ? JSON.parse($.cookie("goods")) : [];
+// 			if(arr2==[]){
+// 				$(".cart_out").css({"display":"none"});
+// 				$(".kong").css({"display":"block"});
+// 			}
+// 			else{
+// 				$(".cart_out").css({"display":"block"});
+// 				$(".kong").css({"display":"block"});
+// 			}
+//
+// //			//判断原来的购物车中是否有相同商品
+// 			var isExist = false;
+// 			for (var i=0; i<arr2.length; i++) {
+// 				if (arr2[i].id == obj.id) {
+// 					arr2[i].num++;
+// 					isExist = true;
+// 					break;
+//
+// 				}
+// 			}
+// 			if (isExist ==  false) {
+// 				obj.num = 1;
+// 				obj.checked = true; //是否选中， 默认选中
+// 				arr2.push(obj);
+// 			}
+//
+//
+// 			//将arr2添加到cookie中
+// 			$.cookie("goods", JSON.stringify(arr2), {expires:30, path:"/"});
+// 			refresh();
+//
+// //			//删除
+// 			var arr = JSON.parse($.cookie("goods"));
+// 			$("#product2_li").on("click", ".del", function(e){
+// 				e.preventDefault();
+// 				var index = $(this).index("#product2_li .del");
+// 				//获取cookie并修改
+// //				var arr = JSON.parse($.cookie("good"));
+// 				var bbb= arr.splice(index, 1); //删除数组arr的第index个
+//
+// 				//覆盖原来的cookie
+// 				$.cookie("goods", JSON.stringify(arr), {expires:30, path:"/"});
+// 				//刷新节点数据
+// 				refresh();
+// 			})
+//
+//
+//
+// 		})
+//
 // 		var name_load = sessionStorage.getItem("arr.username");
 // //	    var name_load = $.cookie("name");
 // 		if(name_load){
@@ -451,12 +451,72 @@ $(function(){
 //
 // 		}
 
-		refresh();
-		function refresh() {
-			var arr = $.cookie("goods");
-			if (arr) {
-				arr = JSON.parse(arr);
-				if(arr.length>0){
+		// refresh();
+		// function refresh() {
+		// 	var arr = $.cookie("goods");
+		// 	if (arr) {
+		// 		arr = JSON.parse(arr);
+		// 		if(arr.length>0){
+		// 			$(".empty_car").css({"display":"none"});
+		// 			$(".full_car").css({"display":"block"});
+		// 			$(".kong").css({"display":"none"});
+		// 			$(".cart_out").css({"display":"block"});
+		// 		}
+		// 		else{
+		// 			$(".empty_car").css({"display":"block"});
+		// 			$(".full_car").css({"display":"none"});
+		// 			$(".kong").css({"display":"block"});
+		// 			$(".cart_out").css({"display":"none"});
+		// 		}
+				
+				
+// 				//先清除旧节点
+// 				$("#shop_ck").empty();
+// 				$("#product2_li").empty();
+// //
+// //					//再添加新节点
+// 				var totalPrice = 0; //总价
+// 				var total_num =0;
+// //					//遍历数组
+// 				for (var i=0; i<arr.length; i++) {
+// 					var obj = arr[i];
+// 					var imgurl4 = "/static/"+obj.img.substring(3,)
+// 					li3();
+// 					function li3(){
+// 						var li3 = $("<li class='product2'></li>").appendTo("#product2_li");
+// 						$('<img src="'+imgurl4+'" style="width:80px;height:80px;float:left;"/>').appendTo(li3);
+// 						var p_li = $('<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;"></p>').appendTo(li3);
+// 						$('<a href="" style="font-size:16px;">'+obj.said1 +'&nbsp;'+obj.said2+'<br/>'+obj.wen+'<a><br/>').appendTo(p_li);
+// 						$('<span  style="color: #555555;"><i>'+obj.unit+'</i>'+obj.price_good+'</span>&nbsp;&nbsp; X<span>'+obj.num+'</span>').appendTo(p_li);
+// 						$('<div class="dell float_r"><a href="" style="font-size:28px;" class="del">╳</a></div>').appendTo(li3);
+// 						$('<div class="clear"></div>').appendTo(li3);
+//
+// 					}
+// 					//计算总价
+// 					if (obj.checked) {
+// 						totalPrice += obj.price_good * obj.num;
+// 						total_num += obj.num;
+// 					}
+//
+// 				}
+// 				//显示总价
+// 				$("#total_num").html(total_num);
+// 				$(".totalprice").html(totalPrice);
+// 			}
+			
+	// 		else {
+	// 			$(".empty_car").css({"display":"block"});
+	// 			$(".shop_ck").css({"display":"none"});
+	// 			$(".kong").css({"display":"block"});
+	// 			$(".cart_out").css({"display":"none"});
+	// 			console.log("购物车还没有商品， 请先购买！");
+	// 		}
+	//
+	// 	}
+	//
+	// })
+	var num = $("#total_num").html()
+	if(num>0){
 					$(".empty_car").css({"display":"none"});
 					$(".full_car").css({"display":"block"});
 					$(".kong").css({"display":"none"});
@@ -468,53 +528,6 @@ $(function(){
 					$(".kong").css({"display":"block"});
 					$(".cart_out").css({"display":"none"});
 				}
-				
-				
-				//先清除旧节点
-				$("#shop_ck").empty();
-				$("#product2_li").empty();
-//					
-//					//再添加新节点
-				var totalPrice = 0; //总价
-				var total_num =0;
-//					//遍历数组
-				for (var i=0; i<arr.length; i++) {
-					var obj = arr[i];
-					var imgurl4 = "/static/"+obj.img.substring(3,)
-					li3();
-					function li3(){
-						var li3 = $("<li class='product2'></li>").appendTo("#product2_li");
-						$('<img src="'+imgurl4+'" style="width:80px;height:80px;float:left;"/>').appendTo(li3);
-						var p_li = $('<p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;"></p>').appendTo(li3);
-						$('<a href="" style="font-size:16px;">'+obj.said1 +'&nbsp;'+obj.said2+'<br/>'+obj.wen+'<a><br/>').appendTo(p_li);
-						$('<span  style="color: #555555;"><i>'+obj.unit+'</i>'+obj.price_good+'</span>&nbsp;&nbsp; X<span>'+obj.num+'</span>').appendTo(p_li);
-						$('<div class="dell float_r"><a href="" style="font-size:28px;" class="del">╳</a></div>').appendTo(li3);	
-						$('<div class="clear"></div>').appendTo(li3);
-	
-					}
-					//计算总价
-					if (obj.checked) {
-						totalPrice += obj.price_good * obj.num;
-						total_num += obj.num;
-					}
-				
-				}
-				//显示总价
-				$("#total_num").html(total_num);
-				$(".totalprice").html(totalPrice);
-			}
-			
-			else {
-				$(".empty_car").css({"display":"block"});
-				$(".shop_ck").css({"display":"none"});
-				$(".kong").css({"display":"block"});
-				$(".cart_out").css({"display":"none"});
-				console.log("购物车还没有商品， 请先购买！");
-			}
-			
-		}
-		
-	})
 
 	
 })

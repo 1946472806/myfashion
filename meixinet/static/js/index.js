@@ -445,7 +445,19 @@ $(function(){
 	
 	
 	
-	
+	var num = $("#total_num").html()
+	if(num>0){
+					$(".empty_car").css({"display":"none"});
+					$(".full_car").css({"display":"block"});
+					$(".kong").css({"display":"none"});
+					$(".cart_out").css({"display":"block"});
+				}
+				else{
+					$(".empty_car").css({"display":"block"});
+					$(".full_car").css({"display":"none"});
+					$(".kong").css({"display":"block"});
+					$(".cart_out").css({"display":"none"});
+				}
 	
 	
 	
