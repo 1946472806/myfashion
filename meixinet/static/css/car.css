@@ -521,40 +521,101 @@ table,tr,td{
 
 }
 
-.run_pic_like{
-	width: 1140px;
-    margin: 0 auto;
+/*.run_pic_like{*/
+	/*width: 1140px;*/
+    /*margin: 0 auto;*/
+    /*!*overflow: hidden;*!*/
+/*}*/
+/*#like_small{*/
+	/*border-top: solid 1px #e8e8e8;*/
     /*overflow: hidden;*/
-}
-#like_small{
-	border-top: solid 1px #e8e8e8;
-    overflow: hidden;
-    position: relative;
-    z-index: 2;
-    left: 0px;
-    width: 1048px;
-    font-size:12px;
-    padding: 20px 40px;
+    /*position: relative;*/
+    /*z-index: 2;*/
+    /*left: 0px;*/
+    /*width: 1048px;*/
+    /*font-size:12px;*/
+    /*padding: 20px 40px;*/
+    /*margin: 0 auto;*/
+/*}*/
+/*.list_name{*/
+    /*padding: 10px 16px 16px 16px;*/
+    /*line-height: 2;*/
+    /*margin-bottom: 5px;*/
+    /*overflow: hidden;*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
+/*}*/
+/*#like_small ul li a{*/
+    /*color: #555;	*/
+   	/*!*font-size:12px;*!*/
+/*}*/
+/*#like_small ul li a img{*/
+	/*padding: 0;*/
+	/*margin: 0;*/
+/*}*/
+/*#like_small ul li{*/
+	/*width: 220px;*/
+    /*line-height: 1.2;*/
+    /*text-align: center;*/
+    /*float: left;*/
+    /*display: inline;*/
+    /*margin: 0 21px;*/
+    /*position: relative;*/
+/*}*/
+/*.car_list{*/
+	/*overflow: hidden; */
+	/*float: left; */
+	/*width: 220px; height: 382px;*/
+/*}*/
+/*.car_img{*/
+	/*width:160px; */
+	/*height:192px;*/
+/*}*/
+/*.shop_price{*/
+	/*color: #ccc;*/
+	/*margin-top: 10px;*/
+/*}*/
+/*.shop_add{*/
+	/*display: block;*/
+    /*border: solid 1px #e8e8e8;*/
+    /*width: 126px;*/
+    /*height: 33px;*/
+    /*line-height: 33px;*/
+    /*cursor: pointer;*/
+    /*border: solid 1px #e8e8e8;*/
+    /*margin: 25px auto 30px;*/
+/*}*/
+/*#car_prev,#car_next{*/
+	/*width: 17px;*/
+    /*height: 300px;*/
+    /*position: absolute;*/
+    /*z-index:3;*/
+    /*background: #fff;*/
+    /*cursor: pointer;*/
+    /*top:8px;*/
+/*}*/
+/*#car_prev{*/
+	/*left:0;*/
+	/**/
+/*}   */
+/*#car_next{*/
+	/*right:0;*/
+/*}*/
+/*.clearfix:after {*/
+    /*display: block;*/
+    /*clear: both;*/
+    /*content: ".";*/
+    /*visibility:hidden;*/
+    /*height: 0;*/
+/*}*/
+
+#mustbuySwiper{
+    width: 1140px;
     margin: 0 auto;
-}
-.list_name{
-    padding: 10px 16px 16px 16px;
-    line-height: 2;
-    margin-bottom: 5px;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
-#like_small ul li a{
-    color: #555;	
-   	/*font-size:12px;*/
-}
-#like_small ul li a img{
-	padding: 0;
-	margin: 0;
-}
-#like_small ul li{
-	width: 220px;
+#mustbuySwiper .swiper-slide{
+    width: 240px;
     line-height: 1.2;
     text-align: center;
     float: left;
@@ -562,18 +623,21 @@ table,tr,td{
     margin: 0 21px;
     position: relative;
 }
-.car_list{
-	overflow: hidden; 
-	float: left; 
-	width: 220px; height: 382px;
+/* 关键是swiper的设置，slidesPerView个数*/
+#mustbuySwiper img{
+    width:70%;
 }
-.car_img{
-	width:160px; 
-	height:192px;
+#mustbuySwiper .swiper-pagination{
+    bottom: 0;
 }
-.shop_price{
-	color: #ccc;
-	margin-top: 10px;
+#mustbuySwiper .list_name{
+    padding: 10px 16px 16px 16px;
+    line-height: 2;
+    margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
 }
 .shop_add{
 	display: block;
@@ -584,29 +648,6 @@ table,tr,td{
     cursor: pointer;
     border: solid 1px #e8e8e8;
     margin: 25px auto 30px;
-}
-#car_prev,#car_next{
-	width: 17px;
-    height: 300px;
-    position: absolute;
-    z-index:3;
-    background: #fff;
-    cursor: pointer;
-    top:8px;
-}
-#car_prev{
-	left:0;
-	
-}   
-#car_next{
-	right:0;
-}
-.clearfix:after {
-    display: block;
-    clear: both;
-    content: ".";
-    visibility:hidden;
-    height: 0;
 }
 
 

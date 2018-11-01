@@ -274,10 +274,56 @@ tab_box
 
 /*轮播图*/
 
-#banner {
-	/*width: 100%;
-	height: 100%;*/
-	width: 1200px;
+/*#banner {*/
+	/*!*width: 100%;*/
+	/*height: 100%;*!*/
+	/*width: 1200px;*/
+	/*height:600px;*/
+	/*overflow: hidden;*/
+	/*margin:0 auto;*/
+	/*position:relative;*/
+	/*margin-top:25px;*/
+/*}*/
+
+/*#list {*/
+	/*width:3700px;*/
+	/*position:absolute;*/
+/*}*/
+/*#list li {*/
+	/*float: left;*/
+/*}*/
+/*#list li a{*/
+	/*width:1200px;*/
+	/*height: 600px;*/
+	/*display: inline-block;*/
+/*}*/
+/*#prev, #next {*/
+	/*height: 60px;*/
+	/*width: 30px;*/
+	/*position: absolute;*/
+	/*top:270px;*/
+	/*background:black;*/
+	/*opacity:0.4;*/
+	/*filter:alpha(opacity=40);*/
+	/*cursor: pointer;*/
+	/*display: none;*/
+	/*border-radius:3px;*/
+	/*font-size:40px;*/
+	/*color:white;*/
+
+/*}*/
+/*#prev {*/
+	/*left:5px;*/
+/*}*/
+/*#next {*/
+	/*right:5px;*/
+/*}*/
+/* 头部轮播图部分*/
+#topSwiper {
+    /*height: 8rem;*/
+    /*width: 100%;*/
+    /*overflow: hidden;*/
+    width: 1200px;
 	height:600px;
 	overflow: hidden;
 	margin:0 auto;
@@ -285,38 +331,21 @@ tab_box
 	margin-top:25px;
 }
 
-#list {
-	width:3700px;
-	position:absolute;
+#topSwiper .swiper-wrapper{
+    width: 100%;
+    height: 100%;
 }
-#list li {
-	float: left;
+#topSwiper .swiper-wrapper a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 }
-#list li a{
-	width:1200px;
-	height: 600px;
-	display: inline-block;
+#topSwiper img{
+    width: 100%;
+    height: 100%;
 }
-#prev, #next {
-	height: 60px;
-	width: 30px;
-	position: absolute;
-	top:270px;
-	background:black;
-	opacity:0.4;
-	filter:alpha(opacity=40);
-	cursor: pointer;
-	display: none;
-	border-radius:3px;
-	font-size:40px;
-	color:white;
-
-}
-#prev {
-	left:5px;
-}
-#next {
-	right:5px;
+#topSwiper .swiper-pagination{
+    bottom: 0;
 }
 
 
@@ -699,71 +728,85 @@ tab_box
 
 
 /*轮播小图*/
-#box1_btn1{
-	width: 1200px;
-	height: 265px; 
-	margin: 0 auto;
-	overflow: hidden;
-	
-}
-#small {
-	overflow:hidden; 
-	position:relative; 
-	left:0px; 
-	width:1200px;
-}
-#list_small {
-	position: relative; 
-	width: 8200px; 
-	height: 265px; 
-	font-size: 12px;
-	line-height:1.5;
-}
-#list_small li{
-	float:left;
-	overflow: hidden;  
-	width: 160px; 
-	height: 260px;
-	text-align: center;
-	margin:5px 20px 0px 20px;
-}
-#list_small li a{
-	color: #666;
-	text-decoration: none;
-}
-.c_gray{
-	color: #ccc;
-}
-#list_small li a p {
-    width: 160px;
-    height: 44px;
-    padding-top: 0;
-    overflow: hidden;
-    color: #555;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-.productImg{
-	width:160px;
-	height:192px;
-}
-			
-#prev_left, #next_right {
-	width:20px;
-	height:260px;
-	position: absolute;
-	top:0px;
-	background:white;
-	/*z-index:2;*/ 
-	cursor: pointer;
-}
-#prev_left {
-	left:0px;
-}
-#next_right {
-	right:0px;
-}
+/*#box1_btn1{*/
+	/*width: 1200px;*/
+	/*height: 265px; */
+	/*margin: 0 auto;*/
+	/*overflow: hidden;*/
+	/**/
+/*}*/
+/*#small {*/
+	/*overflow:hidden; */
+	/*position:relative; */
+	/*left:0px; */
+	/*width:1200px;*/
+/*}*/
+/*#list_small {*/
+	/*position: relative; */
+	/*width: 8200px; */
+	/*height: 265px; */
+	/*font-size: 12px;*/
+	/*line-height:1.5;*/
+/*}*/
+/*#list_small li{*/
+	/*float:left;*/
+	/*overflow: hidden;  */
+	/*width: 160px; */
+	/*height: 260px;*/
+	/*text-align: center;*/
+	/*margin:5px 20px 0px 20px;*/
+/*}*/
+/*#list_small li a{*/
+	/*color: #666;*/
+	/*text-decoration: none;*/
+/*}*/
+/*.c_gray{*/
+	/*color: #ccc;*/
+/*}*/
+/*#list_small li a p {*/
+    /*width: 160px;*/
+    /*height: 44px;*/
+    /*padding-top: 0;*/
+    /*overflow: hidden;*/
+    /*color: #555;*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
+/*}*/
+/*.productImg{*/
+	/*width:160px;*/
+	/*height:192px;*/
+/*}*/
 
+/*#prev_left, #next_right {*/
+	/*width:20px;*/
+	/*height:260px;*/
+	/*position: absolute;*/
+	/*top:0px;*/
+	/*background:white;*/
+	/*!*z-index:2;*! */
+	/*cursor: pointer;*/
+/*}*/
+/*#prev_left {*/
+	/*left:0px;*/
+/*}*/
+/*#next_right {*/
+	/*right:0px;*/
+/*}*/
+/*--------------------------------------------------*/
+/* 每日必购 轮播图部分*/
+#mustbuySwiper{
+    width: 1200px;
+     height: 280px;
+     margin: 0 auto;
+     overflow: hidden;
+}
+/* 关键是swiper的设置，slidesPerView个数*/
+#mustbuySwiper img{
+    width:100%;
+}
+#mustbuySwiper .swiper-pagination{
+    bottom: 0;
+}
 
 
 

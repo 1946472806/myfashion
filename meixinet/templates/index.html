@@ -6,12 +6,7 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"/>
-		
-			
-		<!--轮播大图-->
-		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
-		<script src="{% static 'js/jquery.cookie.js' %}"></script>
-		<script src="{% static 'js/index.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.css' %}"/>
 		
 	</head>
 	<body>
@@ -405,17 +400,31 @@
 			<div class="big">
 				
 				<!--大图轮播-->
-				<div id="banner">
-					<div class="contanier relative">
-						<ul id="list">
-							{% for lunbo in lunbos %}
-                                <li><a href='' title="{{ lunbo.wen }}"><img src="{% static lunbo.img %}" alt="{{ lunbo.alt }}"></a></li>
-                            {% endfor %}
-						</ul>
-						<div id="prev">&lt;</div>
-						<div id="next">&gt;</div>
-					</div>
-				</div>
+{#				<div id="banner">#}
+{#					<div class="contanier relative">#}
+{#						<ul id="list">#}
+{#							{% for lunbo in lunbos %}#}
+{#                                <li><a href='' title="{{ lunbo.wen }}"><img src="{% static lunbo.img %}" alt="{{ lunbo.alt }}"></a></li>#}
+{#                            {% endfor %}#}
+{#						</ul>#}
+{#						<div id="prev">&lt;</div>#}
+{#						<div id="next">&gt;</div>#}
+{#					</div>#}
+{#				</div>#}
+                <div class="swiper-container" id="topSwiper">
+                    <div class='swiper-wrapper'>
+                        {% for lunbo in lunbos %}
+                            <div class="swiper-slide">
+                                <img src="{% static lunbo.img %}" alt="{{ lunbo.alt }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
 				
 				<!--tab切换-->
 				<div id="tab_box">
@@ -1115,23 +1124,41 @@
 						</div>
 					
 						<!--轮播小图-->
-						<div id="box1_btn1" style="width: 1200px;height: 265px; margin: 0 auto;overflow: hidden;">
-							<div id="small">
-								<ul id="list_small">
-								    {% for lunbo1 in lunbos1 %}
-                                        <li>
-                                            <a href='' title="{{ lunbo1.wen }}">
-                                                <img class='productImg' src="{% static lunbo1.img %}" alt="{{ lunbo1.alt }}">
-                                                <p>"{{ lunbo1.said1 }}"</br>"{{ lunbo1.said2 }}"</p>
-                                            </a>
-                                            <div class='c_gray'>"{{ lunbo1.div }}"</div>
-                                        </li>
-                                    {% endfor %}
-								</ul>
-								<div id="prev_left"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>
-								<div id="next_right"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>
-							</div>
-						</div>
+{#						<div id="box1_btn1" style="width: 1200px;height: 265px; margin: 0 auto;overflow: hidden;">#}
+{#							<div id="small">#}
+{#								<ul id="list_small">#}
+{#								    {% for lunbo1 in lunbos1 %}#}
+{#                                        <li>#}
+{#                                            <a href='' title="{{ lunbo1.wen }}">#}
+{#                                                <img class='productImg' src="{% static lunbo1.img %}" alt="{{ lunbo1.alt }}">#}
+{#                                                <p>"{{ lunbo1.said1 }}"</br>"{{ lunbo1.said2 }}"</p>#}
+{#                                            </a>#}
+{#                                            <div class='c_gray'>"{{ lunbo1.div }}"</div>#}
+{#                                        </li>#}
+{#                                    {% endfor %}#}
+{#								</ul>#}
+{#								<div id="prev_left"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>#}
+{#								<div id="next_right"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>#}
+{#							</div>#}
+{#						</div>#}
+
+                        <div class="swiper-container" id="mustbuySwiper">
+                            <div class="swiper-wrapper">
+                                {% for lunbo1 in lunbos1 %}
+                                    <div class="swiper-slide">
+                                        <a href='' title="{{ lunbo1.wen }}" style="color: #666666;text-decoration: none;">
+                                            <img src="{% static lunbo1.img %}" alt="{{ lunbo1.alt }}">
+                                            <p style="text-align: center;color: #555555;white-space: nowrap;text-overflow: ellipsis;">"{{ lunbo1.said1 }}"</br>"{{ lunbo1.said2 }}"</p>
+                                        </a>
+                                        <div class='c_gray' style="color: #CCCCCC;text-align: center">"{{ lunbo1.div }}"</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next" style="z-index: 10"></div>
+                            <div class="swiper-button-prev" style="z-index: 20"></div>
+                        </div>
 					</div>
 					
 				</div>
@@ -1282,5 +1309,9 @@
 			</div>
 		</div>
 	</body>
+    <!--轮播大图-->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/swiper.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 </html>
 
