@@ -150,7 +150,9 @@ def goods(request,id):
         imgpath = User.objects.filter(u_token=token).last().u_img
         imgpath = '/static/' + imgpath
     gcar = Goods.objects.filter(id=id).last()
-    return render(request, 'goods.html',{'username':tel,'imgpath':imgpath,'gcar':gcar})
+    # 相关推荐轮播数据源
+    listcar = Details.objects.all()
+    return render(request, 'goods.html',{'username':tel,'imgpath':imgpath,'gcar':gcar,'listcar':listcar})
 
 # 购物车
 def car(request):
@@ -230,7 +232,7 @@ def delcar(request,id):
     goodcar = GoodsCar.objects.filter(id=id)
     goodcar.delete()
     #刷新页面,重定向
-    return redirect('app:login')
+    return redirect('app:car')
 
 #加入购物袋
 def addtocar(request,id):

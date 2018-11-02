@@ -45,7 +45,7 @@
 						
 					</span>
 					<span id="shop">
-						<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
+						<a href="{% url 'app:car' %}" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
 							<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							购物袋（<i id="total_num">{{ num_all | default:0 }}</i>）
 						</a>
@@ -55,7 +55,7 @@
 		                <div class="header_sj" style="margin-left:140px;"></div>
 		                <div class="headercar">
 		                 
-		                    <div class="kong" style="text-align: center;padding:30px 0;font-size:12px;"></div>
+		                    <div class="kong" style="text-align: center;padding:30px 0;font-size:12px;">您的购物袋是空的</div>
 		                	<div class="cart_out" style="display: block;">
 								<div class="car_t"><strong>我的商品</strong></div>
 								<div class="car_show">

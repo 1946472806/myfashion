@@ -58,13 +58,6 @@ $(function(){
 //扫码
 	second($("#saoma11"),$("#headerApp_m"));
 
-//购物袋	
-	second1( $("#shop"),$("#headershop"));
-	$("#shop").click(function(e){
-		e.preventDefault();
-		window.location.href="car.html";
-	})
-
 
 //二级菜单
 //新品
@@ -209,7 +202,7 @@ $(function(){
 	
 
 	
-	var num = $("#total_num").html()
+var num = $("#total_num").html()
 	if(num>0){
 					$(".empty_car").css({"display":"none"});
 					$(".full_car").css({"display":"block"});
@@ -222,6 +215,7 @@ $(function(){
 					$(".kong").css({"display":"block"});
 					$(".cart_out").css({"display":"none"});
 				}
+
 	
 	
 	
