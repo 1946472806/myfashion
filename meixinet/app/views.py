@@ -2,8 +2,9 @@ import hashlib
 import os
 import random
 import time
+import uuid
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -52,33 +53,35 @@ def register(request):
         file = request.FILES.get('filename')
         imgurl = file.name
         if imgurl:
-            imgurl = 'upfile/'+ tel + '-' + imgurl
+            imgurl = 'upfile/'+ tel + '.png'
 
-        #检测数据库中是否已经存在此用户
-        users = User.objects.filter(u_tel=tel)
-        msg = ''
-        if users.count(): #已经存在此用户
-            msg = '已经存在此用户!'
-            return render(request,'register.html',{'msg':msg})
-        else:
-            try:
-                #保存数据
-                token = genegrate_token()
-                password = genegrate_password(password)
-                user = User.createuser(tel,password,token,imgurl)
-                user.save()
-                #保存图片
-                saveupfile(file,tel)
-            except Exception as e:
-                msg = '注册失败!' + str(e)
-                return render(request, 'register.html', {'msg': msg})
-            # 重定向页面
-            response = redirect('app:index')
-            response.set_cookie('username',token)
-            return response
+        try:
+            #保存图片
+            saveupfile(file,tel)
+            #保存数据
+            token = str(uuid.uuid5(uuid.uuid4(), 'register'))
+            password = genegrate_password(password)
+            user = User.createuser(tel,password,token,imgurl)
+            user.save()
+        except Exception as e:
+            msg = '注册失败!' + str(e)
+            return render(request, 'register.html', {'msg': msg})
+        # 重定向页面
+        response = redirect('app:index')
+        response.set_cookie('username',token)
+        return response
+
+# 检测用户是否已经存在
+def verifytel(request):
+    tel = request.GET.get('usertel')
+    try:
+        User.objects.get(u_tel=tel)
+        return JsonResponse({'msg':'用户已经存在!','status':'-1'})
+    except:
+        return JsonResponse({'msg': '用户可用!', 'status': '1'})
 #保存上传文件
 def saveupfile(file,tel):
-    imgname = tel + '-' + file.name
+    imgname = tel + '.png'
     filepath = os.path.join(settings.MDEIA_ROOT,imgname)
     #文件写入
     with open(filepath,'wb') as fp:
@@ -103,7 +106,9 @@ def login(request):
         else:
             #更新token
             user = users.first()
-            user.u_token = genegrate_token()
+            # 改成uuid
+            # user.u_token = genegrate_token()
+            user.u_token = str(uuid.uuid5(uuid.uuid4(), 'login'))
             user.save()
 
             response = redirect('app:car')
@@ -112,7 +117,7 @@ def login(request):
             return response
 
 # 商品列表
-def list(request):
+def list(request,flag):
     # 获取cookie
     token = request.COOKIES.get('username')
     tel = ''
@@ -136,7 +141,10 @@ def list(request):
         for gcar in goodscar:
             num_all += gcar.num
             price_all += gcar.num * gcar.price_good
-    return render(request, 'list.html',{'username':tel,'listcar':listcar,'imgpath':imgpath,'goodscar':goodscar,'num_all':num_all,'price_all':price_all})
+    flags = {'0':'新近单品','1':'全球购','2':'女士','3':'男仕','4':'童装','5':'腕表','6':'品牌','7':'Mzine'}
+    flagname = flags[flag]
+
+    return render(request, 'list.html',{'username':tel,'listcar':listcar,'imgpath':imgpath,'goodscar':goodscar,'num_all':num_all,'price_all':price_all,'flagname':flagname})
 
 # 商品详情
 def goods(request,id):
@@ -212,14 +220,14 @@ def collection(request,id):
         return HttpResponse('添加收藏失败！'+ str(e))
     return HttpResponse('添加收藏成功!')
 
-#token生成
-def genegrate_token():
-    token = str(time.time) + str(random.random())
-    #md5算法
-    md5 = hashlib.md5()
-    md5.update(token.encode('utf-8'))
-    token = md5.hexdigest()
-    return token
+# #token生成
+# def genegrate_token():
+#     token = str(time.time) + str(random.random())
+#     #md5算法
+#     md5 = hashlib.md5()
+#     md5.update(token.encode('utf-8'))
+#     token = md5.hexdigest()
+#     return token
 
 #密码加密
 def genegrate_password(password):

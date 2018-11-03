@@ -46,24 +46,13 @@
 						</div>
 						
 					</div>
-					<!--<div class="clearfix">-->
-					<!--<div class="auth" style="height:36px;margin-bottom:10px;">
-						<div class="float_l" style=" width: 166px;height:32px;">
-							<input id="ipt2" type="text" placeholder="请输入验证码" style="height:36px;"/>
-							
-						</div>
-						<div id="code" class="float_r" style="cursor:pointer;text-align:center;line-height:30px;font-size:18px;font-weight:900;width: 120px;height:30px;background:url(../img/code.png)no-repeat;">
-							1234
-	
-						</div>
-					</div>		-->
 						
 					<div class="auth" style="height:36px;margin-bottom:10px;">
 						<div class="float_l" style=" width:120px;height:32px;">
 							<input id="ipt2" type="text" placeholder="请输入验证码" style="height:36px;"/>
 							
 						</div>
-						<button id="my_button" style="margin-left:13px;margin-top:3px;width:50px;height:30px;float:left;">验证</button>
+{#						<button id="my_button" style="margin-left:13px;margin-top:3px;width:50px;height:30px;float:left;">验证</button>#}
 						<div id="v_container" style="margin-left:5px;margin-top:3px;width:110px;height:30px;float:left;"></div>
 					</div>	
 					<!--</div>-->
@@ -99,7 +88,7 @@
                     <div class="upimg">
                         <span style="font-size: 15px">头像:</span><input type="file" value="上传头像" name="filename">
                     </div>
-					<div id="tip" style="height: 30px;color: #cc3d3d;text-align:center;"><span>{{ msg }}</span></div>
+					<div id="tip" style="height: 30px;color: #cc3d3d;text-align:center;"><span id="msg">{{ msg }}</span></div>
 					<div class="regs">
 						<input id="ipt6" type="submit" style="cursor:pointer;outline:none;" value="注册">
 					</div>

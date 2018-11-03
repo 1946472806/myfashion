@@ -118,15 +118,15 @@
 		<div id="nav">
 			<div class="contaier" style="overflow: hidden;">
 				<ul class="list_zong">
-					<li><a href="" title="首页">首页</a></li>
-					<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
-					<li><a href="" title="全球购">全球购</a></li>
-					<li><a href="{% url 'app:list' %}" title="女士" id="menu2">女士</a></li>
-					<li><a href="" title="男仕" id="menu3">男仕</a></li>
-					<li><a href="" title="童装"id="menu4" >童装</a></li>
-					<li><a href="" title="腕表" id="menu5">腕表</a></li>
-					<li><a href="" title="品牌" id="menu6">品牌</a></li>
-					<li><a href="" title="Mzine">Mzine</a></li>
+					<li><a href="{% url 'app:index' %}" title="首页">首页</a></li>
+					<li><a href="{% url 'app:list' 0 %}" title="新近单品" id="menu1">新近单品</a></li>
+					<li><a href="{% url 'app:list' 1 %}" title="全球购">全球购</a></li>
+					<li><a href="{% url 'app:list' 2 %}" title="女士" id="menu2">女士</a></li>
+					<li><a href="{% url 'app:list' 3 %}" title="男仕" id="menu3">男仕</a></li>
+					<li><a href="{% url 'app:list' 4 %}" title="童装"id="menu4" >童装</a></li>
+					<li><a href="{% url 'app:list' 5 %}" title="腕表" id="menu5">腕表</a></li>
+					<li><a href="{% url 'app:list' 6 %}" title="品牌" id="menu6">品牌</a></li>
+					<li><a href="{% url 'app:list' 7 %}" title="Mzine">Mzine</a></li>
 					
 				</ul>
 				
