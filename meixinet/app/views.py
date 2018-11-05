@@ -143,7 +143,6 @@ def list(request,flag):
             price_all += gcar.num * gcar.price_good
     flags = {'0':'新近单品','1':'全球购','2':'女士','3':'男仕','4':'童装','5':'腕表','6':'品牌','7':'Mzine'}
     flagname = flags[flag]
-
     return render(request, 'list.html',{'username':tel,'listcar':listcar,'imgpath':imgpath,'goodscar':goodscar,'num_all':num_all,'price_all':price_all,'flagname':flagname})
 
 # 商品详情
@@ -157,10 +156,19 @@ def goods(request,id):
         # 图片路径
         imgpath = User.objects.filter(u_token=token).last().u_img
         imgpath = '/static/' + imgpath
-    gcar = Goods.objects.filter(id=id).last()
+    gcar = Goods.objects.filter(id=id).first()
     # 相关推荐轮播数据源
     listcar = Details.objects.all()
-    return render(request, 'goods.html',{'username':tel,'imgpath':imgpath,'gcar':gcar,'listcar':listcar})
+    # 此用户的购物车数据
+    goodscar = GoodsCar.objects.filter(u_tel=tel)
+    # 购物车总价和总数量
+    num_all = 0
+    price_all = 0
+    if goodscar.count():
+        for gcars in goodscar:
+            num_all += gcars.num
+            price_all += gcars.num * gcars.price_good
+    return render(request, 'goods.html',{'username':tel,'imgpath':imgpath,'listcar':listcar,'gcar':gcar,'goodscar':goodscar,'num_all':num_all,'price_all':price_all})
 
 # 购物车
 def car(request):
@@ -244,6 +252,7 @@ def delcar(request,id):
 
 #加入购物袋
 def addtocar(request,id):
+    print(id)
     # 获取cookie
     token = request.COOKIES.get('username')
     tel = ''
@@ -269,15 +278,15 @@ def addtocar(request,id):
             good.save()
         except Exception as e:
             return HttpResponse('保存数据失败!!' + str(e))
-    # return redirect('app:list')
-    # 此用户的购物车数据
-    goodscar = GoodsCar.objects.filter(u_tel=tel)
-    # 购物车总价和总数量
-    num_all = 0
-    price_all = 0
-    if goodscar.count():
-        for gcar in goodscar:
-            num_all += gcar.num
-            price_all += gcar.num * gcar.price_good
-
-    return render(request,'list.html',{'goodscar':goodscar,'num_all':num_all,'price_all':price_all})
+    return redirect('app:list',0)
+    # # 此用户的购物车数据
+    # goodscar = GoodsCar.objects.filter(u_tel=tel)
+    # # 购物车总价和总数量
+    # num_all = 0
+    # price_all = 0
+    # if goodscar.count():
+    #     for gcar in goodscar:
+    #         num_all += gcar.num
+    #         price_all += gcar.num * gcar.price_good
+    #
+    # return render(request,'list.html',{'goodscar':goodscar,'num_all':num_all,'price_all':price_all})

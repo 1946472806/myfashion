@@ -35,67 +35,76 @@
 					</div>
 					<div class="top_r">
 						<span>
-							<a href="login.html" title="登录" class="top_r_load">登录</a>
-							<a href="register.html" title="注册">注册</a>
-							
+                            {% if username %}
+                                <img src="{{ imgpath }} " style="height: 20px;width: 20px;display: inline-block;">
+                                <a href="#" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
+                            {% else %}
+                                <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
+                                <a href="{% url 'app:login' %}" title="登录" class="top_r_load">登录</a>
+							    <a href="{% url 'app:register' %}" title="注册">注册</a>
+                            {% endif %}
+
 						</span>
+
 						<span id="shop">
-							<a href="car.html" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
+							<a href="car.html" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
 								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								购物袋（<i id="total_num">0</i>）
+								购物袋（<i id="total_num">{{ num_all }}</i>）
 							</a>
-							
+
 						</span>
 						<div id="headershop">
 			                <div class="header_sj" style="margin-left:140px;"></div>
 			                <div class="headercar">
-			                 
+
 			                    <div class="kong" style="text-align: center;padding:30px 0;">您的购物袋是空的</div>
 			                	<div class="cart_out" >
 									<div class="car_t"><strong>我的商品</strong></div>
 									<div class="car_show">
 										<ul id="product2_li" style="overflow: hidden;">
-                                            <li class="product2" style="overflow:hidden;">
-                                                <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
-                                                <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-                                                    <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
-                                                    <br />
-                                                    <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
+                                            {% for gcar in goodscar %}
+                                                <li class="product2" style="overflow:hidden;">
+                                                    <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
+                                                    <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                        <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
+                                                        <br />
+                                                        <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
 
-                                                </p>
-                                                <div class="dell float_r">
-                                                    <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </li>
-											
+                                                    </p>
+                                                    <div class="dell float_r">
+                                                        <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </li>
+                                            {% endfor %}
+
 										</ul>
-										
+
 									</div>
 									<div class="car_b">
 										<div class="to_l">
 											<span>商品总计 ： ￥  </span>
-											<span class="totalprice">11</span>
+											<span class="totalprice" id="totalprices">{{ price_all }}</span>
 										</div>
 										<div class="to_r">
 											<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
 										</div>
 									</div>
 								</div>
-			                
+
 			                </div>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
-			
+
 			<!--logo图-->
 			<div id="logo" class="relative">
 				<div class="contaier relative" >
 					<a href="index.html" title="美西">
 						<img src="{% static 'img/logo.png' %}" style="padding-top:35px;height:60px;width: 220px;display: inline-block;" alt="美西">
-						
+
 					</a>
 					<div class="absolute" style="width:250px;right:10px;top:40px;">
 						<input type="text" id="" value="" placeholder="请输入关键字" style="font-size:12px;height:28px;border:0;border-bottom:1px solid #e8e8e8;color:#6c6c6c;width:165px;outline:none;"/>
@@ -105,7 +114,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!--导航-->
 			<div id="nav">
 				<div class="contaier" style="overflow: hidden;">
@@ -119,9 +128,9 @@
 						<li><a href="" title="腕表" id="menu5">腕表</a></li>
 						<li><a href="" title="品牌" id="menu6">品牌</a></li>
 						<li><a href="" title="Mzine">Mzine</a></li>
-						
+
 					</ul>
-				
+
 				</div>
 				<!--隐藏二级菜单-->
 				<!--新品-->
@@ -144,18 +153,18 @@
 				                    <li><a href="" title="服装 Clothes" >服装 Clothes</a></li>
 				                </ul>
 		        			</div>
-		        			
+
 		                </div>
 		            </div>
 		            <div class="headerShadow" style="top:193px;left:230px;"></div>
 		        </div>
-		        
+
 		        <!--女士-->
 		        <div id="women">
 		        	<div class="women_list">
 		        		<div class="contaier">
 		        			<div style="padding-left:80px;overflow: hidden;">
-		        			
+
 			        			<ul>
 				                    <li class="hnsTit"><a href="" title="包袋 Bags">包袋 Bags</a></li>
 				                    <li><a href="" title="所有包袋" >所有包袋</a></li>
@@ -199,14 +208,14 @@
 		            </div>
 		            <div class="headerShadow" style="top:193px;left:498px;"></div>
 		        </div>
-		        
-		        
+
+
 		        <!--男士-->
 		        <div id="man">
 		        	<div class="man_list">
 		        		<div class="contaier">
 		        			<div class="circle" style="padding-left:80px;overflow: hidden;">
-		        			
+
 			        			<ul>
 				                    <li class="hnsTit"><a href="" title="包袋 Bags">包袋 Bags</a></li>
 				                    <li><a href="" title="所有包袋">所有包袋</a></li>
@@ -247,13 +256,13 @@
 				                    <li><a href="" title="羽绒服/棉衣 Down Jacket">羽绒服/棉衣 Down Jacket</a></li>
 				                    <li><a href="" title="休闲裤 Casual Pants">休闲裤 Casual Pants</a></li>
 				                </ul>
-				            </div>   
+				            </div>
 		                </div>
 		            </div>
 		            <div class="headerShadow" style="top:193px;right:622px;"></div>
 		        </div>
-		        
-		        
+
+
 		        <!--童装-->
 		        <div id="wear">
 		        	<div class="wear_list">
@@ -280,7 +289,7 @@
 		            </div>
 		        	<div class="headerShadow" style="top:193px;right:488px;"></div>
 		        </div>
-		        
+
 		        <!--腕表-->
 		        <div id="watch">
 		        	<div class="watch_list">
@@ -301,13 +310,13 @@
 				                    <li><a href="" title="OMEGA 欧米茄" >OMEGA 欧米茄</a></li>
 				                    <li><a href="" title="Longines 浪琴" >Longines 浪琴</a></li>
 				                </ul>
-				            </div>    
+				            </div>
 		        		</div>
-		            	
+
 		            </div>
 		            <div class="headerShadow" style="top:193px;right:356px;"></div>
 		        </div>
-		        
+
 		        <!--品牌-->
 		        <div id="brand">
 		        	<div class="brand_list relative">
@@ -336,16 +345,16 @@
 				                    <li><a href="" title="P.A.R.O.S.H.">P.A.R.O.S.H.</a></li>
 				                </ul>
 		        			</div>
-		        			
+
 		        		</div>
-		            	
+
 		            </div>
 		            <div class="headerShadow" style="top:193px;right:222px;"></div>
 		        </div>
-		        
+
 			</div>
-			
-			
+
+
 			<!--中间购物车-->
 			<div class="conten">
 				<div class="contaier">
@@ -374,7 +383,7 @@
 			                    			<li class="list_edit">
 			                    				<a class="" picnum="3" href="javascript:void(0);" rel="{-123359-3-123359-3.jpg&#39;}">
 			                    					<img src="{% static 'good_img/h-123359-3.jpg' %}"  alt="" width="50" height="60">
-			                    			
+
 			                    				</a>
 			                    			</li>
 			                    			<li class="list_edit">
@@ -418,18 +427,18 @@
 										<img class="zoomPad_img" src="{% static 'good_img/h-123359-1.jpg' %}" height="460"  width="383"/>
 										<div id="smallArea"></div>
 									</div>
-									
+
 									<div id="bigArea">
 										<img id="bigImg" src="{% static 'good_img/h-123359-1.jpg' %}" height="960"  width="800"/>
 									</div>
-			                		
+
 			                	</a>
 			                </div>
-			                
-			                
+
+
 			            </div>
 			            <!--左侧结束-->
-			
+
 			            <!--右侧-->
 			            <div class="pro_r float_l">
 			                <!--品牌以及商品标题-->
@@ -437,7 +446,7 @@
 			                    <a class="c_purple float_l " href="" title="了解品牌" target="_blank">VERSACE JEANS 范思哲牛仔</a>
 			                </h1>
 			                <div class="clearfix">
-			                    <div class="ws_pro_r_detail">聚酯纤维混纺 女士 卫衣</div>                
+			                    <div class="ws_pro_r_detail">聚酯纤维混纺 女士 卫衣</div>
 			                </div>
 			                <!--参考价格-->
 			                <div class="position_rel">
@@ -460,14 +469,14 @@
 				                                <ul class="clearfix">
 				                                    <li class="colorcur" color-id="12" title="紫色">
 				                                        <div class="listColor listColor12"></div>
-				                                    </li>                                    
+				                                    </li>
 				                                </ul>
 				                            </td>
 				                        </tr>
 			                    	</tbody>
 			                    </table>
 			                </div>
-			
+
 			                <!--选择尺码-->
 			                <div class="pro_size">
 			                    <table width="100%">
@@ -490,7 +499,7 @@
 			                                    <li class="" size-id="5660" style="cursor: pointer;">
 			                                        <a href="javascript:void(0);">XXS</a>
 			                                        <div class="size_tip"><span>对应中国尺码“XXS”</span></div>
-			                                    </li>                                
+			                                    </li>
 			                                </ul>
 			                            </td>
 			                    	</tr>
@@ -501,7 +510,7 @@
 			                        <tr></tr>
 			                    </tbody>
 			                    </table>
-			
+
 			                </div>
 			                <!--购买按钮-->
 			                <div id="addbutton" class="pro_btn clearfix" style="display:block">
@@ -509,7 +518,7 @@
 			                    <button type="button" class="btn_add_shopping float_l" style="width: 152px;height: 45px;">
 			                    	即刻购买
 			                    </button>
-			                    <a href="{% url 'app:addtocar' gcar.id %}"><button type="button" class="btn_buy_now float_l">加入购物袋</button></a>
+			                     <a href="{% url 'app:addtocar' gcar.id %}"><button type="button" class="btn_buy_now float_l">加入购物袋</button></a>
 			
 			                    <div class="pro_collect">
 			                        <!--是否收藏-->
