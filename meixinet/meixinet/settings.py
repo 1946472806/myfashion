@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'meixinet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'meixidb',
+        'NAME': 'mxdb',
         'USER': 'root',
         'PASSWORD': '200417',
         'HOST': '127.0.0.1',

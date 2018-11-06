@@ -21,24 +21,27 @@ def index(request):
     token = request.COOKIES.get('username')
     tel = ''
     imgpath = ''
+    goodscar = []
+    num_all = 0
+    price_all = 0
     if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
+        user = User.objects.filter(u_token=token).last()
+        tel = user.u_tel
         # 图片路径
-        imgpath = User.objects.filter(u_token=token).last().u_img
+        imgpath = user.u_img
         imgpath = '/static/' + imgpath
+        # 此用户的购物车数据
+        goodscar = GoodsCar.objects.filter(user=user)
+        # 购物车总价和总数量
+        if goodscar.count():
+            for gcar in goodscar:
+                num_all += gcar.num
+                price_all += gcar.num * gcar.goods.price_good
     #大图轮播数据
     lunbos = lunbo.objects.all()
     #小图轮播数据
     lunbos1 = lunbo1.objects.all()
-    # 此用户的购物车数据
-    goodscar = GoodsCar.objects.filter(u_tel=tel)
-    #购物车总价和总数量
-    num_all = 0
-    price_all = 0
-    if goodscar.count():
-        for gcar in goodscar:
-            num_all += gcar.num
-            price_all += gcar.num * gcar.price_good
+
 
     return render(request,'index.html',{'username':tel,'lunbos':lunbos,'lunbos1':lunbos1,'goodscar':goodscar,'num_all':num_all,'price_all':price_all,'imgpath':imgpath})
 
@@ -122,25 +125,28 @@ def list(request,flag):
     token = request.COOKIES.get('username')
     tel = ''
     imgpath = ''
+    num_all = 0
+    price_all = 0
+    goodscar = []
     if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
+        user = User.objects.filter(u_token=token).last()
+        tel = user.u_tel
         # 图片路径
-        imgpath = User.objects.filter(u_token=token).last().u_img
+        imgpath = user.u_img
         imgpath = '/static/' + imgpath
+        # 此用户的购物车数据
+        goodscar = GoodsCar.objects.filter(user=user)
+        # 购物车总价和总数量
+        if goodscar.count():
+            for gcar in goodscar:
+                num_all += gcar.num
+                price_all += gcar.num * gcar.goods.price_good
     else:
         msg = '请先登录!'
         return render(request, 'login.html', {'msg': msg})
     #相关推荐轮播数据源
     listcar = Details.objects.all()
-    # 此用户的购物车数据
-    goodscar = GoodsCar.objects.filter(u_tel=tel)
-    # 购物车总价和总数量
-    num_all = 0
-    price_all = 0
-    if goodscar.count():
-        for gcar in goodscar:
-            num_all += gcar.num
-            price_all += gcar.num * gcar.price_good
+
     flags = {'0':'新近单品','1':'全球购','2':'女士','3':'男仕','4':'童装','5':'腕表','6':'品牌','7':'Mzine'}
     flagname = flags[flag]
     return render(request, 'list.html',{'username':tel,'listcar':listcar,'imgpath':imgpath,'goodscar':goodscar,'num_all':num_all,'price_all':price_all,'flagname':flagname})
@@ -151,23 +157,26 @@ def goods(request,id):
     token = request.COOKIES.get('username')
     tel = ''
     imgpath = ''
+    num_all = 0
+    price_all = 0
+    goodscar = []
     if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
+        user = User.objects.filter(u_token=token).last()
+        tel = user.u_tel
         # 图片路径
-        imgpath = User.objects.filter(u_token=token).last().u_img
+        imgpath = user.u_img
         imgpath = '/static/' + imgpath
+        # 此用户的购物车数据
+        goodscar = GoodsCar.objects.filter(user=user)
+        # 购物车总价和总数量
+        if goodscar.count():
+            for gcars in goodscar:
+                num_all += gcars.num
+                price_all += gcars.num * gcars.goods.price_good
     gcar = Goods.objects.filter(id=id).first()
     # 相关推荐轮播数据源
     listcar = Details.objects.all()
-    # 此用户的购物车数据
-    goodscar = GoodsCar.objects.filter(u_tel=tel)
-    # 购物车总价和总数量
-    num_all = 0
-    price_all = 0
-    if goodscar.count():
-        for gcars in goodscar:
-            num_all += gcars.num
-            price_all += gcars.num * gcars.price_good
+
     return render(request, 'goods.html',{'username':tel,'imgpath':imgpath,'listcar':listcar,'gcar':gcar,'goodscar':goodscar,'num_all':num_all,'price_all':price_all})
 
 # 购物车
@@ -176,24 +185,27 @@ def car(request):
     token = request.COOKIES.get('username')
     tel = ''
     imgpath = ''
+    num_all = 0
+    price_all = 0
     if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
+        user = User.objects.filter(u_token=token).last()
+        tel = user.u_tel
         # 图片路径
-        imgpath = User.objects.filter(u_token=token).last().u_img
+        imgpath = user.u_img
         imgpath = '/static/' + imgpath
+        # 此用户的购物车数据
+        goodscar = GoodsCar.objects.filter(user=user)
+        # 购物车总价和总数量
+        if goodscar.count():
+            for gcar in goodscar:
+                num_all += gcar.num
+                price_all += gcar.num * gcar.goods.price_good
+        return render(request, 'car.html',{'username': tel, 'imgpath': imgpath, 'goodscar': goodscar, 'num_all': num_all,
+                       'price_all': price_all})
     else:
         msg = '请先登录!'
         return render(request, 'login.html', {'msg': msg})
-    # 此用户的购物车数据
-    goodscar = GoodsCar.objects.filter(u_tel=tel)
-    # 购物车总价和总数量
-    num_all = 0
-    price_all = 0
-    if goodscar.count():
-        for gcar in goodscar:
-            num_all += gcar.num
-            price_all += gcar.num * gcar.price_good
-    return render(request, 'car.html',{'username':tel,'imgpath':imgpath,'goodscar':goodscar,'num_all':num_all,'price_all':price_all})
+
 
 #下单结算
 def balance(request):
@@ -252,18 +264,16 @@ def delcar(request,id):
 
 #加入购物袋
 def addtocar(request,id):
-    print(id)
     # 获取cookie
     token = request.COOKIES.get('username')
-    tel = ''
-    if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
-    else:
-        msg = '请先登录!'
-        return render(request, 'login.html', {'msg': msg})
+    user = []
+
+    #不需要再判断是否登录,能到这个函数说明已经登录了
+    user = User.objects.filter(u_token=token).last()
+
     goodss = Goods.objects.filter(id=id).first()
     #判断数据库中是否已经存在此用户对应的此商品
-    goodexist = GoodsCar.objects.filter(u_tel=tel,good_id=id)
+    goodexist = GoodsCar.objects.filter(user=user,goods=goodss)
     if goodexist.count():
         #保存数据
         try:
@@ -274,19 +284,8 @@ def addtocar(request,id):
             return HttpResponse('保存数据失败!' + str(e))
     else:
         try:
-            good = GoodsCar.creategoodscar(tel,id ,goodss.img, goodss.wen, goodss.said1, goodss.said2, goodss.unit, 1, goodss.price_good)
+            good = GoodsCar.creategoodscar(user,goodss,1)
             good.save()
         except Exception as e:
             return HttpResponse('保存数据失败!!' + str(e))
     return redirect('app:list',0)
-    # # 此用户的购物车数据
-    # goodscar = GoodsCar.objects.filter(u_tel=tel)
-    # # 购物车总价和总数量
-    # num_all = 0
-    # price_all = 0
-    # if goodscar.count():
-    #     for gcar in goodscar:
-    #         num_all += gcar.num
-    #         price_all += gcar.num * gcar.price_good
-    #
-    # return render(request,'list.html',{'goodscar':goodscar,'num_all':num_all,'price_all':price_all})

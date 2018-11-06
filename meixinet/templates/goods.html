@@ -64,15 +64,15 @@
 										<ul id="product2_li" style="overflow: hidden;">
                                             {% for gcar in goodscar %}
                                                 <li class="product2" style="overflow:hidden;">
-                                                    <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
+                                                    <img src="{% static gcar.goods.img %}" style="width:80px;height:80px;float:left;"/>
                                                     <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-                                                        <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
+                                                        <a href="" style="font-size:16px;">{{ gcar.goods.said1 }}&nbsp;{{ gcar.goods.said2 }}</a><br />{{ gcar.goods.wen }}
                                                         <br />
-                                                        <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
+                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.goods.num }}</span>
 
                                                     </p>
                                                     <div class="dell float_r">
-                                                        <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
+                                                        <a href="{% url 'app:delcar' gcar.goods.id %}" style="font-size:28px;" class="del">╳</a>
                                                     </div>
                                                     <div class="clear"></div>
                                                 </li>

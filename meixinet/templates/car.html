@@ -63,15 +63,15 @@
 										<ul id="product2_li">
 											{% for gcar in goodscar %}
                                                 <li class="product2" style="overflow:hidden;">
-                                                    <img src="{% static gcar.img %}" style="width:80px;height:80px;float:left;"/>
+                                                    <img src="{% static gcar.goods.img %}" style="width:80px;height:80px;float:left;"/>
                                                     <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-                                                        <a href="" style="font-size:16px;">{{ gcar.said1 }}&nbsp;{{ gcar.said2 }}</a><br />{{ gcar.wen }}
+                                                        <a href="" style="font-size:16px;">{{ gcar.goods.said1 }}&nbsp;{{ gcar.goods.said2 }}</a><br />{{ gcar.goods.wen }}
                                                         <br />
-                                                        <span  style="color: #555555;"><i>{{ gcar.unit }}</i>{{ gcar.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
+                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.goods.num }}</span>
 
                                                     </p>
                                                     <div class="dell float_r">
-                                                        <a href="{% url 'app:delcar' gcar.id %}" style="font-size:28px;" class="del">╳</a>
+                                                        <a href="{% url 'app:delcar' gcar.goods.id %}" style="font-size:28px;" class="del">╳</a>
                                                     </div>
                                                     <div class="clear"></div>
                                                 </li>
@@ -119,15 +119,15 @@
 			<div id="nav">
 				<div class="contaier" style="overflow: hidden;">
 					<ul class="list_zong">
-						<li><a href="" title="首页">首页</a></li>
-						<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
-						<li><a href="" title="全球购">全球购</a></li>
-						<li><a href="{% url 'app:list' %}" title="女士" id="menu2">女士</a></li>
-						<li><a href="" title="男仕" id="menu3">男仕</a></li>
-						<li><a href="" title="童装"id="menu4" >童装</a></li>
-						<li><a href="" title="腕表" id="menu5">腕表</a></li>
-						<li><a href="" title="品牌" id="menu6">品牌</a></li>
-						<li><a href="" title="Mzine">Mzine</a></li>
+						<li><a href="{% url 'app:index' %}" title="首页">首页</a></li>
+                        <li><a href="{% url 'app:list' 0 %}" title="新近单品" id="menu1">新近单品</a></li>
+                        <li><a href="{% url 'app:list' 1 %}" title="全球购">全球购</a></li>
+                        <li><a href="{% url 'app:list' 2 %}" title="女士" id="menu2">女士</a></li>
+                        <li><a href="{% url 'app:list' 3 %}" title="男仕" id="menu3">男仕</a></li>
+                        <li><a href="{% url 'app:list' 4 %}" title="童装"id="menu4" >童装</a></li>
+                        <li><a href="{% url 'app:list' 5 %}" title="腕表" id="menu5">腕表</a></li>
+                        <li><a href="{% url 'app:list' 6 %}" title="品牌" id="menu6">品牌</a></li>
+                        <li><a href="{% url 'app:list' 7 %}" title="Mzine">Mzine</a></li>
 						
 					</ul>
 				
@@ -403,35 +403,35 @@
                                         <td  class="relative shop_ck1">
                                             <input type="checkbox" class="ck_box">
                                             <div class="shop_ck_img float_l">
-                                                <img src="{% static good.img %}" height="90"/>
+                                                <img src="{% static good.goods.img %}" height="90"/>
                                             </div>
                                             <div class="shop_img_said float_l">
 
                                                 <a href="">
-                                                    {{ good.said1 }} {{ good.said2 }}
-                                                    <br />	{{ good.wen }}
+                                                    {{ good.goods.said1 }} {{ good.goods.said2 }}
+                                                    <br />	{{ good.goods.wen }}
                                                 </a>
 
                                             </div>
                                         </td>
                                         <td class="shop_ck_price">
-                                            {{ good.unit }}{{ good.price_good }}
+                                            {{ good.goods.unit }}{{ good.goods.price_good }}
                                         </td>
                                         <td class="shop_ck_num">
                                             <div class="shop_ck_num1">
                                                 <a href="" class="shop_jian">-</a>
-                                                <input type="text" class="ck_val" value="{{ good.num }}"/>
+                                                <input type="text" class="ck_val" value="{{ good.goods.num }}"/>
                                                 <a href=""class="shop_jia">+</a>
                                             </div>
                                         </td>
                                         <td class="shop_ck2">
-                                            <span>{{ good.unit }}{{ good.price_good }}</span>
+                                            <span>{{ good.goods.unit }}{{ good.goods.price_good }}</span>
                                         </td>
                                         <td class="shop_ck3">
                                             <div style="text-align:left;margin-left:48px;">
-                                                <a class="cp_fav" href="{% url 'app:collection' good.good_id %}" title="加入收藏">加入收藏</a>
+                                                <a class="cp_fav" href="{% url 'app:collection' good.goods.id %}" title="加入收藏">加入收藏</a>
                                                 <br /><br />
-                                                <a class="cp_del" href="{% url 'app:delcar' good.good_id %}" title="删除">删除</a>
+                                                <a class="cp_del" href="{% url 'app:delcar' good.goods.id %}" title="删除">删除</a>
                                             </div>
 
                                         </td>
@@ -454,7 +454,7 @@
 							</div>
 							<div class="clearfix"></div>
 							<div class="goon float_l">
-								<a href="{% url 'app:list' %}">继续购物</a>
+								<a href="{% url 'app:list' 0 %}">继续购物</a>
 							</div>
 							<div class="goon1 float_r">
 								<a href="{% url 'app:balance' %}" style="color: white">下单立即结算</a>

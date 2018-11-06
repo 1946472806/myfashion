@@ -125,30 +125,26 @@ class One(models.Model):
 
 #购物车表
 class GoodsCar(models.Model):
-    u_tel = models.CharField(max_length=20)
-    good_id = models.IntegerField(default=0)
-    img = models.CharField(max_length=256)
-    wen = models.CharField(max_length=100)
-    said1 = models.CharField(max_length=50)
-    said2 = models.CharField(max_length=50)
-    unit = models.CharField(max_length=10)
+    # u_tel = models.CharField(max_length=20)
+    # good_id = models.IntegerField(default=0)
+    user = models.ForeignKey(User)  #改成外键关联方式
+    goods = models.ForeignKey(Goods) #改成外键关联方式
     num = models.IntegerField()
-    price_good = models.DecimalField(max_digits=10, decimal_places=4)
 
     @classmethod
-    def creategoodscar(cls,tel,id,img,wen,said1,said2,unit,num,price_good):
-        goodscar = cls(u_tel=tel,good_id=id,img=img,wen=wen,said1=said1,said2=said2,unit=unit,num=num,price_good=price_good)
+    def creategoodscar(cls,user,goods,num):
+        goodscar = cls(user=user,goods=goods,num=num)
         return goodscar
 
-#购买商品下单结算表
-class GoodsBuyDetail(models.Model):
-    u_tel = models.CharField(max_length=20)
-    good_id = models.IntegerField(default=0)
-    img = models.CharField(max_length=256)
-    wen = models.CharField(max_length=100)
-    said1 = models.CharField(max_length=50)
-    said2 = models.CharField(max_length=50)
-    unit = models.CharField(max_length=10)
-    num_all = models.IntegerField()
-    price_good = models.DecimalField(max_digits=10, decimal_places=4)
-    price_all = models.DecimalField(max_digits=10, decimal_places=4)
+# #购买商品下单结算表
+# class GoodsBuyDetail(models.Model):
+#     u_tel = models.CharField(max_length=20)
+#     good_id = models.IntegerField(default=0)
+#     img = models.CharField(max_length=256)
+#     wen = models.CharField(max_length=100)
+#     said1 = models.CharField(max_length=50)
+#     said2 = models.CharField(max_length=50)
+#     unit = models.CharField(max_length=10)
+#     num_all = models.IntegerField()
+#     price_good = models.DecimalField(max_digits=10, decimal_places=4)
+#     price_all = models.DecimalField(max_digits=10, decimal_places=4)
