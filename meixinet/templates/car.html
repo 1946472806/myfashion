@@ -399,43 +399,48 @@
 						<div class="shop_ck">
 							<table id="shop_ck" style="overflow:hidden;width:100%;">
                                 {% for good in goodscar %}
-                                    <tr>
-                                        <td  class="relative shop_ck1">
-                                            <input type="checkbox" class="ck_box">
-                                            <div class="shop_ck_img float_l">
-                                                <img src="{% static good.goods.img %}" height="90"/>
-                                            </div>
-                                            <div class="shop_img_said float_l">
+                                    {% if  good.num > 0 %}
+                                        <tr>
+                                            <td  class="relative shop_ck1">
+                                                <input type="checkbox" class="ck_box">
+                                                <div class="shop_ck_img float_l">
+                                                    <img src="{% static good.goods.img %}" height="90"/>
+                                                </div>
+                                                <div class="shop_img_said float_l">
 
-                                                <a href="">
-                                                    {{ good.goods.said1 }} {{ good.goods.said2 }}
-                                                    <br />	{{ good.goods.wen }}
-                                                </a>
+                                                    <a href="">
+                                                        {{ good.goods.said1 }} {{ good.goods.said2 }}
+                                                        <br />	{{ good.goods.wen }}
+                                                    </a>
 
-                                            </div>
-                                        </td>
-                                        <td class="shop_ck_price">
-                                            {{ good.goods.unit }}{{ good.goods.price_good }}
-                                        </td>
-                                        <td class="shop_ck_num">
-                                            <div class="shop_ck_num1">
-                                                <a href="" class="shop_jian">-</a>
-                                                <input type="text" class="ck_val" value="{{ good.goods.num }}"/>
-                                                <a href=""class="shop_jia">+</a>
-                                            </div>
-                                        </td>
-                                        <td class="shop_ck2">
-                                            <span>{{ good.goods.unit }}{{ good.goods.price_good }}</span>
-                                        </td>
-                                        <td class="shop_ck3">
-                                            <div style="text-align:left;margin-left:48px;">
-                                                <a class="cp_fav" href="{% url 'app:collection' good.goods.id %}" title="加入收藏">加入收藏</a>
-                                                <br /><br />
-                                                <a class="cp_del" href="{% url 'app:delcar' good.goods.id %}" title="删除">删除</a>
-                                            </div>
+                                                </div>
+                                            </td>
+                                            <td class="shop_ck_price">
+                                                {{ good.goods.unit }}{{ good.goods.price_good }}
+                                            </td>
+                                            <td class="shop_ck_num">
+                                                <div class="shop_ck_num1">
+{#                                                    <a href="" class="shop_jian" goodsid="{{ good.goods.id }}"> </a>#}
+                                                    <span class="shop_jian" goodsid="{{ good.goods.id }}">-</span>
+{#                                                    <input type="text" class="ck_val" value="{{ good.num }}"/>#}
+                                                    <span class="ck_val">{{ good.num }}</span>
+{#                                                    <a href=""class="shop_jia" goodsid="{{ good.goods.id }}">  </a>#}
+                                                    <span class="shop_jia" goodsid="{{ good.goods.id }}">+</span>
+                                                </div>
+                                            </td>
+                                            <td class="shop_ck2">
+                                                <span>{{ good.goods.unit }}{{ good.goods.price_good }}</span>
+                                            </td>
+                                            <td class="shop_ck3">
+                                                <div style="text-align:left;margin-left:48px;">
+                                                    <a class="cp_fav" href="{% url 'app:collection' good.goods.id %}" title="加入收藏">加入收藏</a>
+                                                    <br /><br />
+                                                    <a class="cp_del" href="{% url 'app:delcar' good.goods.id %}" title="删除">删除</a>
+                                                </div>
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
 							</table>
 						</div>

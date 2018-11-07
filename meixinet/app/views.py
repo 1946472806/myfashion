@@ -289,3 +289,35 @@ def addtocar(request,id):
         except Exception as e:
             return HttpResponse('保存数据失败!!' + str(e))
     return redirect('app:list',0)
+
+#减
+def subnum(request):
+    goodsid = request.GET.get('goodsid')
+    token = request.COOKIES.get('username')
+    goods = Goods.objects.filter(id=goodsid).first()
+    user = User.objects.filter(u_token=token).last()
+
+    goodcarts = GoodsCar.objects.filter(user=user,goods=goods)
+    if goodcarts.count():
+        goodcart = goodcarts.first()
+        goodcart.num -= 1
+        goodcart.save()
+        return JsonResponse({'mag':'减少数据成功!','num':goodcart.num,'backstatus':'1'})
+    else:
+        return JsonResponse({'mag': '减少数据失败!', 'backstatus': '-1'})
+
+#加
+def addnum(request):
+    goodsid = request.GET.get('goodsid')
+    token = request.COOKIES.get('username')
+    goods = Goods.objects.filter(id=goodsid).first()
+    user = User.objects.filter(u_token=token).last()
+
+    goodcarts = GoodsCar.objects.filter(user=user, goods=goods)
+    if goodcarts.count():
+        goodcart = goodcarts.first()
+        goodcart.num += 1
+        goodcart.save()
+        return JsonResponse({'mag': '增加数据成功!', 'num': goodcart.num, 'backstatus': '1'})
+    else:
+        return JsonResponse({'mag': '增加数据失败!', 'backstatus': '-1'})

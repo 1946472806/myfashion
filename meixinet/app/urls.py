@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^collection/(\d+)/$', views.collection, name='collection'),
     url(r'^addtocar/(\d+)/$', views.addtocar, name='addtocar'),
     url(r'^verifytel/$', views.verifytel, name='verifytel'),
+    url(r'^subnum/$', views.subnum, name='subnum'), #减
+    url(r'^addnum/$', views.addnum, name='addnum'), #加
 ]
