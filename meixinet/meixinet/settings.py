@@ -130,3 +130,6 @@ STATICFILES_DIRS = [
 ]
 #文件上传路径
 MDEIA_ROOT = os.path.join(BASE_DIR,'static/upfile')
+
+#支付相关key
+ALIPAY_ROOT = os.path.join(BASE_DIR, 'static/key')

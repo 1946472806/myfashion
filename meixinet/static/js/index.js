@@ -58,6 +58,9 @@ $(function(){
 //扫码
 	second($("#saoma11"),$("#headerApp_m"));
 
+	//购物袋
+	second1( $("#shop"),$("#headershop"));
+
 
 //二级菜单
 //新品
@@ -199,26 +202,43 @@ $(function(){
 	$(".sing_code").mouseleave(function(){
 		$(this).stop(true).animate({"height": "50px"},300);
 	})
-	
 
-	
-var num = $("#total_num").html()
-	if(num>0){
-					$(".empty_car").css({"display":"none"});
-					$(".full_car").css({"display":"block"});
-					$(".kong").css({"display":"none"});
-					$(".cart_out").css({"display":"block"});
-				}
-				else{
-					$(".empty_car").css({"display":"block"});
-					$(".full_car").css({"display":"none"});
-					$(".kong").css({"display":"block"});
-					$(".cart_out").css({"display":"none"});
-				}
 
-	
-	
-	
+    total()
+
+	//计算购物车商品数量和总金额
+    function total(){
+	    var $priceall = 0
+        var $numall = 0
+	    $('#product2_li .product2').each(function () {
+            var $num = parseFloat($(this).find('p').attr('num'))
+            var $price = parseFloat($(this).find('p').attr('price'))
+            console.log($num)
+            console.log($price)
+            $priceall += $num * $price
+            $numall += $num
+      })
+
+        if ($priceall > 0){
+            $priceall = $priceall.toFixed(2)
+        }
+
+        $('#total_num').html($numall)
+        $('#headershop .car_b .totalprice').html($priceall)
+
+        console.log($priceall)
+        if($priceall > 0){
+            // $("#headershop").css({"display":"block"});
+			$("#headershop .kong").css({"display":"none"});
+			$("#headershop .cart_out").css({"display":"block"});
+		}
+		else{
+		    // $("#headershop").css({"display":"block"});
+			$("#headershop .kong").css({"display":"block"});
+			$("#headershop .cart_out").css({"display":"none"});
+		}
+
+    }
 
 })
 

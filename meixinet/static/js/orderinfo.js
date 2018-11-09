@@ -191,4 +191,14 @@ $(function(){
 
 	})
 
+    //付款
+    $('#pay').click(function () {
+        var orderid = $(this).attr('orderid')
+
+        $.get('/pay/',{'orderid':orderid},function (data) {
+            window.open(data['alipay_url'], target='_self')
+        })
+
+    })
+
 })

@@ -45,9 +45,9 @@
 						
 					</span>
 					<span id="shop">
-						<a href="{% url 'app:car' %}" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
+						<a href="/car/" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
 							<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							购物袋（<i id="total_num">{{ num_all | default:0 }}</i>）
+							购物袋（<i id="total_num"></i>）
 						</a>
 						
 					</span>
@@ -60,13 +60,14 @@
 								<div class="car_t"><strong>我的商品</strong></div>
 								<div class="car_show">
 									<ul id="product2_li">
+                                    {% if username %}
                                         {% for gcar in goodscar %}
                                             <li class="product2" style="overflow:hidden;">
                                                 <img src="{% static gcar.goods.img %}" style="width:80px;height:80px;float:left;"/>
-                                                <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                <p num="{{ gcar.num }}" price="{{ gcar.goods.price_good }}" style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
                                                     <a href="" style="font-size:16px;">{{ gcar.goods.said1 }}&nbsp;{{ gcar.goods.said2 }}</a><br />{{ gcar.goods.wen }}
                                                     <br />
-                                                    <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.goods.num }}</span>
+                                                    <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
 
                                                 </p>
                                                 <div class="dell float_r">
@@ -75,18 +76,18 @@
                                                 <div class="clear"></div>
                                             </li>
                                         {% endfor %}
-										
-									</ul>
+                                    {% endif %}
+                                    </ul>
 									
 									
 								</div>
 								<div class="car_b">
 									<div class="to_l">
 										<span>商品总计 ： ￥  </span>
-										<span class="totalprice">{{ price_all|default:0 }}</span>
+										<span class="totalprice"></span>
 									</div>
 									<div class="to_r">
-										<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
+										<a href="car.html" class="settlement" style="font-size:18px;color: white;">去结算</a>
 									</div>
 								</div>
 							</div>
@@ -1124,24 +1125,6 @@
 						</div>
 					
 						<!--轮播小图-->
-{#						<div id="box1_btn1" style="width: 1200px;height: 265px; margin: 0 auto;overflow: hidden;">#}
-{#							<div id="small">#}
-{#								<ul id="list_small">#}
-{#								    {% for lunbo1 in lunbos1 %}#}
-{#                                        <li>#}
-{#                                            <a href='' title="{{ lunbo1.wen }}">#}
-{#                                                <img class='productImg' src="{% static lunbo1.img %}" alt="{{ lunbo1.alt }}">#}
-{#                                                <p>"{{ lunbo1.said1 }}"</br>"{{ lunbo1.said2 }}"</p>#}
-{#                                            </a>#}
-{#                                            <div class='c_gray'>"{{ lunbo1.div }}"</div>#}
-{#                                        </li>#}
-{#                                    {% endfor %}#}
-{#								</ul>#}
-{#								<div id="prev_left"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>#}
-{#								<div id="next_right"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>#}
-{#							</div>#}
-{#						</div>#}
-
                         <div class="swiper-container" id="mustbuySwiper">
                             <div class="swiper-wrapper">
                                 {% for lunbo1 in lunbos1 %}

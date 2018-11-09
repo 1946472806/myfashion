@@ -8,42 +8,33 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-
+from app.alipay import alipay_axf
 from app.models import User, Car, Details, Goods, List, lunbo, lunbo1, One, GoodsCar, Order, Orderinfo
 import json
-
-# 首页
 from meixinet import settings
 
 
+# 首页
 def index(request):
     #获取cookie
     token = request.COOKIES.get('username')
-    tel = ''
-    imgpath = ''
-    goodscar = []
-    num_all = 0
-    price_all = 0
+    data = {}
+
     if token:
         user = User.objects.filter(u_token=token).last()
-        tel = user.u_tel
+        data['username'] = user.u_tel
         # 图片路径
-        imgpath = user.u_img
-        imgpath = '/static/' + imgpath
+        data['imgpath'] = '/static/' + user.u_img
         # 此用户的购物车数据
-        goodscar = GoodsCar.objects.filter(user=user)
-        # 购物车总价和总数量
-        if goodscar.count():
-            for gcar in goodscar:
-                num_all += gcar.num
-                price_all += gcar.num * gcar.goods.price_good
+        data['goodscar'] = GoodsCar.objects.filter(user=user)
+
     #大图轮播数据
-    lunbos = lunbo.objects.all()
+    data['lunbos'] = lunbo.objects.all()
     #小图轮播数据
-    lunbos1 = lunbo1.objects.all()
+    data['lunbos1'] = lunbo1.objects.all()
 
 
-    return render(request,'index.html',{'username':tel,'lunbos':lunbos,'lunbos1':lunbos1,'goodscar':goodscar,'num_all':num_all,'price_all':price_all,'imgpath':imgpath})
+    return render(request,'index.html',context=data)
 
 # 注册
 def register(request):
@@ -214,7 +205,7 @@ def genegrate_password(password):
     sha.update(password.encode('utf-8'))
     return sha.hexdigest()
 
-#减
+#减数量
 def subnum(request):
     goodsid = request.GET.get('goodsid')
     token = request.COOKIES.get('username')
@@ -230,7 +221,7 @@ def subnum(request):
     else:
         return JsonResponse({'mag': '减少数据失败!', 'backstatus': '-1'})
 
-#加
+#加数量
 def addnum(request):
     goodsid = request.GET.get('goodsid')
     token = request.COOKIES.get('username')
@@ -246,7 +237,7 @@ def addnum(request):
     else:
         return JsonResponse({'mag': '增加数据失败!', 'backstatus': '-1'})
 
-# 选择或选取消择
+# 选择或取消选择
 def goodsel(request):
     goodcartid = request.GET.get('goodcartid')
     data = {}
@@ -309,6 +300,36 @@ def getorderinfo(request):
 
     order = Order.objects.get(ordernum=ordernum)
     return render(request, 'orderinfo.html', {'order': order})
+
+# 支付完成后，支付宝调用的(通知app服务端)
+def notifyurl(request):
+    #这里应该根据返回的状态和单据号更新用户订单表中的订单状态
+    # print('%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+    # print(request.GET.get('subject'))
+    return JsonResponse({'msg': 'success'})
+
+# 支付完成后，app客户端跳转的页面
+def returnurl(request):
+    #这里暂时跳转到‘商品’页面
+    return redirect('app:list')
+
+#支付宝支付
+def pay(request):
+    orderid = request.GET.get('orderid')
+    # 支付url
+    url = alipay_axf.direct_pay(
+        subject='测试订单 --- iphone Y',  # 订单名称
+        out_trade_no=orderid,  # 订单号
+        total_amount=1.1,  # 付款金额
+        # return_url='http://112.74.55.3/axf/returnurl/'
+        return_url='http://120.78.160.121/returnurl/'
+    )
+
+    # 拼接支付网关
+    # alipay_url = 'https://openapi.alipaydev.com/gateway.do?{data}'.format(data=url)
+    alipay_url = 'https://openapi.alipaydev.com/gateway.do?{data}'.format(data=url)
+
+    return JsonResponse({'alipay_url': alipay_url})
 
 #添加收藏
 def collection(request,id):
