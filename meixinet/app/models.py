@@ -130,21 +130,39 @@ class GoodsCar(models.Model):
     user = models.ForeignKey(User)  #改成外键关联方式
     goods = models.ForeignKey(Goods) #改成外键关联方式
     num = models.IntegerField()
+    isselect = models.BooleanField(default=True)
 
     @classmethod
     def creategoodscar(cls,user,goods,num):
         goodscar = cls(user=user,goods=goods,num=num)
         return goodscar
 
-# #购买商品下单结算表
-# class GoodsBuyDetail(models.Model):
-#     u_tel = models.CharField(max_length=20)
-#     good_id = models.IntegerField(default=0)
-#     img = models.CharField(max_length=256)
-#     wen = models.CharField(max_length=100)
-#     said1 = models.CharField(max_length=50)
-#     said2 = models.CharField(max_length=50)
-#     unit = models.CharField(max_length=10)
-#     num_all = models.IntegerField()
-#     price_good = models.DecimalField(max_digits=10, decimal_places=4)
-#     price_all = models.DecimalField(max_digits=10, decimal_places=4)
+# 订单主表
+class Order(models.Model):
+    #用户
+    user = models.ForeignKey(User)
+    #订单号
+    ordernum = models.CharField(max_length=256)
+    #创建时间
+    createtime = models.DateTimeField(auto_now=True)
+    #订单状态(1.未付款 2.已付款未发货 3.已发货未收货 4.已收货未评价 5.已评价 6.退款)
+    status = models.IntegerField(default=1)
+
+    @classmethod
+    def createorder(cls,user,ordernum):
+        order = cls(user=user,ordernum=ordernum)
+        return order
+
+# 订单明细表
+class Orderinfo(models.Model):
+    # 订单
+    order = models.ForeignKey(Order)
+    #商品
+    goods = models.ForeignKey(Goods)
+    #商品数量
+    number = models.IntegerField(default=1)
+
+    @classmethod
+    def createorderinfo(cls, order, goods,number):
+        orderinfo = cls(order=order, goods=goods,number=number)
+        return orderinfo

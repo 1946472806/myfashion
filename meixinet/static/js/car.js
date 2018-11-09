@@ -1,7 +1,9 @@
 
 
 $(function(){
-	
+    //计算总金额
+    var selall = true
+	total()
 //隐藏二级菜单
 	function second(lar,sma){
 		
@@ -217,7 +219,6 @@ $(function(){
 
         //发起ajax请求
         $.get('/addnum/',{'goodsid':$goodsid},function (data) {
-            console.log(data)
             if (data['backstatus'] == '1'){
                 var num = data['num']
                 $that.prev().html(num)
@@ -225,20 +226,163 @@ $(function(){
         })
     })
 
+    //选择或取消选择
+    $('#shop_ck .confirm-wrapper').click(function () {
+        var $that = $(this)
+        var $goodcartid = $('#shop_ck .confirm-wrapper').attr('goodcartid')
+        selall = true
 
-var num = $("#total_num").html()
-	if(num>0){
-					$(".empty_car").css({"display":"none"});
-					$(".full_car").css({"display":"block"});
-					$(".kong").css({"display":"none"});
-					$(".cart_out").css({"display":"block"});
-				}
-				else{
-					$(".empty_car").css({"display":"block"});
-					$(".full_car").css({"display":"none"});
-					$(".kong").css({"display":"block"});
-					$(".cart_out").css({"display":"none"});
-				}
+        $.get('/goodsel/',{'goodcartid':$goodcartid},function (data) {
+            if (data['backstatus'] == '1'){
+                if ($that.find('.glyphicon-ok').length){
+                $that.find('span').removeClass('glyphicon-ok').addClass('no')
+                }else {
+                    $that.find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+                }
+            }
 
-	
+            //重新计算金额
+            total()
+        })
+    })
+
+    //全选或取消全选
+    $('.conten .full_car .all_ck1').click(function () {
+        var $sel = $(this)
+        var $shops = $('#shop_ck .confirm-wrapper')
+
+        selall = true
+        if ($sel.find('.no').length){ //没有全选的情况下
+            //发起ajax请求,将购物车里面的这个用户的全部商品的选择状态改成True
+            $.get('/changeall/',{'flag':'1'},function (data) {
+                if (data['backstatus'] == 1) {
+                    $shops.each(function () {
+                        $(this).find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+                    })
+                }
+                //重新计算金额
+                total()
+                //本身的图标改一下
+                $sel.find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+            })
+
+        }else {
+            //发起ajax请求,将购物车里面的这个用户的全部商品的选择状态改成False
+            $.get('/changeall/',{'flag':'0'},function (data) {
+                if (data['backstatus'] == 1) {
+                    $shops.each(function () {
+                        $(this).find('span').removeClass('glyphicon glyphicon-ok').addClass('no')
+                    })
+                }
+                //重新计算金额
+                total()
+                //本身的图标改一下
+                $sel.find('span').removeClass('glyphicon glyphicon-ok').addClass('no')
+            })
+        }
+    })
+
+    //全选或取消全选（下面的那个）
+    $('.conten #del_shop .all_ck11').click(function () {
+        var $sel = $(this)
+        var $shops = $('#shop_ck .confirm-wrapper')
+
+        selall = true
+        if ($sel.find('.no').length){ //没有全选的情况下
+            //发起ajax请求,将购物车里面的这个用户的全部商品的选择状态改成True
+            $.get('/changeall/',{'flag':'1'},function (data) {
+                if (data['backstatus'] == 1) {
+                    $shops.each(function () {
+                        $(this).find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+                    })
+                }
+                //重新计算金额
+                total()
+                //本身的图标改一下
+                $sel.find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+            })
+
+        }else {
+            //发起ajax请求,将购物车里面的这个用户的全部商品的选择状态改成False
+            $.get('/changeall/',{'flag':'0'},function (data) {
+                if (data['backstatus'] == 1) {
+                    $shops.each(function () {
+                        $(this).find('span').removeClass('glyphicon glyphicon-ok').addClass('no')
+                    })
+                }
+                //重新计算金额
+                total()
+                //本身的图标改一下
+                $sel.find('span').removeClass('glyphicon glyphicon-ok').addClass('no')
+            })
+        }
+    })
+
+
+	//计算选中商品总金额
+    function total(){
+	    var $priceall = 0
+        var $numall = 0
+	    $('#shop_ck .cltr').each(function () {
+        var $confirm = $(this).find('.confirm-wrapper')
+        var $shop_ck_num1 = $(this).find('.shop_ck_num1')
+        var $shop_ck2 = $(this).find('.shop_ck2')
+
+        if ($confirm.find('.glyphicon-ok').length){
+            var $num = parseFloat($shop_ck_num1.find('.ck_val').html())
+            var $price = parseFloat($shop_ck2.find('span').attr('price'))
+
+            $priceall += $num * $price
+            $numall += $num
+        }else {
+                selall = false
+            }
+      })
+
+        if ($priceall > 0){
+            $priceall = $priceall.toFixed(2)
+        }
+
+        $('#total_num').html($numall)
+        $('#top .to_l .totalprice').html($priceall)
+        $('#total_nums').html($numall)
+        $('#total').html($priceall)
+
+        //全选按钮
+        if (selall){
+            $('.conten .full_car .all_ck1').find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+            $('.conten #del_shop .all_ck11').find('span').removeClass('no').addClass('glyphicon glyphicon-ok')
+        } else {
+            $('.conten .full_car .all_ck1').find('span').removeClass('glyphicon glyphicon-ok').addClass('no')
+            $('.conten #del_shop .all_ck11').find('span').removeClass('glyphicon glyphicon-ok').addClass('no')
+        }
+
+        if($('#shop_ck').find('.cltr').length){
+            $(".empty_car").css({"display":"none"});
+            $(".full_car").css({"display":"block"});
+            $(".kong").css({"display":"none"});
+            $(".cart_out").css({"display":"block"});
+        }
+        else{
+            $(".empty_car").css({"display":"block"});
+            $(".full_car").css({"display":"none"});
+            $(".kong").css({"display":"block"});
+            $(".cart_out").css({"display":"none"});
+        }
+
+    }
+
+     //下单
+    $('.conten #del_shop .goon1').click(function () {
+        var $billright = $(this)
+        //发起ajax请求
+        $.get('/placeorder/',{'test':'1111'},function (data) {
+            if (data['backstatus'] == '1'){
+                var ordernum = data['ordernum']
+                //跳转到下单详情界面
+                window.open('/getorderinfo/?ordernum='+ordernum,target="_self")
+            }
+        })
+    })
+
 })

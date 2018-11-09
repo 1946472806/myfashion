@@ -6,11 +6,11 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/car.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
 		
-			
-		<!--轮播大图-->
-		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
-		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+
+		<script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
 		<script src="{% static 'js/car.js' %}"></script>
 		
 		
@@ -48,7 +48,7 @@
 						<span id="shop">
 							<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
 								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								购物袋（<i id="total_num">{{ num_all|default:0 }}</i>）
+								购物袋（<i id="total_num"></i>）
 							</a>
 							
 						</span>
@@ -84,7 +84,7 @@
 									<div class="car_b">
 										<div class="to_l">
 											<span>商品总计 ： ￥  </span>
-											<span class="totalprice">{{ price_all|default:0 }}</span>
+											<span class="totalprice"></span>
 										</div>
 										<div class="to_r">
 											<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
@@ -378,9 +378,9 @@
 					</div>
 					<div class="full_car">
 						<div class="all_ck">
-							<div class="all_ck1">
-								<input type="checkbox" checked id="allSelect" style="margin:0 3px 0 30px;"/>
-								全选
+							<div class="confirm-wrapper all_ck1">
+                                <span class="glyphicon glyphicon-ok" style="margin:0 3px 0 30px;"></span>
+                                全选
 							</div>
 							<div class="all_ck2">
 								商品信息
@@ -399,70 +399,78 @@
 						<div class="shop_ck">
 							<table id="shop_ck" style="overflow:hidden;width:100%;">
                                 {% for good in goodscar %}
-                                    {% if  good.num > 0 %}
-                                        <tr>
-                                            <td  class="relative shop_ck1">
-                                                <input type="checkbox" class="ck_box">
-                                                <div class="shop_ck_img float_l">
-                                                    <img src="{% static good.goods.img %}" height="90"/>
-                                                </div>
-                                                <div class="shop_img_said float_l">
+                                    <tr class="cltr">
+                                        <td  class="relative shop_ck1">
+                                            <div class="confirm-wrapper float_l" goodcartid="{{ good.id }}">
+                                                {% if good.isselect %}
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                {% else %}
+                                                    <span class="no"></span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="shop_ck_img float_l">
+                                                <img src="{% static good.goods.img %}" height="90"/>
+                                            </div>
+                                            <div class="shop_img_said float_l">
 
-                                                    <a href="">
-                                                        {{ good.goods.said1 }} {{ good.goods.said2 }}
-                                                        <br />	{{ good.goods.wen }}
-                                                    </a>
+                                                <a href="">
+                                                    {{ good.goods.said1 }} {{ good.goods.said2 }}
+                                                    <br />	{{ good.goods.wen }}
+                                                </a>
 
-                                                </div>
-                                            </td>
-                                            <td class="shop_ck_price">
-                                                {{ good.goods.unit }}{{ good.goods.price_good }}
-                                            </td>
-                                            <td class="shop_ck_num">
-                                                <div class="shop_ck_num1">
+                                            </div>
+                                        </td>
+                                        <td class="shop_ck_price">
+                                            {{ good.goods.unit }}{{ good.goods.price_good }}
+                                        </td>
+                                        <td class="shop_ck_num">
+                                            <div class="shop_ck_num1">
 {#                                                    <a href="" class="shop_jian" goodsid="{{ good.goods.id }}"> </a>#}
-                                                    <span class="shop_jian" goodsid="{{ good.goods.id }}">-</span>
+                                                <span class="shop_jian" goodsid="{{ good.goods.id }}">-</span>
 {#                                                    <input type="text" class="ck_val" value="{{ good.num }}"/>#}
-                                                    <span class="ck_val">{{ good.num }}</span>
+                                                <span class="ck_val">{{ good.num }}</span>
 {#                                                    <a href=""class="shop_jia" goodsid="{{ good.goods.id }}">  </a>#}
-                                                    <span class="shop_jia" goodsid="{{ good.goods.id }}">+</span>
-                                                </div>
-                                            </td>
-                                            <td class="shop_ck2">
-                                                <span>{{ good.goods.unit }}{{ good.goods.price_good }}</span>
-                                            </td>
-                                            <td class="shop_ck3">
-                                                <div style="text-align:left;margin-left:48px;">
-                                                    <a class="cp_fav" href="{% url 'app:collection' good.goods.id %}" title="加入收藏">加入收藏</a>
-                                                    <br /><br />
-                                                    <a class="cp_del" href="{% url 'app:delcar' good.goods.id %}" title="删除">删除</a>
-                                                </div>
+                                                <span class="shop_jia" goodsid="{{ good.goods.id }}">+</span>
+                                            </div>
+                                        </td>
+                                        <td class="shop_ck2">
+                                            <span price="{{ good.goods.price_good }}">{{ good.goods.unit }}{{ good.goods.price_good }}</span>
+                                        </td>
+                                        <td class="shop_ck3">
+                                            <div style="text-align:left;margin-left:48px;">
+                                                <a class="cp_fav" href="{% url 'app:collection' good.goods.id %}" title="加入收藏">加入收藏</a>
+                                                <br /><br />
+                                                <a class="cp_del" href="{% url 'app:delcar' good.goods.id %}" title="删除">删除</a>
+                                            </div>
 
-                                            </td>
-                                        </tr>
-                                    {% endif %}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
 							</table>
 						</div>
 			
 						<!-- 删除选中 -->
 						<div id="del_shop" class="clearfix">
-							<div class="all_ck11 float_l">
-								<input type="checkbox" id="allSelect1" checked style="margin:0 3px 0 30px;"/>
-								全选
+{#							<div class="all_ck11 float_l">#}
+{#								<input type="checkbox" id="allSelect1" checked style="margin:0 3px 0 30px;"/>#}
+{#								全选#}
+{#							</div>#}
+                            <div class="confirm-wrapper all_ck11 float_l">
+                                <span class="glyphicon glyphicon-ok" style="margin:0 3px 0 30px;"></span>
+                                全选
 							</div>
 							<span class="float_l" style="padding-left:30px"><a href="" id="delSelect">删除选中商品</a></span>
 							<span class="float_l"style="padding-left:40px"><a href="">加入收藏</a></span>
-							<div class="float_r" style="bottom:1px solid #e8e8e8">已选商品<i id="total_nums" style="color: red;font-weight:bolder;">{{ num_all|default:0 }}</i>件
-								<span style="margin-left: 20px;">合计（不含运费、税费）：<span id="total" style="color:red;font-size:18px;font-weight:bolder;margin-right:30px">{{ num_all|default:0 }}</span></span>
+							<div class="float_r" style="bottom:1px solid #e8e8e8">已选商品<i id="total_nums" style="color: red;font-weight:bolder;"></i>件
+								<span style="margin-left: 20px;">合计（不含运费、税费）：<span id="total" style="color:red;font-size:18px;font-weight:bolder;margin-right:30px"></span></span>
 								<p style="text-align: right;margin-right: 40px">活动折扣：-￥0.00</p>
 							</div>
 							<div class="clearfix"></div>
-							<div class="goon float_l">
-								<a href="{% url 'app:list' 0 %}">继续购物</a>
+							<div class="goon float_l" style="background-color: darkorange;">
+								<a href="{% url 'app:list' 0 %}" style="color: white">继续购物</a>
 							</div>
-							<div class="goon1 float_r">
-								<a href="{% url 'app:balance' %}" style="color: white">下单立即结算</a>
+							<div class="goon1 float_r" style="color: white">
+								下  单
 							</div>
 						</div>
 
@@ -470,43 +478,7 @@
 						
 
 					</div>
-					
-					
-					<!--猜你喜欢-->
-					<div class="like" style="background:white;overflow:hidden;border:1px solid #e8e8e8">
-						<div class="pro_pubtit">
-					        <div class="tabTitle">
-					            <div class="tabTitle_m">Product <span>Recommend</span></div>
-					            <p>相关推荐</p>
-					        </div>
-					    </div>
-						<!--<div class="run_pic">-->
-						<div id="like_shop" class="run_pic_like">
-							<div id="like_small">
-								<ul id="like_list" class="clearfix" style="margin: 0px; padding: 0px; position: relative;z-index: 1; width: 5240px; left: -1048px;">
-									<!-- <li style="overflow: hidden; float: left; width: 220px; height: 382px;">
-					       				<a title="FAYE迷你双肩背包" href="">
-						                    <img src="../img2/141506594225eaeeea5-160x192.jpg" width="160" height="192" alt=""><br>
-						                    <div class="list_name">
-						                        <span class="shop_name">Chloe 蔻依</span><br>
-						                        <span class="shop_type">FAYE迷你双肩背包</span>
-						                    </div>
-						                </a>
-						                <div class="shop_price">￥10640.00</div>
-						                <a class="shop_add" title="添加到购物袋" style="cursor: pointer;">添加到购物袋</a>
-						            </li> -->
-						            
-					                   
-								</ul>
-								<div id="car_prev"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>
-								<div id="car_next"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>
-							</div>
-			
-						<!--</div>-->
-						</div>
-					</div>
-				</div>
-			</div>
+
 			
 			<!--在线咨询-->
 			<div class="consult absolute">

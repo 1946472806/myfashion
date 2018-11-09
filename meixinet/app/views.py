@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 
-from app.models import User, Car, Details, Goods, List, lunbo, lunbo1, One, GoodsCar
+from app.models import User, Car, Details, Goods, List, lunbo, lunbo1, One, GoodsCar, Order, Orderinfo
 import json
 
 # 首页
@@ -183,42 +183,132 @@ def goods(request,id):
 def car(request):
     # 获取cookie
     token = request.COOKIES.get('username')
-    tel = ''
-    imgpath = ''
-    num_all = 0
-    price_all = 0
+    data = {}
     if token:
         user = User.objects.filter(u_token=token).last()
-        tel = user.u_tel
+        data['username'] = user.u_tel
         # 图片路径
-        imgpath = user.u_img
-        imgpath = '/static/' + imgpath
+        data['imgpath'] = '/static/' + user.u_img
+
         # 此用户的购物车数据
-        goodscar = GoodsCar.objects.filter(user=user)
-        # 购物车总价和总数量
-        if goodscar.count():
-            for gcar in goodscar:
-                num_all += gcar.num
-                price_all += gcar.num * gcar.goods.price_good
-        return render(request, 'car.html',{'username': tel, 'imgpath': imgpath, 'goodscar': goodscar, 'num_all': num_all,
-                       'price_all': price_all})
+        data['goodscar'] = GoodsCar.objects.filter(user=user).exclude(num=0)
+
+        return render(request, 'car.html',context=data)
     else:
         msg = '请先登录!'
         return render(request, 'login.html', {'msg': msg})
 
 
-#下单结算
-def balance(request):
-    # 获取cookie
+# #token生成
+# def genegrate_token():
+#     token = str(time.time) + str(random.random())
+#     #md5算法
+#     md5 = hashlib.md5()
+#     md5.update(token.encode('utf-8'))
+#     token = md5.hexdigest()
+#     return token
+
+#密码加密
+def genegrate_password(password):
+    sha = hashlib.sha512()
+    sha.update(password.encode('utf-8'))
+    return sha.hexdigest()
+
+#减
+def subnum(request):
+    goodsid = request.GET.get('goodsid')
     token = request.COOKIES.get('username')
-    tel = ''
-    if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
-    if not tel:
-        return redirect('app:login')
+    goods = Goods.objects.filter(id=goodsid).first()
+    user = User.objects.filter(u_token=token).last()
+
+    goodcarts = GoodsCar.objects.filter(user=user,goods=goods)
+    if goodcarts.count():
+        goodcart = goodcarts.first()
+        goodcart.num -= 1
+        goodcart.save()
+        return JsonResponse({'mag':'减少数据成功!','num':goodcart.num,'backstatus':'1'})
     else:
-        # 获取下单数据
-        return  HttpResponse('下单成功')
+        return JsonResponse({'mag': '减少数据失败!', 'backstatus': '-1'})
+
+#加
+def addnum(request):
+    goodsid = request.GET.get('goodsid')
+    token = request.COOKIES.get('username')
+    goods = Goods.objects.get(id=goodsid)
+    user = User.objects.get(u_token=token)
+
+    goodcarts = GoodsCar.objects.filter(user=user, goods=goods)
+    if goodcarts.count():
+        goodcart = goodcarts.first()
+        goodcart.num += 1
+        goodcart.save()
+        return JsonResponse({'mag': '增加数据成功!', 'num': goodcart.num, 'backstatus': '1'})
+    else:
+        return JsonResponse({'mag': '增加数据失败!', 'backstatus': '-1'})
+
+# 选择或选取消择
+def goodsel(request):
+    goodcartid = request.GET.get('goodcartid')
+    data = {}
+    try:
+        goodcart = GoodsCar.objects.get(pk=goodcartid)
+        goodcart.isselect =not goodcart.isselect
+        goodcart.save()
+        data['msg'] = '更新成功'
+        data['backstatus'] = '1'
+        return JsonResponse(data)
+    except Exception as e:
+        data['msg'] = '更新失败'
+        data['backstatus'] = '-1'
+        return JsonResponse(data)
+
+# 全选或取消全选
+def changeall(request):
+    flag = request.GET.get('flag')
+    token = request.COOKIES.get('username')
+    if flag == '1':  # 全选
+        isselect = 1
+    else:  # 全消
+        isselect = 0
+    try:
+        user = User.objects.get(u_token=token)
+        cars = GoodsCar.objects.filter(user=user)
+        for car in cars:
+            car.isselect = isselect
+            car.save()
+        return JsonResponse({'msg': '反选成功!', 'backstatus': '1'})
+
+    except Exception as e:
+        return JsonResponse({'msg': '保存数据失败!', 'backstatus': '-1'})
+
+#下单
+def placeorder(request):
+    token = request.COOKIES.get('username')
+
+    try:
+        user = User.objects.get(u_token=token)
+        goodscars = GoodsCar.objects.filter(user=user).filter(isselect=1)
+        #订单号
+        ordernum = str(uuid.uuid5(uuid.uuid4(), 'order'))
+        order = Order.createorder(user, ordernum)
+        order.save()
+        #生成订单主表和明细表数据
+        for goodscar in goodscars:
+            orderinfo = Orderinfo.createorderinfo(order,goodscar.goods,goodscar.num)
+            orderinfo.save()
+            #删除相应购物车数据
+            goodscar.delete()
+        #跳转到已下单界面
+        return JsonResponse({'msg':'下单成功！','ordernum':ordernum,'backstatus': '1'})
+    except Exception as e:
+        return JsonResponse({'msg': '下单失败!', 'backstatus': '-1'})
+
+# 下单详情
+def getorderinfo(request):
+    ordernum = request.GET.get('ordernum')
+
+    order = Order.objects.get(ordernum=ordernum)
+    return render(request, 'orderinfo.html', {'order': order})
 
 #添加收藏
 def collection(request,id):
@@ -240,21 +330,6 @@ def collection(request,id):
         return HttpResponse('添加收藏失败！'+ str(e))
     return HttpResponse('添加收藏成功!')
 
-# #token生成
-# def genegrate_token():
-#     token = str(time.time) + str(random.random())
-#     #md5算法
-#     md5 = hashlib.md5()
-#     md5.update(token.encode('utf-8'))
-#     token = md5.hexdigest()
-#     return token
-
-#密码加密
-def genegrate_password(password):
-    sha = hashlib.sha512()
-    sha.update(password.encode('utf-8'))
-    return sha.hexdigest()
-
 #删除已选购的商品
 def delcar(request,id):
     goodcar = GoodsCar.objects.filter(id=id)
@@ -266,7 +341,6 @@ def delcar(request,id):
 def addtocar(request,id):
     # 获取cookie
     token = request.COOKIES.get('username')
-    user = []
 
     #不需要再判断是否登录,能到这个函数说明已经登录了
     user = User.objects.filter(u_token=token).last()
@@ -290,34 +364,3 @@ def addtocar(request,id):
             return HttpResponse('保存数据失败!!' + str(e))
     return redirect('app:list',0)
 
-#减
-def subnum(request):
-    goodsid = request.GET.get('goodsid')
-    token = request.COOKIES.get('username')
-    goods = Goods.objects.filter(id=goodsid).first()
-    user = User.objects.filter(u_token=token).last()
-
-    goodcarts = GoodsCar.objects.filter(user=user,goods=goods)
-    if goodcarts.count():
-        goodcart = goodcarts.first()
-        goodcart.num -= 1
-        goodcart.save()
-        return JsonResponse({'mag':'减少数据成功!','num':goodcart.num,'backstatus':'1'})
-    else:
-        return JsonResponse({'mag': '减少数据失败!', 'backstatus': '-1'})
-
-#加
-def addnum(request):
-    goodsid = request.GET.get('goodsid')
-    token = request.COOKIES.get('username')
-    goods = Goods.objects.filter(id=goodsid).first()
-    user = User.objects.filter(u_token=token).last()
-
-    goodcarts = GoodsCar.objects.filter(user=user, goods=goods)
-    if goodcarts.count():
-        goodcart = goodcarts.first()
-        goodcart.num += 1
-        goodcart.save()
-        return JsonResponse({'mag': '增加数据成功!', 'num': goodcart.num, 'backstatus': '1'})
-    else:
-        return JsonResponse({'mag': '增加数据失败!', 'backstatus': '-1'})

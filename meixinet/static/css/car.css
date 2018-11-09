@@ -448,6 +448,23 @@ table,tr,td{
 .shop_ck_num{
 	width:250px;
 }
+.no{
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid grey;
+}
+.glyphicon-ok{
+    background: #ffd601;
+    color: white;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.5rem;
+}
+
+
 
 /*<!-- 删除选中 -->*/
 #del_shop{
@@ -485,6 +502,7 @@ table,tr,td{
     margin-right: 30px;
     border-radius:5px;
     background:#c43f40;
+    cursor: pointer;
 }
 
 
