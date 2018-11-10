@@ -323,7 +323,7 @@
                                 {% else %}
                                     <a href="login.html">登录</a>
                                 {% endif %}
-								<a href="list.html">随便逛逛</a>
+								<a href="/list/0/">随便逛逛</a>
 							</div>
 						</div>
 					</div>
@@ -365,7 +365,7 @@
                                             <div class="shop_img_said float_l">
 
                                                 <a href="">
-                                                    {{ good.goods.said1 }} {{ good.goods.said2 }}
+                                                    {{ good.goods.said1 }}
                                                     <br />	{{ good.goods.wen }}
                                                 </a>
 
@@ -406,8 +406,8 @@
 {#								<input type="checkbox" id="allSelect1" checked style="margin:0 3px 0 30px;"/>#}
 {#								全选#}
 {#							</div>#}
-							<span class="float_l" style="padding-left:30px"><a href="" id="delSelect">删除选中商品</a></span>
-							<span class="float_l"style="padding-left:40px"><a href="">加入收藏</a></span>
+							<span id="delSelect" class="float_l" style="padding-left:30px"><button style="color: red;width: 100px">删除选中商品</button></span>
+{#							<span class="float_l"style="padding-left:40px"><button style="color: red;width: 100px">加入收藏</button></span>#}
 							<div class="float_r" style="bottom:1px solid #e8e8e8">已选商品<i id="total_nums" style="color: red;font-weight:bolder;"></i>件
 								<span style="margin-left: 20px;">合计（不含运费、税费）：<span id="total" style="color:red;font-size:18px;font-weight:bolder;margin-right:30px"></span></span>
 								<p style="text-align: right;margin-right: 40px">活动折扣：-￥0.00</p>

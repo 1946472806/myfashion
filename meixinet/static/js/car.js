@@ -327,7 +327,7 @@ $(function(){
         $.get('/collection/',{'goodid':$goodid},function (data) {
             if (data['backstatus'] == 1) {
                 $that.html('✔已收藏')
-                $that.attr('disabled','disabled')
+                $that.attr('disabled','disabled').css('color','green')
             }
         })
     })
@@ -356,7 +356,32 @@ $(function(){
             if (data['backstatus'] == '1') {
                 $that.parent().parent().parent().remove()
             }
+
+            //重新计算金额
+            total()
         })
+    })
+
+    //批量删除
+    $('#del_shop #delSelect').click(function () {
+        $('#shop_ck .cltr').each(function () {
+        var $confirm = $(this).find('.confirm-wrapper')
+        var $shopjian = $(this).find('.shop_jian')
+
+        if ($confirm.find('.glyphicon-ok').length){
+            var $goodid = $shopjian.attr('goodsid')
+            console.log($goodid)
+
+            $.get('/delcar/',{'goodid':$goodid},function (data) {
+                if (data['backstatus'] == '1') {
+                    $confirm.parent().parent().remove()
+                }
+
+                //重新计算金额
+                total()
+            })
+        }
+      })
     })
 
 	//计算选中商品总金额

@@ -434,6 +434,7 @@ table,tr,td{
 	text-align:left;
 	width:424px;
 	z-index:22;
+    overflow: hidden;
 }
 .shop_ck2{
 	width:144px;

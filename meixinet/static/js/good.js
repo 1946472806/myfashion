@@ -206,6 +206,31 @@ $(function(){
 		
 	})
 
+	//加入收藏
+	$('.conten .pro_collect').click(function () {
+	    var $that = $(this)
+        var $goodid = $(this).attr('goodid')
+
+        $.get('/collection/',{'goodid':$goodid},function (data) {
+            if (data['backstatus'] == '1') {
+                $that.hide()
+            }
+        })
+    })
+
+    isselection()
+    //是否已收藏
+    function isselection() {
+            var $that = $('.conten .pro_collect')
+            var $goodid = $that.attr('goodid')
+
+            $.get('/iscollection/',{'goodid':$goodid},function (data) {
+                if (data['backstatus'] == '-1'){
+                   $that.hide()
+                }
+            })
+    }
+
 	
 	total()
 

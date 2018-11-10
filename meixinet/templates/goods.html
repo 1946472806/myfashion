@@ -73,7 +73,7 @@
 
                                                     </p>
                                                     <div class="dell float_r">
-                                                        <a href="{% url 'app:delcar' gcar.goods.id %}" style="font-size:28px;" class="del">╳</a>
+{#                                                        <a href="{% url 'app:delcar' gcar.goods.id %}" style="font-size:28px;" class="del">╳</a>#}
                                                     </div>
                                                     <div class="clear"></div>
                                                 </li>
@@ -521,7 +521,7 @@
 			                    </button>
 			                     <a href="{% url 'app:addtocar' detail.id %}"><button type="button" class="btn_buy_now float_l">加入购物袋</button></a>
 			
-			                    <div class="pro_collect">
+			                    <div class="pro_collect" goodid="{{ detail.id }}">
 			                        <!--是否收藏-->
 			                        <a title="加入收藏" class="pro_collect_y" href="javascript:void(0);" style="background-position: 0 -13px;"></a>
 			                    </div>

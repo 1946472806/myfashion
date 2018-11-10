@@ -110,6 +110,8 @@ def login(request):
 def list(request,flag):
     token = request.COOKIES.get('username')
     data={}
+    #展示的商品
+    data['Goods'] = Goods.objects.all()
     if token:
         user = User.objects.filter(u_token=token).last()
         data['username'] = user.u_tel
@@ -138,10 +140,35 @@ def goods(request,id):
         # 此用户的购物车数据
         data['goodscar'] = GoodsCar.objects.filter(user=user)
 
-    data['detail'] = Details.objects.filter(id=id).first()
+    data['detail'] = Goods.objects.get(id=id)
     # 相关推荐轮播数据源
     data['listcar'] = Details.objects.all()
     return render(request, 'goods.html',context=data)
+
+#加入购物袋
+def addtocar(request,id):
+    # 获取cookie
+    token = request.COOKIES.get('username')
+    user = User.objects.get(u_token=token)
+
+    goodss = Goods.objects.get(id=id)
+    #判断数据库中是否已经存在此用户对应的此商品
+    goodexist = GoodsCar.objects.filter(user=user,goods=goodss)
+    if goodexist.count():
+        #保存数据
+        try:
+            goodexists = goodexist.first()
+            goodexists.num += 1
+            goodexists.save()
+        except Exception as e:
+            return HttpResponse('保存数据失败!' + str(e))
+    else:
+        try:
+            good = GoodsCar.creategoodscar(user,goodss,1)
+            good.save()
+        except Exception as e:
+            return HttpResponse('保存数据失败!!' + str(e))
+    return redirect('app:list',0)
 
 # 购物车
 def car(request):
@@ -345,25 +372,22 @@ def collection(request):
     goodid = request.GET.get('goodid')
     token = request.COOKIES.get('username')
     data={}
-
     if token:
-        tel = User.objects.filter(u_token=token).last().u_tel
+        try:
+            gcar = Goods.objects.get(id=goodid)
+            user = User.objects.get(u_token=token)
+            gcar.g_user.add(user)
+            gcar.save()
+            data['msg'] = '收藏成功!'
+            data['backstatus'] = '1'
+            return JsonResponse(data)
+        except:
+            data['msg'] = '收藏失败!'
+            data['backstatus'] = '-1'
+            return JsonResponse(data)
     else:
         data['msg'] = '请先登录!'
         return render(request, 'login.html', context=data)
-
-    try:
-        gcar = Goods.objects.filter(id=goodid).last()
-        user = User.objects.filter(u_token=token).last()
-        gcar.g_user.add(user)
-        gcar.save()
-        data['msg'] = '收藏成功!'
-        data['backstatus'] = '1'
-        return JsonResponse(data)
-    except:
-        data['msg'] = '收藏失败!'
-        data['backstatus'] = '-1'
-        return HttpResponse(data)
 
 # 判断是否已收藏
 def iscollection(request):
@@ -390,30 +414,4 @@ def delcar(request):
     except:
         return JsonResponse({'msg': '删除失败', 'backstatus': '-1'})
 
-#加入购物袋
-def addtocar(request,id):
-    # 获取cookie
-    token = request.COOKIES.get('username')
-
-    #不需要再判断是否登录,能到这个函数说明已经登录了
-    user = User.objects.filter(u_token=token).last()
-
-    goodss = Goods.objects.filter(id=id).first()
-    #判断数据库中是否已经存在此用户对应的此商品
-    goodexist = GoodsCar.objects.filter(user=user,goods=goodss)
-    if goodexist.count():
-        #保存数据
-        try:
-            goodexists = goodexist.first()
-            goodexists.num += 1
-            goodexists.save()
-        except Exception as e:
-            return HttpResponse('保存数据失败!' + str(e))
-    else:
-        try:
-            good = GoodsCar.creategoodscar(user,goodss,1)
-            good.save()
-        except Exception as e:
-            return HttpResponse('保存数据失败!!' + str(e))
-    return redirect('app:list',0)
 
