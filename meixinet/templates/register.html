@@ -6,7 +6,9 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}"/>
-		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
+		<script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
 		<script src="{% static 'js/register.js' %}"></script>
 		<script src="{% static 'js/gVerify.js' %}"></script>
 	</head>
@@ -39,56 +41,59 @@
 					<div class="beauty">
 						注册美西账户
 					</div>
-					<div class="phone clearfix">
-						<div class="phone_icon1 float_l"></div>
-						<div class="phone_menu relative float_l">
-							<input id="ipt1" type="text" name="tel" placeholder="请输入常用手机号"/>
-						</div>
-						
-					</div>
-						
-					<div class="auth" style="height:36px;margin-bottom:10px;">
-						<div class="float_l" style=" width:120px;height:32px;">
-							<input id="ipt2" type="text" placeholder="请输入验证码" style="height:36px;"/>
-							
-						</div>
-{#						<button id="my_button" style="margin-left:13px;margin-top:3px;width:50px;height:30px;float:left;">验证</button>#}
-						<div id="v_container" style="margin-left:5px;margin-top:3px;width:110px;height:30px;float:left;"></div>
-					</div>	
-					<!--</div>-->
-					
-					<div class="note float_l">
-						<div class="note_icon float_l"></div>
-						<div class="note_menu float_l" style="width:150px;margin: 0 0 0 4px;">
-							<input id="ipt3" type="text" placeholder="短信验证码" />
-						</div>
-						
-					</div>
-					<div class="notice float_r" style="margin-top:7px;">
-						<a href="" style="color: #669aca;font-size:12px;">发送验证码</a>
-					</div>
-					
-					<!--清除浮动-->
-					<div class="clear"></div>
-					
-					<div class="pwd clearfix">
-						<div class="pwd_icon float_l"></div>
-						<div class="pwd_menu float_l">
-							<input id="ipt4" type="password" name="password" placeholder="请输入密码"/>
-						</div>
-						
-					</div>
-					<div class="pwd2 clearfix">
-						<div class="pwd_icon float_l"></div>
-						<div class="pwd2_menu float_l">
-							<input id="ipt5" type="password" placeholder="再次输入密码"/>
-						</div>
-						
-					</div>
-                    <div class="upimg">
-                        <span style="font-size: 15px">头像:</span><input type="file" value="上传头像" name="filename">
+                    <div class="form-group has-feedback" id="userid">
+                        <div class=" float_l input-group">
+                            <div class="input-group-addon">手机号</div>
+                            <input id="ipt1" class="form-control" type="text" name="tel" placeholder="请输入常用手机号"/>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <i></i>
                     </div>
-					<div id="tip" style="height: 30px;color: #cc3d3d;text-align:center;"><span id="msg">{{ msg }}</span></div>
+
+                    <div class="clear" style="height: 10px"></div>
+
+                    <div class="form-group has-feedback" id="yanid">
+                        <div class="float_l input-group" style=" width:120px;height:32px;">
+                            <div class="input-group-addon">验证码</div>
+                            <input id="ipt2" class="form-control" type="text" placeholder="请输入验证码" style="height:36px;width:155px;"/>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div id="v_container" style="margin-left:1px;width:90px;height:36px;float:left;"></div>
+                        <i></i>
+                    </div>
+
+					<div class="clear" style="height: 10px"></div>
+
+                    <div class="form-group has-feedback" id="passid">
+                        <div class="float_l  input-group">
+                            <div class="input-group-addon">密码</div>
+                            <input id="ipt4" class="form-control" type="password" name="password" placeholder="请输入密码"/>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <i></i>
+                    </div>
+
+                    <div class="clear" style="height: 10px"></div>
+
+                    <div class="form-group has-feedback" id="passchid">
+                        <div class="float_l  input-group">
+                            <div class="input-group-addon">验证密码</div>
+                            <input id="ipt5" class="form-control" type="password" name="password" placeholder="再次输入密码"/>
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <i></i>
+                    </div>
+
+                    <div class="clear" style="height: 10px"></div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">头像</div>
+                            <input type="file" class="form-control" name="filename">
+                        </div>
+                    </div>
+
+                    <div style="text-align: center;color: red;font-size: 2rem;">{{ msg }}</div>
 					<div class="regs">
 						<input id="ipt6" type="submit" style="cursor:pointer;outline:none;" value="注册">
 					</div>

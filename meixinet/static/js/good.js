@@ -99,14 +99,6 @@ $(function(){
 
 	})
 
-
-//	$(".prev_good").click(function(){
-//		$("#mycarousel1").stop(true).animate({"top":"-=69px"});
-//		
-//	})
-//	$(".next_good").click(function(){
-//		$("#mycarousel1").stop(true).animate({"top":"+=69px"})
-//	})
 	
 	$(".list_edit a").mouseenter(function(){
 		$(this).addClass("zoomThumbActive");
@@ -215,19 +207,38 @@ $(function(){
 	})
 
 	
-	var num = $("#total_num").html()
-	if(num>0){
-					$(".empty_car").css({"display":"none"});
-					$(".full_car").css({"display":"block"});
-					$(".kong").css({"display":"none"});
-					$(".cart_out").css({"display":"block"});
-				}
-				else{
-					$(".empty_car").css({"display":"block"});
-					$(".full_car").css({"display":"none"});
-					$(".kong").css({"display":"block"});
-					$(".cart_out").css({"display":"none"});
-				}
+	total()
+
+	//计算购物车商品数量和总金额
+    function total(){
+	    var $priceall = 0
+        var $numall = 0
+	    $('#product2_li .product2').each(function () {
+            var $num = parseFloat($(this).find('p').attr('num'))
+            var $price = parseFloat($(this).find('p').attr('price'))
+            $priceall += $num * $price
+            $numall += $num
+      })
+
+        if ($priceall > 0){
+            $priceall = $priceall.toFixed(2)
+        }
+
+        $('#total_num').html($numall)
+        $('#headershop .car_b .totalprice').html($priceall)
+
+        if($priceall > 0){
+            // $("#headershop").css({"display":"block"});
+			$("#headershop .kong").css({"display":"none"});
+			$("#headershop .cart_out").css({"display":"block"});
+		}
+		else{
+		    // $("#headershop").css({"display":"block"});
+			$("#headershop .kong").css({"display":"block"});
+			$("#headershop .cart_out").css({"display":"none"});
+		}
+
+    }
 
 	
 })

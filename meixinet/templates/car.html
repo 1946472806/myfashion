@@ -45,55 +45,6 @@
                             {% endif %}
 							
 						</span>
-						<span id="shop">
-							<a href="" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">    
-								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								购物袋（<i id="total_num"></i>）
-							</a>
-							
-						</span>
-						<div id="headershop">
-			                <div class="header_sj" style="margin-left:140px;"></div>
-			                <div class="headercar">
-			                 
-			                    <div class="kong" style="text-align: center;padding:30px 0;">您的购物袋是空的</div>
-			                    <div class="cart_out" >
-									<div class="car_t"><strong>我的商品</strong></div>
-									<div class="car_show">
-										<ul id="product2_li">
-											{% for gcar in goodscar %}
-                                                <li class="product2" style="overflow:hidden;">
-                                                    <img src="{% static gcar.goods.img %}" style="width:80px;height:80px;float:left;"/>
-                                                    <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
-                                                        <a href="" style="font-size:16px;">{{ gcar.goods.said1 }}&nbsp;{{ gcar.goods.said2 }}</a><br />{{ gcar.goods.wen }}
-                                                        <br />
-                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.goods.num }}</span>
-
-                                                    </p>
-                                                    <div class="dell float_r">
-                                                        <a href="{% url 'app:delcar' gcar.goods.id %}" style="font-size:28px;" class="del">╳</a>
-                                                    </div>
-                                                    <div class="clear"></div>
-                                                </li>
-                                            {% endfor %}
-											
-										</ul>
-										
-										
-									</div>
-									<div class="car_b">
-										<div class="to_l">
-											<span>商品总计 ： ￥  </span>
-											<span class="totalprice"></span>
-										</div>
-										<div class="to_r">
-											<a href="car.html" class="settlement" style="font-size:18px;color: white;width: 140px">去结算</a>
-										</div>
-									</div>
-								</div>
-			                </div>
-						</div>
-						
 						
 					</div>
 				</div>
@@ -438,9 +389,9 @@
                                         </td>
                                         <td class="shop_ck3">
                                             <div style="text-align:left;margin-left:48px;">
-                                                <a class="cp_fav" href="{% url 'app:collection' good.goods.id %}" title="加入收藏">加入收藏</a>
+                                                <button class="cp_fav" goodid="{{ good.goods.id }}">加入收藏</button>
                                                 <br /><br />
-                                                <a class="cp_del" href="{% url 'app:delcar' good.goods.id %}" title="删除">删除</a>
+                                                <button class="cp_del" goodid="{{ good.goods.id }}" style="width: 70px;color: red">删 除</button>
                                             </div>
 
                                         </td>
@@ -455,10 +406,6 @@
 {#								<input type="checkbox" id="allSelect1" checked style="margin:0 3px 0 30px;"/>#}
 {#								全选#}
 {#							</div>#}
-                            <div class="confirm-wrapper all_ck11 float_l">
-                                <span class="glyphicon glyphicon-ok" style="margin:0 3px 0 30px;"></span>
-                                全选
-							</div>
 							<span class="float_l" style="padding-left:30px"><a href="" id="delSelect">删除选中商品</a></span>
 							<span class="float_l"style="padding-left:40px"><a href="">加入收藏</a></span>
 							<div class="float_r" style="bottom:1px solid #e8e8e8">已选商品<i id="total_nums" style="color: red;font-weight:bolder;"></i>件

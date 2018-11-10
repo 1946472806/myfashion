@@ -49,7 +49,7 @@
 						<span id="shop">
 							<a href="car.html" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
 								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								购物袋（<i id="total_num">{{ num_all }}</i>）
+								购物袋（<i id="total_num"></i>）
 							</a>
 
 						</span>
@@ -61,14 +61,15 @@
 			                	<div class="cart_out" >
 									<div class="car_t"><strong>我的商品</strong></div>
 									<div class="car_show">
-										<ul id="product2_li" style="overflow: hidden;">
+										<ul id="product2_li">
+                                        {% if username %}
                                             {% for gcar in goodscar %}
                                                 <li class="product2" style="overflow:hidden;">
                                                     <img src="{% static gcar.goods.img %}" style="width:80px;height:80px;float:left;"/>
-                                                    <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                    <p num="{{ gcar.num }}" price="{{ gcar.goods.price_good }}" style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
                                                         <a href="" style="font-size:16px;">{{ gcar.goods.said1 }}&nbsp;{{ gcar.goods.said2 }}</a><br />{{ gcar.goods.wen }}
                                                         <br />
-                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.goods.num }}</span>
+                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
 
                                                     </p>
                                                     <div class="dell float_r">
@@ -77,17 +78,17 @@
                                                     <div class="clear"></div>
                                                 </li>
                                             {% endfor %}
-
-										</ul>
+                                        {% endif %}
+                                        </ul>
 
 									</div>
 									<div class="car_b">
 										<div class="to_l">
 											<span>商品总计 ： ￥  </span>
-											<span class="totalprice" id="totalprices">{{ price_all }}</span>
+											<span class="totalprice" id="totalprices"></span>
 										</div>
 										<div class="to_r">
-											<a href="car.html" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
+											<a href="/car/" class="settlement" style="font-size:18px;color: white;">去结算</a>
 										</div>
 									</div>
 								</div>
@@ -119,15 +120,15 @@
 			<div id="nav">
 				<div class="contaier" style="overflow: hidden;">
 					<ul class="list_zong">
-						<li><a href="" title="首页">首页</a></li>
-						<li><a href="" title="新近单品" id="menu1">新近单品</a></li>
-						<li><a href="" title="全球购">全球购</a></li>
-						<li><a href="" title="女士" id="menu2">女士</a></li>
-						<li><a href="" title="男仕" id="menu3">男仕</a></li>
-						<li><a href="" title="童装"id="menu4" >童装</a></li>
-						<li><a href="" title="腕表" id="menu5">腕表</a></li>
-						<li><a href="" title="品牌" id="menu6">品牌</a></li>
-						<li><a href="" title="Mzine">Mzine</a></li>
+						<li><a href="{% url 'app:index' %}" title="首页">首页</a></li>
+                        <li><a href="{% url 'app:list' 0 %}" title="新近单品" id="menu1">新近单品</a></li>
+                        <li><a href="{% url 'app:list' 1 %}" title="全球购">全球购</a></li>
+                        <li><a href="{% url 'app:list' 2 %}" title="女士" id="menu2">女士</a></li>
+                        <li><a href="{% url 'app:list' 3 %}" title="男仕" id="menu3">男仕</a></li>
+                        <li><a href="{% url 'app:list' 4 %}" title="童装"id="menu4" >童装</a></li>
+                        <li><a href="{% url 'app:list' 5 %}" title="腕表" id="menu5">腕表</a></li>
+                        <li><a href="{% url 'app:list' 6 %}" title="品牌" id="menu6">品牌</a></li>
+                        <li><a href="{% url 'app:list' 7 %}" title="Mzine">Mzine</a></li>
 
 					</ul>
 
@@ -424,12 +425,12 @@
 			                <div class="pro_img">
 			                	<a class="jqzoom" href="javascript:void(0);" title="" style="outline-style: none; text-decoration: none;">
 			                		<div id="smallImg">
-										<img class="zoomPad_img" src="{% static 'good_img/h-123359-1.jpg' %}" height="460"  width="383"/>
+										<img class="zoomPad_img" src="{% static detail.img %}" height="460"  width="383"/>
 										<div id="smallArea"></div>
 									</div>
 
 									<div id="bigArea">
-										<img id="bigImg" src="{% static 'good_img/h-123359-1.jpg' %}" height="960"  width="800"/>
+										<img id="bigImg" src="{% static detail.img %}" height="960"  width="800"/>
 									</div>
 
 			                	</a>
@@ -446,13 +447,13 @@
 			                    <a class="c_purple float_l " href="" title="了解品牌" target="_blank">VERSACE JEANS 范思哲牛仔</a>
 			                </h1>
 			                <div class="clearfix">
-			                    <div class="ws_pro_r_detail">聚酯纤维混纺 女士 卫衣</div>
+			                    <div class="ws_pro_r_detail">{{ detail.wen }}</div>
 			                </div>
 			                <!--参考价格-->
 			                <div class="position_rel">
 			                    <div class="pro_r_price relative clearfix">
 			                    	<div class="now_price">
-			                    		<span style="font-size: 16px;"><em class="now_price_g">￥1800</em></span>
+			                    		<span style="font-size: 16px;"><em class="now_price_g">￥{{ detail.price_good }}</em></span>
 			                    	</div>
 			                    </div>
 			                </div>
@@ -518,7 +519,7 @@
 			                    <button type="button" class="btn_add_shopping float_l" style="width: 152px;height: 45px;">
 			                    	即刻购买
 			                    </button>
-			                     <a href="{% url 'app:addtocar' gcar.id %}"><button type="button" class="btn_buy_now float_l">加入购物袋</button></a>
+			                     <a href="{% url 'app:addtocar' detail.id %}"><button type="button" class="btn_buy_now float_l">加入购物袋</button></a>
 			
 			                    <div class="pro_collect">
 			                        <!--是否收藏-->

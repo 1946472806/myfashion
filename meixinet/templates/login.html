@@ -6,11 +6,10 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
 
-		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
-		<script src="{% static 'js/jquery.cookie.js' %}"></script>
-		
-		<script src="{% static 'js/cookie.js' %}"></script>
+		<script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
 		<script src="{% static 'js/login.js' %}"></script>
 	</head>
 	<body>
@@ -56,37 +55,41 @@
 								</p>
 								<div class="consult_app_sj"></div>
 							</div>
-							<div class="phone clearfix">
-								<div class="phone_icon1 float_l"></div>
-								<div class="phone_menu relative float_l">
-									<input type="text" name="tel" placeholder="请输入手机号或邮箱" id="inp1"/>
-								</div>
-								
-							</div>
+
+                            <div class="form-group has-feedback" id="userid">
+                                <div class=" float_l input-group">
+                                    <div class="input-group-addon">手机号</div>
+                                    <input id="ipt1" class="form-control" type="text" name="tel" placeholder="请输入手机号"/>
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                                <i></i>
+                            </div>
 							
-							<!--清除浮动-->
-							<!--<div class="clear"></div>-->
-							
-							<div class="pwd clearfix">
-								<div class="pwd_icon float_l"></div>
-								<div class="pwd_menu float_l">
-									<input type="password" name="password" placeholder="请输入密码" id="inp2"/>
-								</div>
-								
-							</div>
+							<div class="clear" style="height: 10px"></div>
+                            <div class="clear" style="height: 10px"></div>
+
+                            <div class="form-group has-feedback" id="passid">
+                                <div class="float_l  input-group">
+                                    <div class="input-group-addon">密码</div>
+                                    <input id="ipt2" class="form-control" type="password" name="password" placeholder="请输入密码"/>
+                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                                <i></i>
+                            </div>
+
+                            <div class="clear" style="height: 10px"></div>
+
 							<div class="checkbox clearfix">
-								<div class="float_l">
-									<input type="checkbox" checked="checked"/>
-									<span>
-										自动登录
-									</span>
-								</div>
+                                <div class="float_l">
+                                    <input type="checkbox" checked="checked" style="bottom: 8px">
+                                    <span> 自动登录</span>
+                                </div>
 								<div class="float_r">
 									<a href="" style="color: #999;">忘记密码？</a>
 								</div>
 							</div>
 							<div class="clear"></div>
-							<div id="tip" style="height: 30px;color: #cc3d3d;text-align:center;font-size: 12px;"><span>{{ msg }}</span></div>
+                            <div style="text-align: center;color: red;font-size: 2rem;">{{ msg }}</div>
 							<div class="regs">
 								<input id="ipt6" type="submit" style="cursor:pointer;outline:none;" value="登录">
 							</div>

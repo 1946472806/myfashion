@@ -12,8 +12,6 @@
 .absolute{
 	position: absolute;
 }
-
-//头部
 #header{
 	margin-bottom:20px;
 	overflow:hidden;
@@ -53,7 +51,7 @@
     top: 25px;
     left:0%;
     /*margin-left: 150px;*/
-    width: 298px;
+    width: 398px;
     background: #fff;
     padding: 30px 40px;
     background: #fff;
@@ -204,13 +202,9 @@
     right:-8px;
 }
 
-
-
-
-
-
-
-
+i{
+    color: red;
+}
 
 .foot_icon{
 	/*position: relative;*/

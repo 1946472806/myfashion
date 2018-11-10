@@ -53,7 +53,7 @@
     top: 25px;
     left: 50%;
     margin-left: 150px;
-    width: 298px;
+    width: 398px;
     background: #fff;
     padding: 30px 40px;
     background: #fff;
@@ -72,23 +72,12 @@
     margin-bottom: 10px;
     padding: 4px 0;
 }
-.phone_icon1,.note_icon,.pwd_icon{
-	width: 26px;
-    height: 26px;
-    padding-right: 4px;
-    background: url(../img/memberico.gif) no-repeat;
-    margin: 0 4px 0 6px;
-    border-right: solid 1px #e8e8e8;
-}
+
 .phone_icon1{
 	background-position: -52px 0;
 }
-.note_icon{
-	background-position: -78px 0;
-}
-.pwd_icon{
-	background-position: -26px 0;
-}
+
+
 .phone_menu,.pwd_menu,.pwd2_menu{
 	width: 240px;
     margin: 0 0 0 4px;
@@ -115,22 +104,6 @@
     font-size: 14px;
     padding-left:4px;
     
-}
-.note{
-	border: solid 1px #e8e8e8;
-    background: #fff;
-    margin-bottom: 10px;
-    padding: 4px 0;
-}
-.note_menu input{
-	width: 100%;
-    padding: 0;
-    border: none;
-    font-size: 14px;
-    height: 26px;
-    line-height: 26px;
-    color: #333;
-    outline:none;
 }
 #ipt6{
 	width: 100%;
@@ -318,4 +291,7 @@
 }
 .par6 a:hover {
     background-position: -77px 0;
+}
+i{
+    color: red;
 }

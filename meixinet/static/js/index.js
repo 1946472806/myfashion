@@ -213,8 +213,6 @@ $(function(){
 	    $('#product2_li .product2').each(function () {
             var $num = parseFloat($(this).find('p').attr('num'))
             var $price = parseFloat($(this).find('p').attr('price'))
-            console.log($num)
-            console.log($price)
             $priceall += $num * $price
             $numall += $num
       })
@@ -226,7 +224,6 @@ $(function(){
         $('#total_num').html($numall)
         $('#headershop .car_b .totalprice').html($priceall)
 
-        console.log($priceall)
         if($priceall > 0){
             // $("#headershop").css({"display":"block"});
 			$("#headershop .kong").css({"display":"none"});

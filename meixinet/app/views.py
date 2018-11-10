@@ -16,7 +16,6 @@ from meixinet import settings
 
 # 首页
 def index(request):
-    #获取cookie
     token = request.COOKIES.get('username')
     data = {}
 
@@ -41,25 +40,24 @@ def register(request):
     if request.method == 'GET':
         return render(request, 'register.html')
     elif request.method == 'POST':
-        #获取传过来的注册信息
         tel = request.POST.get('tel')
         password = request.POST.get('password')
         file = request.FILES.get('filename')
-        imgurl = file.name
-        if imgurl:
+        imgurl = ''
+        if file:
+            imgurl = file.name
             imgurl = 'upfile/'+ tel + '.png'
+            # 保存图片
+            saveupfile(file, tel)
 
         try:
-            #保存图片
-            saveupfile(file,tel)
             #保存数据
             token = str(uuid.uuid5(uuid.uuid4(), 'register'))
             password = genegrate_password(password)
             user = User.createuser(tel,password,token,imgurl)
             user.save()
-        except Exception as e:
-            msg = '注册失败!' + str(e)
-            return render(request, 'register.html', {'msg': msg})
+        except:
+            return render(request, 'register.html', {'msg': '注册失败!'})
         # 重定向页面
         response = redirect('app:index')
         response.set_cookie('username',token)
@@ -73,6 +71,7 @@ def verifytel(request):
         return JsonResponse({'msg':'用户已经存在!','status':'-1'})
     except:
         return JsonResponse({'msg': '用户可用!', 'status': '1'})
+
 #保存上传文件
 def saveupfile(file,tel):
     imgname = tel + '.png'
@@ -87,7 +86,6 @@ def login(request):
     if request.method == 'GET':
         return render(request,'login.html')
     elif request.method == 'POST':
-        #获取数据
         tel = request.POST.get('tel')
         password = request.POST.get('password')
         password = genegrate_password(password)
@@ -100,8 +98,6 @@ def login(request):
         else:
             #更新token
             user = users.first()
-            # 改成uuid
-            # user.u_token = genegrate_token()
             user.u_token = str(uuid.uuid5(uuid.uuid4(), 'login'))
             user.save()
 
@@ -112,63 +108,40 @@ def login(request):
 
 # 商品列表
 def list(request,flag):
-    # 获取cookie
     token = request.COOKIES.get('username')
-    tel = ''
-    imgpath = ''
-    num_all = 0
-    price_all = 0
-    goodscar = []
+    data={}
     if token:
         user = User.objects.filter(u_token=token).last()
-        tel = user.u_tel
+        data['username'] = user.u_tel
         # 图片路径
-        imgpath = user.u_img
-        imgpath = '/static/' + imgpath
+        data['imgpath'] = '/static/' + user.u_img
         # 此用户的购物车数据
-        goodscar = GoodsCar.objects.filter(user=user)
-        # 购物车总价和总数量
-        if goodscar.count():
-            for gcar in goodscar:
-                num_all += gcar.num
-                price_all += gcar.num * gcar.goods.price_good
+        data['goodscar'] = GoodsCar.objects.filter(user=user)
     else:
         msg = '请先登录!'
         return render(request, 'login.html', {'msg': msg})
-    #相关推荐轮播数据源
-    listcar = Details.objects.all()
 
-    flags = {'0':'新近单品','1':'全球购','2':'女士','3':'男仕','4':'童装','5':'腕表','6':'品牌','7':'Mzine'}
-    flagname = flags[flag]
-    return render(request, 'list.html',{'username':tel,'listcar':listcar,'imgpath':imgpath,'goodscar':goodscar,'num_all':num_all,'price_all':price_all,'flagname':flagname})
+    #相关推荐轮播数据源
+    data['listcar'] = Details.objects.all()
+    data['flagname'] = {'0':'新近单品','1':'全球购','2':'女士','3':'男仕','4':'童装','5':'腕表','6':'品牌','7':'Mzine'}[flag]
+    return render(request, 'list.html',context=data)
 
 # 商品详情
 def goods(request,id):
-    # 获取cookie
     token = request.COOKIES.get('username')
-    tel = ''
-    imgpath = ''
-    num_all = 0
-    price_all = 0
-    goodscar = []
+    data={}
     if token:
         user = User.objects.filter(u_token=token).last()
-        tel = user.u_tel
+        data['username'] = user.u_tel
         # 图片路径
-        imgpath = user.u_img
-        imgpath = '/static/' + imgpath
+        data['imgpath'] = '/static/' + user.u_img
         # 此用户的购物车数据
-        goodscar = GoodsCar.objects.filter(user=user)
-        # 购物车总价和总数量
-        if goodscar.count():
-            for gcars in goodscar:
-                num_all += gcars.num
-                price_all += gcars.num * gcars.goods.price_good
-    gcar = Goods.objects.filter(id=id).first()
-    # 相关推荐轮播数据源
-    listcar = Details.objects.all()
+        data['goodscar'] = GoodsCar.objects.filter(user=user)
 
-    return render(request, 'goods.html',{'username':tel,'imgpath':imgpath,'listcar':listcar,'gcar':gcar,'goodscar':goodscar,'num_all':num_all,'price_all':price_all})
+    data['detail'] = Details.objects.filter(id=id).first()
+    # 相关推荐轮播数据源
+    data['listcar'] = Details.objects.all()
+    return render(request, 'goods.html',context=data)
 
 # 购物车
 def car(request):
@@ -189,16 +162,6 @@ def car(request):
         msg = '请先登录!'
         return render(request, 'login.html', {'msg': msg})
 
-
-# #token生成
-# def genegrate_token():
-#     token = str(time.time) + str(random.random())
-#     #md5算法
-#     md5 = hashlib.md5()
-#     md5.update(token.encode('utf-8'))
-#     token = md5.hexdigest()
-#     return token
-
 #密码加密
 def genegrate_password(password):
     sha = hashlib.sha512()
@@ -212,14 +175,20 @@ def subnum(request):
     goods = Goods.objects.filter(id=goodsid).first()
     user = User.objects.filter(u_token=token).last()
 
+    data = {}
     goodcarts = GoodsCar.objects.filter(user=user,goods=goods)
     if goodcarts.count():
         goodcart = goodcarts.first()
         goodcart.num -= 1
         goodcart.save()
-        return JsonResponse({'mag':'减少数据成功!','num':goodcart.num,'backstatus':'1'})
+        data['msg'] = '减少数据成功!'
+        data['num'] = goodcart.num
+        data['backstatus'] = '1'
+        return JsonResponse(data)
     else:
-        return JsonResponse({'mag': '减少数据失败!', 'backstatus': '-1'})
+        data['msg'] = '减少数据失败!'
+        data['backstatus'] = '-1'
+        return JsonResponse(data)
 
 #加数量
 def addnum(request):
@@ -228,14 +197,20 @@ def addnum(request):
     goods = Goods.objects.get(id=goodsid)
     user = User.objects.get(u_token=token)
 
+    data = {}
     goodcarts = GoodsCar.objects.filter(user=user, goods=goods)
     if goodcarts.count():
         goodcart = goodcarts.first()
         goodcart.num += 1
         goodcart.save()
-        return JsonResponse({'mag': '增加数据成功!', 'num': goodcart.num, 'backstatus': '1'})
+        data['msg'] = '增加数据成功!'
+        data['num'] = goodcart.num
+        data['backstatus'] = '1'
+        return JsonResponse(data)
     else:
-        return JsonResponse({'mag': '增加数据失败!', 'backstatus': '-1'})
+        data['msg'] = '增加数据失败!'
+        data['backstatus'] = '-1'
+        return JsonResponse(data)
 
 # 选择或取消选择
 def goodsel(request):
@@ -248,7 +223,7 @@ def goodsel(request):
         data['msg'] = '更新成功'
         data['backstatus'] = '1'
         return JsonResponse(data)
-    except Exception as e:
+    except:
         data['msg'] = '更新失败'
         data['backstatus'] = '-1'
         return JsonResponse(data)
@@ -257,10 +232,12 @@ def goodsel(request):
 def changeall(request):
     flag = request.GET.get('flag')
     token = request.COOKIES.get('username')
+
     if flag == '1':  # 全选
         isselect = 1
     else:  # 全消
         isselect = 0
+
     try:
         user = User.objects.get(u_token=token)
         cars = GoodsCar.objects.filter(user=user)
@@ -269,13 +246,13 @@ def changeall(request):
             car.save()
         return JsonResponse({'msg': '反选成功!', 'backstatus': '1'})
 
-    except Exception as e:
+    except:
         return JsonResponse({'msg': '保存数据失败!', 'backstatus': '-1'})
 
 #下单
 def placeorder(request):
     token = request.COOKIES.get('username')
-
+    data={}
     try:
         user = User.objects.get(u_token=token)
         goodscars = GoodsCar.objects.filter(user=user).filter(isselect=1)
@@ -289,10 +266,15 @@ def placeorder(request):
             orderinfo.save()
             #删除相应购物车数据
             goodscar.delete()
+        data['msg'] = '下单成功！'
+        data['ordernum'] = ordernum
+        data['backstatus'] = '1'
         #跳转到已下单界面
-        return JsonResponse({'msg':'下单成功！','ordernum':ordernum,'backstatus': '1'})
-    except Exception as e:
-        return JsonResponse({'msg': '下单失败!', 'backstatus': '-1'})
+        return JsonResponse(data)
+    except:
+        data['msg'] = '下单失败！'
+        data['backstatus'] = '-1'
+        return JsonResponse(data)
 
 # 下单详情
 def getorderinfo(request):
@@ -304,7 +286,6 @@ def getorderinfo(request):
 # 支付完成后，支付宝调用的(通知app服务端)
 def notifyurl(request):
     if request.method == "POST":
-        # 检测是否支付成功
         # 去请求体中获取所有返回的数据：状态/订单号
         from urllib.parse import parse_qs
         # name&age=123....
@@ -338,8 +319,8 @@ def notifyurl(request):
 
 # 支付完成后，app客户端跳转的页面
 def returnurl(request):
-    #这里暂时跳转到‘商品’页面
-    return redirect('app:list')
+    #这里暂时跳转到主页页面
+    return redirect('app:index')
 
 #支付宝支付
 def pay(request):
@@ -360,31 +341,54 @@ def pay(request):
     return JsonResponse({'alipay_url': alipay_url})
 
 #添加收藏
-def collection(request,id):
-    # 获取cookie
+def collection(request):
+    goodid = request.GET.get('goodid')
     token = request.COOKIES.get('username')
-    tel = ''
-    imgpath = ''
+    data={}
+
     if token:
         tel = User.objects.filter(u_token=token).last().u_tel
     else:
-        msg = '请先登录!'
-        return render(request, 'login.html', {'msg': msg})
+        data['msg'] = '请先登录!'
+        return render(request, 'login.html', context=data)
+
     try:
-        gcar = Goods.objects.filter(id=id).last()
+        gcar = Goods.objects.filter(id=goodid).last()
         user = User.objects.filter(u_token=token).last()
         gcar.g_user.add(user)
         gcar.save()
-    except Exception as e:
-        return HttpResponse('添加收藏失败！'+ str(e))
-    return HttpResponse('添加收藏成功!')
+        data['msg'] = '收藏成功!'
+        data['backstatus'] = '1'
+        return JsonResponse(data)
+    except:
+        data['msg'] = '收藏失败!'
+        data['backstatus'] = '-1'
+        return HttpResponse(data)
+
+# 判断是否已收藏
+def iscollection(request):
+    token = request.COOKIES.get('username')
+    goodid = int(request.GET.get('goodid'))
+    user = User.objects.get(u_token=token)
+    goodslist = user.goods_set.all()
+    for good in goodslist:
+        if good.id == goodid:
+            return JsonResponse({'backstatus':'-1'})
+
+    return JsonResponse({'backstatus':'1'})
 
 #删除已选购的商品
-def delcar(request,id):
-    goodcar = GoodsCar.objects.filter(id=id)
-    goodcar.delete()
-    #刷新页面,重定向
-    return redirect('app:car')
+def delcar(request):
+    token = request.COOKIES.get('username')
+    user = User.objects.get(u_token=token)
+    goodid = request.GET.get('goodid')
+    goods = Goods.objects.get(id=goodid)
+    try:
+        goodcar = GoodsCar.objects.filter(user=user,goods=goods)
+        goodcar.delete()
+        return JsonResponse({'msg':'删除成功','backstatus':'1'})
+    except:
+        return JsonResponse({'msg': '删除失败', 'backstatus': '-1'})
 
 #加入购物袋
 def addtocar(request,id):

@@ -4,6 +4,7 @@ $(function(){
     //计算总金额
     var selall = true
 	total()
+    isselection()
 //隐藏二级菜单
 	function second(lar,sma){
 		
@@ -318,6 +319,45 @@ $(function(){
         }
     })
 
+    //加入收藏
+    $('#shop_ck .shop_ck3 .cp_fav').click(function () {
+        var $goodid = $(this).attr('goodid')
+        var $that = $(this)
+
+        $.get('/collection/',{'goodid':$goodid},function (data) {
+            if (data['backstatus'] == 1) {
+                $that.html('✔已收藏')
+                $that.attr('disabled','disabled')
+            }
+        })
+    })
+
+    //是否已收藏
+    function isselection() {
+        $('#shop_ck .shop_ck3').each(function () {
+            var $that = $(this).find('.cp_fav')
+            var $goodid = $that.attr('goodid')
+
+            $.get('/iscollection/',{'goodid':$goodid},function (data) {
+                if (data['backstatus'] == '-1'){
+                    $that.html('✔已收藏')
+                    $that.attr('disabled','disabled').css('color','green')
+                }
+            })
+        })
+    }
+
+    //删除商品
+    $('#shop_ck .shop_ck3 .cp_del').click(function () {
+        var $that = $(this)
+        var $goodid = $that.attr('goodid')
+
+        $.get('/delcar/',{'goodid':$goodid},function (data) {
+            if (data['backstatus'] == '1') {
+                $that.parent().parent().parent().remove()
+            }
+        })
+    })
 
 	//计算选中商品总金额
     function total(){

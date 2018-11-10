@@ -9,17 +9,21 @@ $(function(){
 
 		if (reg.test(val)) {
 			 $.get('/verifytel/',{'usertel':val},function (data) {
-                if (data['status'] == -1){
-                    $('#msg').html(data['msg'])
-                    $('#ipt1').focus()
+                if (data['status'] == '-1'){
+                    $('#userid i').html(data['msg'])
+                    $('#userid').removeClass('has-success').addClass('has-error')
+                    $('#userid span').removeClass('glyphicon-ok').addClass('glyphicon-remove')
                 } else {
-                    $('#msg').html('')
+                    $('#userid i').html('')
+                    $('#userid').removeClass('has-error').addClass('has-success')
+                    $('#userid span').removeClass('glyphicon-remove').addClass('glyphicon-ok')
                 }
             })
 		}
 		else {
-			$('#msg').html('手机号不合法')
-            $('#ipt1').focus()
+            $('#userid i').html('手机号不合法')
+            $('#userid').removeClass('has-error').addClass('has-success')
+            $('#userid span').removeClass('glyphicon-remove').addClass('glyphicon-ok')
 		}
 
     })
@@ -30,16 +34,19 @@ $(function(){
 	$("#ipt2").blur(function(e){
 		e.preventDefault();
 		if ($("#ipt2").val().toUpperCase() == code){
-		    $('#msg').html('')
+		    $('#yanid i').html('')
+            $('#yanid').removeClass('has-error').addClass('has-success')
+            $('#yanid span').removeClass('glyphicon-remove').addClass('glyphicon-ok')
 		}
 		else {
-		    $('#msg').html('验证码不正确!');
-		    $("#ipt2").focus()
+		    $('#yanid i').html('验证码不正确')
+            $('#yanid').removeClass('has-success').addClass('has-error')
+            $('#yanid span').removeClass('glyphicon-ok').addClass('glyphicon-remove')
 		}
 	})
-	
 
-	
+
+
 	//密码
 	$("#ipt4").blur(function(){
 		//验证密码， 数字字母下划线，且第一个不能为数字， 长度在6~20位
@@ -48,11 +55,15 @@ $(function(){
 		var val = $(this).val();
 		
 		if (reg.test(val)) {
-		    $('#msg').html('')
+		    $('#passid i').html('')
+            $('#passid').removeClass('has-error').addClass('has-success')
+            $('#passid span').removeClass('glyphicon-remove').addClass('glyphicon-ok')
 		}
 		else {
-		     $('#msg').html('密码包括数字字母下划线，且第一个不能为数字，长度在6~20位!').css({"font-size":"12px","line-height":"15px"});
-		     $("#ipt4").focus()
+		    $('#passid i').html('密码包括数字字母下划线，且第一个不能为数字，长度在6~20位!')
+            $('#passid').removeClass('has-success').addClass('has-error')
+            $('#passid span').removeClass('glyphicon-ok').addClass('glyphicon-remove')
+
 		}
 	})
 	
@@ -61,11 +72,14 @@ $(function(){
 		var value = $(this).val();
 
 		if (value == $("#ipt4").val()){
-		    $('#msg').html('')
+		    $('#passchid i').html('')
+            $('#passchid').removeClass('has-error').addClass('has-success')
+            $('#passchid span').removeClass('glyphicon-remove').addClass('glyphicon-ok')
 		}
 		else {
-		    $('#msg').html('重复密码不一致!');
-		    $("#ipt5").focus()
+		    $('#passchid i').html('重复密码不一致!')
+            $('#passchid').removeClass('has-success').addClass('has-error')
+            $('#passchid span').removeClass('glyphicon-ok').addClass('glyphicon-remove')
 		}
 		
 	})

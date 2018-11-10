@@ -43,7 +43,7 @@
 						<span id="shop">
 							<a href="/car/" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
 								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-								购物袋（<i id="total_num">{{ num_all | default:0 }}</i>）
+								购物袋（<i id="total_num"></i>）
 							</a>
 							
 						</span>
@@ -56,13 +56,14 @@
 									<div class="car_t"><strong>我的商品</strong></div>
 									<div class="car_show">
 										<ul id="product2_li">
-											{% for gcar in goodscar %}
+                                        {% if username %}
+                                            {% for gcar in goodscar %}
                                                 <li class="product2" style="overflow:hidden;">
                                                     <img src="{% static gcar.goods.img %}" style="width:80px;height:80px;float:left;"/>
-                                                    <p style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
+                                                    <p num="{{ gcar.num }}" price="{{ gcar.goods.price_good }}" style="color:#CCCCCC;float: left;padding-left:10px;line-height:24px;">
                                                         <a href="" style="font-size:16px;">{{ gcar.goods.said1 }}&nbsp;{{ gcar.goods.said2 }}</a><br />{{ gcar.goods.wen }}
                                                         <br />
-                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.goods.num }}</span>
+                                                        <span  style="color: #555555;"><i>{{ gcar.goods.unit }}</i>{{ gcar.goods.price_good }}</span>&nbsp;&nbsp; X<span>{{ gcar.num }}</span>
 
                                                     </p>
                                                     <div class="dell float_r">
@@ -71,18 +72,18 @@
                                                     <div class="clear"></div>
                                                 </li>
                                             {% endfor %}
-											
-										</ul>
+                                        {% endif %}
+                                        </ul>
 										
 										
 									</div>
 									<div class="car_b">
 										<div class="to_l">
 											<span>商品总计 ： ￥  </span>
-											<span class="totalprice">{{ price_all | default:0 }}</span>
+											<span class="totalprice"></span>
 										</div>
 										<div class="to_r">
-											<a href="{% url 'app:car' %}" class="settlement" style="font-size:18px;color: white;">现在就结算</a>
+											<a href="{% url 'app:car' %}" class="settlement" style="font-size:18px;color: white;">去结算</a>
 										</div>
 									</div>
 								</div>
@@ -449,29 +450,6 @@
 					            <p>相关推荐</p>
 					        </div>
 					    </div>
-						<!--<div class="run_pic">-->
-{#						<div id="like_shop" class="run_pic_like">#}
-{#							<div id="like_small">#}
-{#								<ul id="like_list" class="clearfix" style="margin: 0px; padding: 0px; position: relative;z-index: 1; width: 5240px; left: -1048px;">#}
-{#                                    {% for likelist in listcar %}#}
-{#                                        <li class='car_list'>#}
-{#                                            <a href='' title="{{ likelist.wen}}"></a>#}
-{#                                                <img class='car_img' src="{% static likelist.img %}" alt="{{ likelist.alt }}">#}
-{#                                                <div class='list_name'>#}
-{#                                                    <span class='shop_name'>{{ likelist.said1 }}</span>#}
-{#                                                    </br>#}
-{#                                                    <span class='shop_type'>{{ likelist.said2 }}</span>#}
-{#                                                </div>#}
-{#                                            </a>#}
-{#                                            <div class='shop_price'>{{ likelist.price_good }}</div>#}
-{#                                            <a class='shop_add' title="{{ likelist.title }}">{{ likelist.html }}</a>#}
-{#                                        </li>#}
-{#                                    {% endfor %}#}
-{#					                   #}
-{#								</ul>#}
-{#								<div id="car_prev"><img src="{% static 'img/pre_btn.png' %}" style="padding-top:100px;"/></div>#}
-{#								<div id="car_next"><img src="{% static 'img/next_btn.png' %}" style="padding-top:100px;"/></div>#}
-{#							</div>#}
                             <div class="swiper-container" id="mustbuySwiper">
                                 <div class="swiper-wrapper">
                                     {% for likelist in listcar %}
