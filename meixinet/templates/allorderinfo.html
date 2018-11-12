@@ -375,6 +375,9 @@
                         <button class="btn btn-success shop_ck" id="pay" orderid="{{ nopaynum.id }}" style="width: 100%">
                             <strong>付 款</strong></button>
                     {% endfor %}
+                    {% if nopaynums.count %}
+                        <hr style=" height:2px;border:none;border-top:2px dotted #185598;" />
+                    {% endif %}
 
                     {% for nodelivery in nodeliverys %}
                         <table id="shop_ck" style="overflow:hidden;width:100%;">
@@ -416,9 +419,10 @@
                                 </tr>
                             {% endfor %}
                         </table>
-                        <button class="btn btn-success shop_ck" id="pay" orderid="{{ nodelivery.id }}" style="width: 100%">
-                            <strong>付 款</strong></button>
                     {% endfor %}
+                    {% if nodeliverys.count %}
+                        <hr style=" height:2px;border:none;border-top:2px dotted #185598;" />
+                    {% endif %}
 
                     {% for nogetgood in nogetgoods %}
                         <table id="shop_ck" style="overflow:hidden;width:100%;">
@@ -460,9 +464,10 @@
                                 </tr>
                             {% endfor %}
                         </table>
-                        <button class="btn btn-success shop_ck" id="pay" orderid="{{ nogetgood.id }}" style="width: 100%">
-                            <strong>付 款</strong></button>
                     {% endfor %}
+                    {% if nogetgoods.count %}
+                        <hr style=" height:2px;border:none;border-top:2px dotted #185598;" />
+                    {% endif %}
 
                     {% for noevaluation in noevaluations %}
                         <table id="shop_ck" style="overflow:hidden;width:100%;">
@@ -504,9 +509,10 @@
                                 </tr>
                             {% endfor %}
                         </table>
-                        <button class="btn btn-success shop_ck" id="pay" orderid="{{ noevaluation.id }}" style="width: 100%">
-                            <strong>付 款</strong></button>
                     {% endfor %}
+                        {% if noevaluations.count %}
+                            <hr style=" height:2px;border:none;border-top:2px dotted #185598;" />
+                        {% endif %}
 
                     {% for evaluation in evaluations %}
                         <table id="shop_ck" style="overflow:hidden;width:100%;">
@@ -548,8 +554,9 @@
                                 </tr>
                             {% endfor %}
                         </table>
-                        <button class="btn btn-success shop_ck" id="pay" orderid="{{ evaluation.id }}" style="width: 100%">
-                            <strong>付 款</strong></button>
+                        {% if evaluations.count %}
+                            <hr style=" height:2px;border:none;border-top:2px dotted #185598;" />
+                        {% endif %}
                     {% endfor %}
 
                     {% for refund in refunds %}
@@ -592,8 +599,6 @@
                                 </tr>
                             {% endfor %}
                         </table>
-                        <button class="btn btn-success shop_ck" id="pay" orderid="{{ refund.id }}" style="width: 100%">
-                            <strong>付 款</strong></button>
                     {% endfor %}
                 </div>
                 <div class="clear"></div>

@@ -374,21 +374,21 @@ def notifyurl(request):
         out_trade_no = post_dict['out_trade_no']
 
         # 这里应该根据返回的状态和单据号更新用户订单表中的订单状态
-        Order.objects.filter(pk=out_trade_no).update(status=2)
+        Order.objects.filter(ordernum=out_trade_no).update(status=2)
         return JsonResponse({'msg': 'success'})
 
 # 支付完成后，app客户端跳转的页面
 def returnurl(request):
     #这里暂时跳转到主页页面
-    return redirect('app:index')
+    return redirect('app:getallorderinfo')
 
 #支付宝支付
 def pay(request):
     orderid = request.GET.get('orderid')
-    # 支付url
+    ordernum = Order.objects.get(id=orderid).ordernum
     url = alipay_axf.direct_pay(
         subject='测试订单 --- iphone Y',  # 订单名称
-        out_trade_no=orderid,  # 订单号
+        out_trade_no=ordernum,  # 订单号
         total_amount=1.1,  # 付款金额
         # return_url='http://112.74.55.3/axf/returnurl/'
         return_url='http://120.78.160.121/returnurl/'

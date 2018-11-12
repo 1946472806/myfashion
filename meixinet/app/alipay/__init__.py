@@ -126,9 +126,9 @@ class AliPay(object):
 # appid = '2016091800542542'
 appid = '2016091900547441'
 # app_notify_url = 'http://112.74.55.3/axf/notifyurl/' # 支付完成后，支付宝调用的(通知AXF服务端)
-app_notify_url = 'http://120.78.160.121/axf/notifyurl/' # 支付完成后，支付宝调用的(通知AXF服务端)
+app_notify_url = 'http://120.78.160.121/notifyurl/' # 支付完成后，支付宝调用的(通知AXF服务端)
 # return_url = 'http://112.74.55.3/axf/returnurl/' # 支付完成后，AXF客户端跳转的页面
-return_url = 'http://120.78.160.121/axf/returnurl/' # 支付完成后，AXF客户端跳转的页面
+return_url = 'http://120.78.160.121/returnurl/' # 支付完成后，AXF客户端跳转的页面
 app_private_key_path = os.path.join(ALIPAY_ROOT, 'axf_siyao.txt')    # AXF私钥
 alipay_public_key_path = os.path.join(ALIPAY_ROOT, 'alipay_gongyao.txt')   # 支付宝公钥
 
