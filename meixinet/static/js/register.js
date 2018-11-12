@@ -1,7 +1,8 @@
 
 	
 $(function(){
-
+    var code
+    var verifyCode
     //检测用户是否合法,是否已经存在
     $('#ipt1').blur(function () {
         var reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
@@ -29,8 +30,9 @@ $(function(){
     })
 
 	//验证码
-	var verifyCode = new GVerify("v_container");
-    var code = verifyCode.options.code.toUpperCase()
+	verifyCode = new GVerify("v_container");
+    code = verifyCode.options.code.toUpperCase()
+	console.log(code)
 	$("#ipt2").blur(function(e){
 		e.preventDefault();
 		if ($("#ipt2").val().toUpperCase() == code){
@@ -45,7 +47,11 @@ $(function(){
 		}
 	})
 
-
+    $('#fresh').click(function () {
+        verifyCode = new GVerify("v_container");
+        code = verifyCode.options.code.toUpperCase()
+        console.log(code)
+    })
 
 	//密码
 	$("#ipt4").blur(function(){

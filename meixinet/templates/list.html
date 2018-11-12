@@ -32,7 +32,8 @@
 						<span>
                             {% if username %}
                                 <img src="{{ imgpath }} " style="height: 20px;width: 20px;display: inline-block;">
-                                <a href="#" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
+                                <a href="/getallorderinfo/" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
+                                <a href="/loginout/" title="">退出</a>
                             {% else %}
                                 <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
                                 <a href="{% url 'app:login' %}" title="登录" class="top_r_load">登录</a>
@@ -451,9 +452,9 @@
 					    </div>
                             <div class="swiper-container" id="mustbuySwiper">
                                 <div class="swiper-wrapper">
-                                    {% for likelist in listcar %}
+                                    {% for likelist in Goods %}
                                         <div class="swiper-slide">
-                                            <a href='' title="{{ likelist.wen}}"></a>
+                                            <a href='{% url 'app:goods' likelist.id %}' title="{{ likelist.wen}}">
                                                 <img class='car_img' src="{% static likelist.img %}" alt="{{ likelist.alt }}">
                                                 <div class='list_name'>
                                                     <span class='shop_name'>{{ likelist.said1 }}</span>
@@ -462,7 +463,7 @@
                                                 </div>
                                             </a>
                                             <div class='shop_price' style="color: #ccc;margin-top: 10px">{{ likelist.price_good }}</div>
-                                            <a class='shop_add' title="{{ likelist.title }}">{{ likelist.html }}</a>
+{#                                            <a class='shop_add' title="{{ likelist.title }}">{{ likelist.html }}</a>#}
                                         </div>
                                     {% endfor %}
                                 </div>

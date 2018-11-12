@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^index/$', views.index,name='index'),# 首页
     url(r'^register/$', views.register,name='register'),# 注册
     url(r'^login/$', views.login,name='login'),# 登录
+    url(r'^loginout/$', views.loginout,name='loginout'),# 退出
     url(r'^list/(\d+)/$', views.list,name='list'),# 商品列表
     url(r'^goods/(\d+)/$', views.goods, name='goods'),# 商品详情
     url(r'^car/$', views.car, name='car'),# 购物车
@@ -21,6 +22,7 @@ urlpatterns = [
     url(r'^goodsel/$', views.goodsel, name='goodsel'), #选择或取消选择
     url(r'^changeall/$', views.changeall, name='changeall'), #全选或取消全选
     url(r'^getorderinfo/$', views.getorderinfo, name='getorderinfo'), #下单详情
+    url(r'^getallorderinfo/$', views.getallorderinfo, name='getallorderinfo'), #全部订单
 
     url(r'^notifyurl/$', views.notifyurl, name='notifyurl'),  # 支付完成后，支付宝调用的(通知app服务端)
     url(r'^returnurl/$', views.returnurl, name='returnurl'),  # 支付完成后，app客户端跳转的页面

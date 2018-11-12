@@ -16,7 +16,8 @@ from meixinet import settings
 
 # 首页
 def index(request):
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
+    print(token)
     data = {}
 
     if token:
@@ -60,7 +61,7 @@ def register(request):
             return render(request, 'register.html', {'msg': '注册失败!'})
         # 重定向页面
         response = redirect('app:index')
-        response.set_cookie('username',token)
+        request.session['username'] = token
         return response
 
 # 检测用户是否已经存在
@@ -103,12 +104,17 @@ def login(request):
 
             response = redirect('app:car')
             token = user.u_token
-            response.set_cookie('username',token)
+            request.session['username'] = token
             return response
+
+# 注销
+def loginout(request):
+    request.session.flush()
+    return redirect('app:index')
 
 # 商品列表
 def list(request,flag):
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     data={}
     #展示的商品
     data['Goods'] = Goods.objects.all()
@@ -130,7 +136,7 @@ def list(request,flag):
 
 # 商品详情
 def goods(request,id):
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     data={}
     if token:
         user = User.objects.filter(u_token=token).last()
@@ -147,8 +153,7 @@ def goods(request,id):
 
 #加入购物袋
 def addtocar(request,id):
-    # 获取cookie
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     user = User.objects.get(u_token=token)
 
     goodss = Goods.objects.get(id=id)
@@ -172,8 +177,7 @@ def addtocar(request,id):
 
 # 购物车
 def car(request):
-    # 获取cookie
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     data = {}
     if token:
         user = User.objects.filter(u_token=token).last()
@@ -198,7 +202,7 @@ def genegrate_password(password):
 #减数量
 def subnum(request):
     goodsid = request.GET.get('goodsid')
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     goods = Goods.objects.filter(id=goodsid).first()
     user = User.objects.filter(u_token=token).last()
 
@@ -220,7 +224,7 @@ def subnum(request):
 #加数量
 def addnum(request):
     goodsid = request.GET.get('goodsid')
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     goods = Goods.objects.get(id=goodsid)
     user = User.objects.get(u_token=token)
 
@@ -258,7 +262,7 @@ def goodsel(request):
 # 全选或取消全选
 def changeall(request):
     flag = request.GET.get('flag')
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
 
     if flag == '1':  # 全选
         isselect = 1
@@ -278,7 +282,7 @@ def changeall(request):
 
 #下单
 def placeorder(request):
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     data={}
     try:
         user = User.objects.get(u_token=token)
@@ -309,6 +313,35 @@ def getorderinfo(request):
 
     order = Order.objects.get(ordernum=ordernum)
     return render(request, 'orderinfo.html', {'order': order})
+
+def getallorderinfo(request):
+    token = request.session.get('username')
+    data = {}
+    user = User.objects.get(u_token=token)
+
+    # 订单状态(1.未付款 2.已付款未发货 3.已发货未收货 4.已收货未评价 5.已评价 6.退款)
+    # 未付款
+    nopaynums = Order.objects.filter(user=user).filter(status=1)
+    #已付款未发货
+    nodeliverys = Order.objects.filter(user=user).filter(status=2)
+    # 已发货未收货
+    nogetgoods = Order.objects.filter(user=user).filter(status=3)
+    # 已收货未评价
+    noevaluations = Order.objects.filter(user=user).filter(status=4)
+    #已评价
+    evaluations = Order.objects.filter(user=user).filter(status=5)
+    # 退款/售后
+    refunds = Order.objects.filter(user=user).filter(status=6)
+
+    data['user'] = user
+    data['nopaynums'] = nopaynums
+    data['nodeliverys'] = nodeliverys
+    data['nogetgoods'] = nogetgoods
+    data['noevaluations'] = noevaluations
+    data['evaluations'] = evaluations
+    data['refunds'] = refunds
+    return render(request, 'allorderinfo.html', context=data)
+
 
 # 支付完成后，支付宝调用的(通知app服务端)
 def notifyurl(request):
@@ -370,7 +403,7 @@ def pay(request):
 #添加收藏
 def collection(request):
     goodid = request.GET.get('goodid')
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     data={}
     if token:
         try:
@@ -391,7 +424,7 @@ def collection(request):
 
 # 判断是否已收藏
 def iscollection(request):
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     goodid = int(request.GET.get('goodid'))
     user = User.objects.get(u_token=token)
     goodslist = user.goods_set.all()
@@ -403,7 +436,7 @@ def iscollection(request):
 
 #删除已选购的商品
 def delcar(request):
-    token = request.COOKIES.get('username')
+    token = request.session.get('username')
     user = User.objects.get(u_token=token)
     goodid = request.GET.get('goodid')
     goods = Goods.objects.get(id=goodid)
@@ -413,5 +446,4 @@ def delcar(request):
         return JsonResponse({'msg':'删除成功','backstatus':'1'})
     except:
         return JsonResponse({'msg': '删除失败', 'backstatus': '-1'})
-
 

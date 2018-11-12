@@ -37,7 +37,8 @@
 						<span>
                             {% if username %}
                                 <img src="{{ imgpath }} " style="height: 20px;width: 20px;display: inline-block;">
-                                <a href="#" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
+                                <a href="/getallorderinfo/" title="{{ username }}" class="top_r_load">欢迎【{{ username }}】用户!</a>
+                                <a href="/loginout/" title="">退出</a>
                             {% else %}
                                 <img src="{% static 'upfile/moren.jpg' %} " style="height: 20px;width: 20px;display: inline-block;">
                                 <a href="{% url 'app:login' %}" title="登录" class="top_r_load">登录</a>
@@ -47,7 +48,7 @@
 						</span>
 
 						<span id="shop">
-							<a href="car.html" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
+							<a href="/car/" class="relative" title="购物袋" style="margin-left: 18px;padding-left: 20px;border-left: solid 1px #d9d9d9;">
 								<span style="background: url({% static 'img/headico.png' %})-37px -2px no-repeat;height:35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								购物袋（<i id="total_num"></i>）
 							</a>
